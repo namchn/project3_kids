@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.project3.calendar.Dao">
+
+   <resultMap id="calendarResult" type="com.kitri.project3.calendar.Calendar">
+      <result column="num" property="num" />
+      <result column="id" property="id" />
+      <result column="start_date" property="start_date" />
+      <result column="end_date" property="end_date" />
+      <result column="event" property="event" />
+   </resultMap>
+   
+      <resultMap id="PageResult" type="com.kitri.project3.calendar.PagingVO">
+      <result column="pageCnt" property="pageCnt" />
+      <result column="index" property="index" />
+      <result column="pageStartNum" property="pageStartNum" />
+      <result column="listCnt" property="listCnt" />
+      <result column="total" property="total" />
+   </resultMap>
+   
+   
+   
+
+   <insert id="insert" parameterType="com.kitri.project3.calendar.Calendar">
+      insert into calendar values(#{num},#{id}, 
+      #{start_date}, #{end_date}, #{event})
+   </insert>
+   
+   <select id="makeNum" resultType="int">
+      select cal_seq.nextval from dual
+   </select>
+   
+   <select id="selectAll"  resultMap="calendarResult">
+      select * from calendar 
+   </select>
+   
+   <select id="select" parameterType="int" resultMap="calendarResult">
+      select * from calendar where num=#{num}
+   </select>
+   
+   <update id="update" parameterType="com.kitri.project3.calendar.Calendar">
+      update calendar set start_date=#{start_date}, end_date=#{end_date}, event=#{event}
+        where num=#{num}
+   </update>
+   
+   <delete id="delete" parameterType="int">
+      delete calendar where num=#{num}
+   </delete>
+   
+   
+   
+    <select id="selectPageAll" parameterType="com.kitri.project3.calendar.PagingVO" resultMap="calendarResult">
+      SELECT * 
+        FROM (SELECT ROWNUM r, p.*
+              FROM (SELECT *
+                    FROM calendar
+                    ORDER BY start_date ) p)
+        WHERE R BETWEEN #{start} and #{last}
+   </select> 
+   
+   <select id="selectTotalPaging" resultType="int">
+      select count(*) from calendar
+   </select>
+   
+   
+</mapper>

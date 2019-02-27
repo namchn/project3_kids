@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.project3.pay.Dao">
+
+	<resultMap id="payResult" type="com.kitri.project3.pay.Pay">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="phone" property="phone" />
+		<result column="stu_name" property="stu_name" />
+		<result column="time" property="time" />
+	</resultMap>
+
+	<resultMap id="memberResult" type="com.kitri.project3.member.Member">
+		<result column="mem_code" property="mem_code" />
+		<result column="id" property="id" />
+		<result column="pw" property="pw" />
+		<result column="name" property="name" />
+		<result column="postcode" property="postcode" />
+		<result column="address" property="address" />
+		<result column="detailAddress" property="detailAddress" />
+		<result column="extraAddress" property="extraAddress" />
+		<result column="phone" property="phone" />
+		<result column="stu_name" property="stu_name" />
+		<result column="stu_group" property="stu_group" />
+		<result column="mng_group" property="mng_group" />	
+	</resultMap>
+	
+	<!-- 로그인한 id 정보 조회 -->
+	<select id="selectM" parameterType="String" resultMap="memberResult">
+		select * from member where id=#{id}
+	</select>
+	
+	<!-- 결제 정보 추가 -->
+	<insert id="insert" parameterType="com.kitri.project3.pay.Pay">
+		insert into pay values(#{id}, #{name}, #{phone}, #{stu_name}, sysdate)
+	</insert>
+	
+	<!-- 내 결제 정보 조회 -->
+	<select id="select" parameterType="String" resultMap="payResult">
+		select * from pay where id=#{id}
+	</select>
+	
+	<!-- 내 결제 여부 조회 -->
+	<select id="selectC" parameterType="String" resultMap="payResult">
+		select id, time from pay where substr(time, 0, 5) like substr(sysdate, 0, 5) and id=#{id}
+	</select>
+	
+	<!-- 담임 반 원생 결제 정보 조회 -->
+	<select id="selectS" parameterType="String" resultMap="payResult">
+		select m.id, m.stu_name, m.name, m.phone, m.mng_group, m.stu_group, time from member m, pay p where m.id = p.id and substr(time, 0, 5) like substr(sysdate, 0, 5) and m.stu_group LIKE #{mng_group}
+	</select>
+	<!-- 완납한 모든 원생 결제 정보 조회 -->
+	<select id="selectSAll" parameterType="String" resultMap="payResult">
+		select m.id, m.stu_name, m.name, m.phone, m.mng_group, m.stu_group, time from member m, pay p where m.id = p.id and substr(time, 0, 5) like substr(sysdate, 0, 5) order by time desc
+	</select>
+	
+	<!-- 담임 반 원생 조회 -->
+	<select id="selectStudent" parameterType="String" resultMap="memberResult">
+		select * from member where stu_group like #{mng_group} order by id
+	</select>
+</mapper>

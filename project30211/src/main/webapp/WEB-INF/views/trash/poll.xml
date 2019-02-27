@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.project3.poll.Dao">
+
+
+	<resultMap id="pollResult"
+		type="com.kitri.project3.poll.Poll">
+		<result column="poll_num" property="poll_num" />
+		<result column="poll_subject" property="poll_subject" />
+		<result column="poll_candidate_num" property="poll_candidate_num" />
+		<result column="result" property="result" />
+		<result column="start_date" property="start_date" />
+		<result column="end_date" property="end_date" />
+		<result column="time" property="time" />
+		
+	</resultMap>
+
+	<resultMap id="pollCandidateResult"
+		type="com.kitri.project3.poll.PollCandidate">
+		<result column="poll_candidate_num" property="poll_candidate_num" />
+		<result column="poll_candidate " property="poll_candidate " />
+		<result column="poll_num" property="poll_num" />
+		<result column="id" property="id" /> 
+		<result column="count" property="count"/> 
+	</resultMap>
+	
+	
+	<resultMap id="memberResult" type="com.kitri.project3.member.Member">
+		<result column="mem_code" property="mem_code" />
+		<result column="id" property="id" />
+		<result column="pw" property="pw" />
+		<result column="name" property="name" />
+		<result column="stu_name" property="stu_name" />		
+	</resultMap>
+
+
+	<insert id="insert" parameterType="com.kitri.project3.poll.Poll">
+		insert into poll
+		values(poll_seq.nextval, #{poll_subject}, #{poll_candidate_num},#{result},#{start_date},#{end_date}, sysdate, #{id})
+	</insert>
+	
+	<insert id="updateMem" parameterType="com.kitri.project3.poll.PollCandidate">
+		update poll_candidate
+		set id=#{id} where poll_candidate_num=#{poll_candidate_num} and poll_num = #{poll_num}
+	</insert>
+	
+	<select id="selectAll" resultMap="pollResult">
+		select * from poll
+	</select>
+
+	<select id="selectPollNum" parameterType="int" resultMap="pollResult">
+		select * from poll where poll_num=#{poll_num}
+	</select> 
+
+	<select id="selectCandidate" parameterType="int" resultMap="pollCandidateResult">
+		select pc.poll_candidate, pc.poll_candidate_num from poll_candidate pc, poll p where pc.poll_num=p.poll_num and pc.poll_num=#{poll_num}
+	</select>
+	
+<!--  	<select id="selectResult" resultMap="pollCandidateResult">
+		select * from poll_candidate where poll_num=#{poll_num} 
+	</select>  -->
+	
+	 <select id="selectResult" resultMap="pollResult">
+		select * from poll where poll_num=#{poll_num} 
+	</select> 
+	
+	<select id="selectResultCount" parameterType="com.kitri.project3.poll.PollCandidate" resultType="int">
+		select count(*) count from poll_candidate where poll_num=#{poll_num} and poll_candidate_num=#{poll_candidate_num} 
+	</select> 
+	
+
+	
+</mapper>
+

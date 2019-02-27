@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.project3.dietBoard.Dao">
+
+	<resultMap id="boardDietResult" type="com.kitri.project3.dietBoard.DietBoard">
+		<result column="diet_num" property="diet_num" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="time" property="time" />
+		<result column="files" property="files" />
+	</resultMap>
+	
+
+	<insert id="insert" parameterType="com.kitri.project3.dietBoard.DietBoard">
+		insert into board_diet values(board_diet_seq.nextval, #{title}, #{content}, sysdate, #{files})
+	</insert>
+	
+	<select id="selectAll" parameterType="com.kitri.project3.paging.PagingVO2" resultMap="boardDietResult">
+		SELECT * 
+        FROM (SELECT ROWNUM r, p.*
+              FROM (SELECT *
+                    FROM board_diet 
+                    ORDER BY diet_num DESC) p)
+        WHERE R BETWEEN #{start} and #{last}
+   </select>
+ 
+ 	<!--   페이징부분 -->
+   <select id="selectTotalPaging" resultType="int">
+      select count(*) from board_diet
+   </select>
+	
+	<select id="selectDietNum" parameterType="int" resultMap="boardDietResult">
+		select * from board_diet where diet_num=#{diet_num}
+	</select>
+	
+	<select id="selectContent" parameterType="String" resultMap="boardDietResult">
+		select * from board_diet where content=#{content}
+	</select>
+	
+	<select id="selectRecent" resultMap="boardDietResult">
+       SELECT * FROM (SELECT * FROM board_diet ORDER BY diet_num DESC) WHERE rownum = 1
+	</select> 
+	
+	<update id="update" parameterType="com.kitri.project3.dietBoard.DietBoard">
+		update board_diet set title=#{title}, 
+		content=#{content}, files=#{files} where diet_num=#{diet_num}
+	</update>
+
+	<update id="updateExceptImg" parameterType="com.kitri.project3.dietBoard.DietBoard">
+		update board_diet set title=#{title}, 
+		content=#{content} where diet_num=#{diet_num}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete board_diet where diet_num=#{diet_num}
+	</delete>
+
+</mapper>
+

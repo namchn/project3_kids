@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">    <!-- 태그를 정의한 uri -->
+<mapper namespace="com.kitri.project3.boardBulletin.BoardBulletinDao">                        <!-- 구현하려는 Dao 인터페이스 --> 
+
+	<resultMap id="BoardBulletinResult" type="com.kitri.project3.boardBulletin.BulletinBoard"> <!-- 검색된결과를 Member객체로만들어주다/매칭하는 정보(하나일경우 resultType) -->
+		<result column="bulletin_num" property="bulletin_num" />           <!-- column컬럼이름, property멤버변수이름 -->
+		<result column="id" property="id" />
+		<result column="stu_group" property="stu_group" />
+		<result column="mng_group" property="mng_group" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="time" property="time" />
+		<result column="viewcount" property="viewcount" />
+		<result column="secret" property="secret" />
+	</resultMap>
+	
+ 	<select id="makeNum" resultType="int">
+		select board_bulletin_seq.nextval from dual	
+	</select>
+	
+	<insert id="insert" parameterType="com.kitri.project3.boardBulletin.BulletinBoard">  
+		insert into board_bulletin values(#{bulletin_num}, #{id}, #{stu_group}, #{mng_group}, #{title}, #{content}, sysdate, 0, #{secret})
+	</insert>
+	
+	
+ 	<select id="selectAll" parameterType="com.kitri.project3.paging.PagingVO" resultMap="BoardBulletinResult">
+		SELECT * 
+        FROM (SELECT ROWNUM r, p.*
+              FROM (SELECT *
+                    FROM board_bulletin
+                    ORDER BY bulletin_num DESC) p)
+        WHERE R BETWEEN #{start} and #{last}
+	</select>
+	
+	<!-- Total Query -->
+ 	<select id="selectTotalPaging" resultType="int">
+		select count(*) from board_bulletin
+	</select>
+	
+	<select id="selectByNum" resultMap="BoardBulletinResult">
+		select * from board_bulletin where bulletin_num=#{bulletin_num}
+	</select>	
+	
+	 <select id="selectByTitle" parameterType="HashMap" resultMap="BoardBulletinResult">
+      SELECT * 
+        FROM (SELECT ROWNUM r, p.*
+              FROM (SELECT *
+                    FROM board_bulletin
+                    WHERE title like #{search_word}
+                    ORDER BY bulletin_num DESC) p)
+        WHERE R BETWEEN #{paging.start} and #{paging.last}
+   </select>
+   
+   <!-- Total Query -->
+    <select id="selectTotalPagingByTitle" parameterType="String" resultType="int">
+      select count(*) from board_bulletin WHERE title like #{title}
+   </select>
+
+   
+   <select id="selectById" parameterType="HashMap" resultMap="BoardBulletinResult">
+      SELECT * 
+        FROM (SELECT ROWNUM r, p.*
+              FROM (SELECT *
+                    FROM board_bulletin
+                    WHERE id like #{search_word}
+                    ORDER BY bulletin_num DESC) p)
+        WHERE R BETWEEN #{paging.start} and #{paging.last}   
+   </select>
+   
+      
+    <select id="selectTotalPagingById" parameterType="String" resultType="int">
+      select count(*) from board_bulletin WHERE id like #{id}
+   </select>   
+
+	
+	<!-- 메인용 자유게시판 -->
+	<select id="selectMainBulletin" resultMap="BoardBulletinResult">
+	<![CDATA[ 
+		SELECT * FROM (SELECT * FROM board_bulletin ORDER BY bulletin_num DESC) WHERE rownum < 6
+	]]> 
+	</select>
+	
+	<update id="updateViewCount" parameterType="int">
+		update board_bulletin set viewcount=viewcount+1 where bulletin_num=#{bulletin_num}
+	</update>
+	
+	
+ 	<update id="update" parameterType="com.kitri.project3.boardBulletin.BulletinBoard">
+		update board_bulletin set title=#{title}, content=#{content}, time=sysdate, secret=#{secret} where bulletin_num=#{bulletin_num}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete board_bulletin where bulletin_num=#{bulletin_num}
+	</delete>	
+
+</mapper>
