@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.project3.member.Dao">
+
+	<resultMap id="memberResult" type="com.kitri.project3.member.Member">
+		<result column="mem_code" property="mem_code" />
+		<result column="id" property="id" />
+		<result column="pw" property="pw" />
+		<result column="name" property="name" />
+		<result column="postcode" property="postcode" />
+		<result column="address" property="address" />
+		<result column="detailAddress" property="detailAddress" />
+		<result column="extraAddress" property="extraAddress" />
+		<result column="phone" property="phone" />
+		<result column="stu_name" property="stu_name" />
+		<result column="stu_group" property="stu_group" />
+		<result column="mng_group" property="mng_group" />	
+	</resultMap>
+	
+	<resultMap type="com.kitri.project3.pay.Pay" id="payResult">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="phone" column="phone"/>
+		<result property="stu_name" column="stu_name"/>
+		<result property="time" column="time"/>
+</resultMap>
+
+	
+	<insert id="insert" parameterType="com.kitri.project3.member.Member">
+		insert into member values(#{mem_code}, #{id}, 
+		#{pw}, #{name}, #{postcode}, #{address}, #{detailAddress}, #{extraAddress}, #{phone}, #{stu_name}, #{stu_group}, #{mng_group} )
+	</insert>
+	
+	<select id="select" parameterType="String" resultMap="memberResult">
+		select * from member where id=#{id}
+	</select>
+	
+	<select id="selectPw" parameterType="String" resultMap="memberResult">
+		select pw from member where id=#{id}
+	</select>
+	
+	<select id="selectPhone" parameterType="String" resultMap="memberResult">
+		select phone from member where id=#{id}
+	</select>
+	
+	<update id="update" parameterType="com.kitri.project3.member.Member">
+		update member set mem_code=#{mem_code}, id=#{id}, 
+		pw=#{pw}, name=#{name}, postcode=#{postcode}, address=#{address}, detailAddress=#{detailAddress}, extraAddress=#{extraAddress}, phone=#{phone}, stu_name=#{stu_name}, stu_group=#{stu_group}, mng_group=#{mng_group} where id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete member where id=#{id}
+	</delete>
+	
+	<select id="selectC" parameterType="String" resultMap="payResult"> 
+		select id, time from pay where substr(time, 0, 5) like substr(sysdate, 0, 5) and id=#{id} 
+	</select>
+
+	<!-- 담임 반 원생 조회 -->
+	<select id="selectStu" parameterType="String" resultMap="memberResult"> 
+		select * from member where stu_group like #{mng_group} 
+	</select>
+	
+	<!-- 로그인 시 아이디/비밀번호 찾기 -->
+	<select id="findId" parameterType="com.kitri.project3.member.Member" resultMap="memberResult"> 
+		select * from member where name=#{name} and phone=#{phone}
+	</select>
+	
+	<select id="findPw" parameterType="com.kitri.project3.member.Member" resultMap="memberResult"> 
+		select * from member where id=#{id} and phone=#{phone}
+	</select>
+	
+
+
+</mapper>
+

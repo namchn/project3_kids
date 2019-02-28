@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">    <!-- 태그를 정의한 uri -->
+<mapper namespace="com.kitri.project3.boardNotice.BoardNoticeDao">                        <!-- 구현하려는 Dao 인터페이스 --> 
+
+	<resultMap id="BoardNoticeResult" type="com.kitri.project3.boardNotice.NoticeBoard"> <!-- 검색된결과를 Member객체로만들어주다/매칭하는 정보(하나일경우 resultType) -->
+		<result column="notice_num" property="notice_num" />           <!-- column컬럼이름, property멤버변수이름 -->
+		<result column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="time" property="time" />
+		<result column="viewcount" property="viewcount" />
+		<result column="files" property="files" />
+	</resultMap>
+	
+	<select id="makeNum" resultType="int">
+		select board_notice_seq.nextval from dual	
+	</select>
+	
+	<insert id="insert" parameterType="com.kitri.project3.boardNotice.NoticeBoard">  
+		insert into board_notice values(#{notice_num}, #{id}, #{title}, #{content}, sysdate, 0, #{files})
+	</insert>
+	
+ 	<select id="selectAll" parameterType="com.kitri.project3.paging.PagingVO" resultMap="BoardNoticeResult">
+ 		SELECT * 
+        FROM (SELECT ROWNUM r, p.*
+              FROM (SELECT *
+                    FROM board_notice
+                    ORDER BY notice_num DESC) p)
+        WHERE R BETWEEN #{start} and #{last}
+	</select>
+	
+	<select id="selectTotalPaging" resultType="int">
+		select count(*) from board_notice
+	</select>
+	
+ 	<select id="selectByNum" resultMap="BoardNoticeResult">
+		select * from board_notice where notice_num=#{notice_num}
+	</select>	
+	
+<select id="selectByTitle" parameterType="HashMap" resultMap="BoardNoticeResult">
+      SELECT * 
+        FROM (SELECT ROWNUM r, p.*
+              FROM (SELECT *
+                    FROM board_notice
+                    WHERE title like #{search_word}
+                    ORDER BY notice_num DESC) p)
+        WHERE R BETWEEN #{paging.start} and #{paging.last}
+   </select>
+   
+   <select id="selectById" parameterType="HashMap" resultMap="BoardNoticeResult">
+      SELECT * 
+        FROM (SELECT ROWNUM r, p.*
+              FROM (SELECT *
+                    FROM board_notice
+                    WHERE id like #{search_word}
+                    ORDER BY notice_num DESC) p)
+        WHERE R BETWEEN #{paging.start} and #{paging.last}
+   </select>
+   
+   <select id="selectTotalPagingByTitle" parameterType="String" resultType="int">
+      select count(*) from board_notice where title like #{title}
+   </select>
+   
+   <select id="selectTotalPagingById" parameterType="String" resultType="int">
+      select count(*) from board_notice where id like #{id}
+   </select>
+   
+   
+
+	
+	<select id="selectMainNotice" resultMap="BoardNoticeResult">
+		<![CDATA[ 
+		SELECT * FROM (SELECT * FROM board_notice ORDER BY notice_num DESC) WHERE rownum < 6
+		]]> 
+	</select>
+
+	<update id="updateViewCount" parameterType="int">
+		update board_notice set viewcount=viewcount+1 where notice_num=#{notice_num}
+	</update>
+	
+	
+	<update id="update" parameterType="com.kitri.project3.boardNotice.NoticeBoard">
+		update board_notice set title=#{title}, content=#{content}, time=sysdate, files=#{files} where notice_num=#{notice_num}
+	</update>
+	 
+	
+	<delete id="delete" parameterType="int">
+		delete board_notice where notice_num=#{notice_num}
+	</delete>	
+	
+	
+	<!--<select id="getReps" parameterType="int" resultMap="ArticleResult">
+		select * from board where parent=#{parent} order by num
+	</select>-->
+
+</mapper>
