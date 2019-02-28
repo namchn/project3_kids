@@ -15,7 +15,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#btn1').click(function(){
-		var html='<div><input type="text" name="poll_candidate"><input type="button" class="remove" value="삭제" ></div>';
+		var html='<div><input type="text" name="poll_candidate"><input type="button" class="remove btn btn-primary" style="width: 70px; vertical-align: unset;" value="삭제" ></div>';
 		$('#div2').append(html);
 	});
 	$('#sbtn').click(function(){
@@ -75,13 +75,13 @@ margin-left: 57.5px;
 #div2>div{
 height: 50px;
 }
-input{
-border-radius: 100px;
-}
 </style>
 </head>
 <body class="default">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<div style="margin-top: 40px; margin-left: 175px;">
+    <jsp:include page="/WEB-INF/views/common/side_com.jsp"/>
+    </div>
 <%
 DecimalFormat df = new DecimalFormat("00");
 Calendar currentCalendar = Calendar.getInstance();
@@ -93,20 +93,22 @@ String strDay = df.format(currentCalendar.get(Calendar.DATE));
 String strDate = strYear + "-"+strMonth +"-"+ strDay;
 %>
 <input type="hidden" id="day" value="<%=strDate %>"/>
-<div id="wrapper">
+<div id="wrapper" style="margin-left: 20%;">
 <div id="d1">
 <form action="${pageContext.request.contextPath }/poll/write" id="f">
 <div><b style="margin-right: 30px;">주제</b><input type="text" required="required" name="poll_subject"></div>
 
 <div id="div1">
-<b style="margin-right: 16px;">선택지</b><input type="text" required="required" name="poll_candidate" id="in1"><input type="button" id="btn1" class="btn1" value="추가">
+<b style="margin-right: 16px;">선택지</b><input type="text" required="required" name="poll_candidate" id="in1"><input type="button" id="btn1" class="btn btn-primary" style="width: 70px; margin-left: 20px;" value="추가">
 </div>
 <div id="div2"></div>
 <br>
 <b>시작일</b><input type="date" required="required" name="start_date" id="s" required="required">
 <b>종료일</b><input type="date" required="required" name="end_date" id="e" required="required"><br>
-<input type="button" class="btn1" id="sbtn" value="완료">
-<input type="button" class="btn1" value="목록" onclick="location.href='${pageContext.request.contextPath }/poll/list'">
+<div style="margin-top: 30px;">
+<input type="button" id="sbtn" class="btn btn-primary" style="width: 70px;" value="완료">
+<input type="button" class="btn btn-primary" style="width: 70px;" value="목록" onclick="location.href='${pageContext.request.contextPath }/poll/list'">
+</div>
 </form>
 </div>
 </div>

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,37 +12,39 @@
 <script src="${pageContext.request.contextPath}/resources/js/paging.js"></script>
 <link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">
-<title>내 대출 목록</title>
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-<style>
-a:link {
-font-size: 15px;
+<title>떡잎유치원 - 내 대출 목록</title>
+
+<style type="text/css">
+table>thead>tr>th{
+	text-align: center;
 }
-.page-link{
-font-size: 15px;
+table>tbody>tr>td{
+	text-align: center;
 }
 </style>
 </head>
+
 <body>
-<div style="padding: 50px; margin-left: 5%;">
-<jsp:include page="/WEB-INF/views/common/side_book.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<div style="margin-top: 40px; margin-left: 175px;">
+	<jsp:include page="/WEB-INF/views/common/side_book.jsp"></jsp:include>
 </div>
-<div class="container" style="margin-left: 20%;">
-  <h1>내 대출 목록</h1><br> 
-  <div align="right">
+<div class="container" style="margin-top:50px; margin-left: 450px;">
+  <h3>내 대출 목록</h3>
+  <div style="position: absolute; left: 73%;">
       <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
       <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/book/myrent">  >  내 도서 목록</a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/book/myrent">  >  내 대출 목록</a>
   </div><br><br>   
   <div id="todayDiv"></div>
   <table class="table table-hover">
     <thead>
-      <tr>
-        <th style="width: 10%">대출번호</th>
-        <th style="width: 20%">제목</th>
-        <th style="width: 10%">시작일</th>
-        <th style="width: 10%">종료일</th>
-        <th style="width: 10%">대출수량</th>
+      <tr style="text-align:center">
+        <th style="width: 5%">대출번호</th>
+        <th style="width: 20%" id="title">제목</th>
+        <th style="width: 8%">시작일</th>
+        <th style="width: 8%">종료일</th>
+        <th style="width: 8%">대출수량</th>
         <th style="width: 10%">반납여부</th>
       </tr>
     </thead>
@@ -51,7 +52,7 @@ font-size: 15px;
       <c:forEach var="mylist" items="${mylist}" varStatus="status">
       <tr>
       	<td>${mylist.rent_num}</td>
-        <td><a href="${pageContext.request.contextPath}/book/book_rent?book_num=${mylist.book_num}">${mylist.book_title}</a></td>
+        <td style="text-align: left"><a href="${pageContext.request.contextPath}/book/book_rent?book_num=${mylist.book_num}" style="font-size: 15px; margin-left: 40px">${mylist.book_title}</a></td>
         <td>${mylist.s_date}</td>
         <td id="endDate">${mylist.e_date}</td>
         <td>${mylist.rent_amount}</td>

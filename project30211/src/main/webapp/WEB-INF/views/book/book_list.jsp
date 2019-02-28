@@ -6,69 +6,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/paging.js"></script>
+<link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
+<link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">
+<title>떡잎유치원 - 도서 목록</title>
 
-<title>도서 목록</title>
 <script>
 var check = false;
 
 function CheckAll() {
-   var chk = document.getElementsByName("checked_book");
-   if(check == false) {
-      check = true;
-      for(var i = 0; i < chk.length; i++) {
-         chk[i].checked = true;   // 모두 체크
-      }
-   } else {
-      check = false;
-      for(var i = 0; i < chk.length; i++) {
-         chk[i].checked = false;   // 모두 해제
-      }
-   }
+	var chk = document.getElementsByName("checked_book");
+	if(check == false) {
+		check = true;
+		for(var i = 0; i < chk.length; i++) {
+			chk[i].checked = true;	// 모두 체크
+		}
+	} else {
+		check = false;
+		for(var i = 0; i < chk.length; i++) {
+			chk[i].checked = false;	// 모두 해제
+		}
+	}
 }
 
 function delBook() {
-   var f = document.getElementById("checkBook");
-   f.action = "${pageContext.request.contextPath }/manager/delBook";
-   f.submit();
+	var f = document.getElementById("checkBook");
+	f.action = "${pageContext.request.contextPath }/manager/delBook";
+	f.submit();
 }
 </script>
- <link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
-   <link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">
-   
-   <style type="text/css">
- 
-#bb{
-   text-align: center;
+
+<style type="text/css">
+table>thead>tr>th{
+	text-align: center;
 }
-.page-link{
-   font-size: 15px;
+table>tbody>tr>td{
+	text-align: center;
 }
 </style>
 </head>
+
 <body>
-<div style="padding: 30px; margin-left: 5%;">
-<jsp:include page="/WEB-INF/views/common/side_book.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<div style="margin-top: 40px; margin-left: 175px;">
+	<jsp:include page="/WEB-INF/views/common/side_book.jsp"></jsp:include>
 </div>
-<div class="container" style="margin-left: 20%; margin-bottom: 50px">
-  <h3>도서 목록</h3> 
-  <div align="right">
-      <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/book/booklistForm">  >  도서관</a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/book/booklistForm">  >  도서목록</a>
-  </div><br><br>
-  <c:if test="${sessionScope.id eq 'manager'}">   
-  <div align="right">
-  <a class="btn btn-primary" href="${pageContext.request.contextPath}/book/add_book" style="color:white;">추가</a>
-  <button class="btn btn-primary" onclick="delBook()">삭제</button>
-  <br><br>
-  </div>
-  </c:if>
-  <form name="checkBook" id="checkBook" method="post">
+<div class="container" style="margin-top:50px; margin-left: 450px;">
+<h3>도서 목록</h3> 
+<div style="position: absolute; left: 75%;">
+	<a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
+	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/book/booklistForm">  >  도서관</a>
+	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/book/booklistForm">  >  도서목록</a>
+</div><br><br>
+
+<c:if test="${sessionScope.id eq 'manager'}">   
+	<div align="right">
+  	<a class="btn btn-primary" href="${pageContext.request.contextPath}/book/add_book" style="color:white;">추가</a>
+	<button class="btn btn-primary" onclick="delBook()">삭제</button>
+  	<br><br>
+	</div>
+</c:if>
+
+<form name="checkBook" id="checkBook" method="post">
   <table class="table table-hover" style="font-size: 15px;">
     <thead>
       <tr>
@@ -76,47 +78,46 @@ function delBook() {
         <th style="width: 5%;"><input type="checkbox" id="checkall" name="checkall" onclick="javascript:CheckAll()"></th>
         </c:if>
         <th>번호</th>
-        <th id="bb">제목</th>
+        <th>제목</th>
         <th>저자</th>
         <th>출판사</th>
         <th>수량</th>
         <th>대출여부</th>
       </tr>
     </thead>
-    <tbody>
+   <tbody>
       <c:forEach var="list" items="${list}">
       <tr>
         <c:if test="${sessionScope.id eq 'manager'}">   
         <td><input type="checkbox" name="checked_book" value="${list.book_num}"></td>
         </c:if>
         <td>${list.book_num}</td>
-        <td>
+        <td style="text-align: left;">
         <c:choose>
-           <c:when test="${sessionScope.id eq null }">
-              ${list.book_title }
-           </c:when>
-           <c:otherwise>
-              <a href="${pageContext.request.contextPath}/book/book_rent?book_num=${list.book_num}" style="font-size: 15px;">${list.book_title}</a>   
-           </c:otherwise>
+        	<c:when test="${sessionScope.id eq null }">
+        		<p style=" margin-left: 40px;">${list.book_title}</p>
+        	</c:when>
+        	<c:otherwise>
+        		<a href="${pageContext.request.contextPath}/book/book_rent?book_num=${list.book_num}" style="font-size: 15px;  margin-left: 40px;">${list.book_title}</a>	
+        	</c:otherwise>
         </c:choose>
         </td>
         <td>${list.book_writer}</td>
         <td>${list.book_publisher}</td>
         <td>${list.rest_amount}</td>
         <c:choose>
-        <c:when test="${list.rest_amount eq 0}">
-        <td style="color: red">대출불가</td>
-        </c:when>
-        
-        <c:otherwise>
-        <td style="color: green">대출가능</td>
-        </c:otherwise>
+        	<c:when test="${list.rest_amount eq 0}">
+        		<td style="color: red">대출불가</td>
+        	</c:when>
+        	<c:otherwise>
+        		<td style="color: green">대출가능</td>
+        	</c:otherwise>
         </c:choose>
       </tr>
       </c:forEach>
     </tbody>
   </table>
-  </form>
+</form>
 </div>
 
 <div align="center">
@@ -162,7 +163,7 @@ function delBook() {
       <form action="${pageContext.request.contextPath }/book/booklistForm" method="post" id="frmPaging">
             <!--출력할 페이지번호, 출력할 페이지 시작 번호, 출력할 리스트 개수 -->
             <c:if test="${opt ne null}">
-            <input type="hidden" value="${opt}" name="opt">
+      		<input type="hidden" value="${opt}" name="opt">
             <input type="hidden" value="${search_word}" name="search_word">
             </c:if>
             <input type="hidden" name='index' id='index' value='${paging.index}'>

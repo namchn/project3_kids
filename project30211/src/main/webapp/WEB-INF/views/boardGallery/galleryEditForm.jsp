@@ -5,10 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="<c:url value="../resources/css/style.min.css" />"
-	rel="stylesheet">
-<link href="<c:url value="../resources/css/modules.css" />"
-rel="stylesheet">
+<link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
+<link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">
 <title>Insert title here</title>
 <script type="text/javascript">
    function deletefile1() {
@@ -65,11 +63,36 @@ rel="stylesheet">
 
 </head>
 <body>
-   <form action="${pageContext.request.contextPath }/boardGallery/galleryEdit" method="post" enctype="multipart/form-data">
-      write : <input type="text" name="id" value="${gb.id }" readonly><br>
-      mng_group: <input type="text" name="mng_group" value="${gb.mng_group }" readonly><br>
-      title : <input type="text" name="title" value="${gb.title }" required="required"><br>
-      content: <textarea name="content">${gb.content }</textarea><br>
+
+
+	<!-- 상단바 -->
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	<!-- 사이드바 -->
+	<div style="margin-top: 40px; margin-left: 175px;">
+		<jsp:include page="/WEB-INF/views/common/side_galary.jsp"/>
+	</div>
+
+	<div class="container" style="margin-top:50px; margin-left: 450px;">
+		<h3>갤러리 게시판 글 작성</h3>
+		<p style="width: 70%;">다른 사람의 인격을 침해하거나 명예를 훼손하게 하는 글, 불쾌감을 주는 욕설 또는 비방하는 글, 유언비어나 허위사실을 유포하는 글, 도배성 글의 경우 글이 삭제되거나 이용제재를 받을 수 있습니다.</p> 	
+
+
+
+  		<form action="${pageContext.request.contextPath }/boardGallery/galleryEdit" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="id" value="${gb.id }">
+			<input type="hidden" name="mng_group" value="${gb.mng_group }">
+			
+			
+			<div class="form-group">
+				<label for="title">글 제목:</label>
+				<input type="text" class="form-control" id="title" name="title" value="${gb.title }" required="required" style="max-width: 100%; width: 70%;">
+			</div>
+			
+			<div class="form-group">
+				<label for="content">글 내용:</label>
+				<textarea class="form-control" rows="5" id="content" name="content" required="required" style="resize: none; max-width: 100%; width: 70%;" >${gb.content}</textarea>
+			</div>
+
       
       <img src="${gb.img1}" width="80" height="80" name="img1">
       <input type="hidden" id="img1" name="img1" value="${gb.img1}">
@@ -150,10 +173,13 @@ rel="stylesheet">
       
       <input type="hidden" name="gallery_num" value="${gb.gallery_num }">
       <input type="hidden" name="sort" value="${sort}">
-      <input type="submit" value="작성">
+      <input type="submit" class="btn btn-primary" value="작성">
    </form>
-	
+   
+	</div>
+	<!-- 하단바 -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-<script src="../resources/js/index.js"></script>
+	<script src="../resources/js/index.js"></script>
+	
 </body>
 </html>

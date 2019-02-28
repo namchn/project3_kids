@@ -90,12 +90,9 @@ setInterval(function(){
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
-    <c:set var="a" value="1" scope="page"/> 
-   <c:if test="${a< 540}" >
-   <div style="padding: 1.6em; margin-left: 10%;">
+   <div style="margin-top: 40px; margin-left: 175px;">
     <jsp:include page="/WEB-INF/views/common/side_com.jsp"/>
     </div>
-    </c:if> 
     
 <%
 DecimalFormat df = new DecimalFormat("00");
@@ -120,7 +117,7 @@ String strDate = strYear + "-"+strMonth +"-"+ strDay;
       </div> 
 <br>
  <c:if test="${sessionScope.id eq 'manager' }">
-<a href="${pageContext.request.contextPath }/poll/writeform" class="btn btn-primary" style="color: white; position: absolute; right: 24%;">설문조사 업로드</a>
+<a href="${pageContext.request.contextPath }/poll/writeform" class="btn btn-primary" style="color: white; position: absolute; right: 18.5%;">설문조사 업로드</a>
 </c:if>
 
 <div class="container" style="margin-top: 50px; margin-bottom: 100px;">

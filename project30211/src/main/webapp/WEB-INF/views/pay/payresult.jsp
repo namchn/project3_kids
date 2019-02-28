@@ -3,54 +3,48 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<!-- Start Head -->
 <head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>KITRI 유치원 - 내 결제정보 확인</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-	<link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
-	<link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">	
+<link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
+<link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">	
+<title>떡잎유치원 - 내 결제정보 확인</title>
 
-	<style type="text/css">
-	a:visited {color: black;}
-	a:link {color: black;}
-	a{text-decoration: none; font-size: 20px;}
-	.glyphicon {font-size: 20px; color: gray;}
+<style type="text/css">
+a:visited {color: black;}
+a:link {color: black;}
+a{text-decoration: none; font-size: 20px;}	
+.table>tbody>tr>td:first-child{
+	font-weight: bolder;
+}
+table>thead>tr>th{
+	text-align: center;
+}
+table>tbody>tr>td{
+	text-align: center;
+}
 </style>
 </head>
-<!-- End Head -->
 
 <body class="default">
-
-<!--
-START MODULE AREA 1: Header 3
--->
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<!--
-END MODULE AREA 1: Header 3
--->
-
-<!--
-  START MODULE AREA 3: Text | Text
--->
-
-<!-- 측면 메뉴바 -->
-<section style="margin-bottom: 300px;">
-  <div data-layout="_r">
-  <div style="margin-left: 400px;">
-  <c:if test="${m.mem_code eq 2}">
-  <h1>내 결제정보 확인</h1>
-<div align="right">
-      <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/pay/complete2">  >  내 결제정보 확인</a>
-  </div><br><br>
-  <div class="container" style="width:500px;">                                                         
+<div style="margin-top: 40px; margin-left: 175px;">
+	<jsp:include page="/WEB-INF/views/common/side_my.jsp"/>
+</div>
+<div style="margin-top:50px; margin-left: 450px; margin-bottom: 90px; max-width: 500px">
+<c:if test="${sessionScope.mem_code eq 2}">
+<h3>내 결제정보 확인</h3>
+<div style="position: absolute; left: 55%;">
+	<a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
+	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
+	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/pay/complete2">  >  내 결제정보 확인</a>
+</div><br><br>
+<div class="container" style="width:500px;">                                                         
   <table class="table">
     <thead>
       <tr>
@@ -108,16 +102,15 @@ END MODULE AREA 1: Header 3
 </div>
 </c:if>
 
-<c:if test="${m.mem_code eq 1}">
-  <h1>원생 결제정보 확인</h1>
-  <div align="right">
-      <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/pay/complete">  >  원생 결제정보 확인</a>
-  </div><br><br>
-  <div class="container" style="width:500px;">
-                                                          
-  <table class="table table-hover">
+<c:if test="${sessionScope.mem_code eq 1}">
+<h3>원생 결제정보 확인</h3>
+<div style="position: absolute; left: 55%;">
+	<a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
+	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
+	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/pay/complete">  >  원생 결제정보 확인</a>
+</div><br><br>
+<div class="container" style="width:800px;">
+<table class="table table-hover">
     <thead>
       <tr>
         <th>번호</th>
@@ -137,7 +130,7 @@ END MODULE AREA 1: Header 3
       	<td>${mlist[num.index].stu_name}</td>
       	<td>${mlist[num.index].phone}</td>
       	<c:choose>
-      	<c:when test="${list.value eq '완납'}">
+      	<c:when test="${list.value ne '미납'}">
       	<td style="color: green">${list.value}</td>
       	</c:when>
       	<c:otherwise>
@@ -151,27 +144,8 @@ END MODULE AREA 1: Header 3
   </div>
 </c:if>
 </div>
-
-    
-    <jsp:include page="/WEB-INF/views/common/side_my.jsp"></jsp:include>
-</div>
-</section>
-<!-- /측면 메뉴바 -->
-
-<!--
-  END MODULE AREA 3: Text | Text
--->
-
-<!--
-START MODULE AREA 4: Footer 2
--->
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-<!--
-END MODULE AREA 4: Footer 2
--->
-
 <script src="../resources/js/index.js"></script>
 </body>
-
 </html>
 			

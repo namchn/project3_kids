@@ -30,9 +30,9 @@ public class ServiceImpl implements Service {
 	@Override
 	public void join(Member m) {
 		System.out.println("serImpl의 join입니다");
-		System.out.println("1"+m.getStu_group());
-		System.out.println("2"+m.getMng_group());
-		System.out.println("3"+m.getAddress());
+		System.out.println("m.getStu_group"+m.getStu_group());
+		System.out.println("getMng_group"+m.getMng_group());
+		System.out.println("m.getAddress()"+m.getAddress());
 		this.dao = sqlSession.getMapper(Dao.class);
 		dao.insert(m);
 	}

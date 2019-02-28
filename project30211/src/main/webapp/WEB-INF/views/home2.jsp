@@ -178,7 +178,7 @@ body {
    </section>
 
    <script>
-      var $imglist = $('#slide>span');
+      var $imglist = $('#slide>div');
       var imgcnt = $imglist.children().length;
       var d = 4000;
       var auto = true;
@@ -228,23 +228,41 @@ START MODULE AREA 4: Feature 1
       </span>
    </section>
    <section class="MOD_FEATURE" style="padding-bottom: 100px;background-color:white">
-      
       <div data-layout="_r">
-     
-     	 <!-- 식단표 -->
          <div data-layout="ch8 ec4">
             <a href="${pageContext.request.contextPath}/boardDiet/detailDiet?diet_num=${db.diet_num}"
                class="MOD_FEATURE_Container"> 
-               <a href="${pageContext.request.contextPath}/boardDiet/detailDiet?diet_num=${db.diet_num}">
-             	  <p style="padding-top:30px; padding-left:50px;">
+               <a href="${pageContext.request.contextPath}/boardDiet/detailDiet?diet_num=${db.diet_num}"
+               class="MOD_FEATURE_Container">
+                   <img src="/img/${db.files}" width="200" height="200" alt="식단표 업로드 불가">
+                  <div class="MOD_FEATURE_TextContainer">
+                     <!-- <p class="MOD_FEATURE_Title" data-theme="_ts2"> -->
+                     <p>
                      <a align="center" href="${pageContext.request.contextPath}/boardDiet/detailDiet?diet_num=${db.diet_num}"
-                           align="center">${db.title}</a>                        
+                           align="center">${db.title}</a>
+                        <%-- <a href="${pageContext.request.contextPath}/boardDiet/detailDiet?diet_num=${db.diet_num}"
+                           align="center">${db.title}</a> --%>
                      </p>
-                   <img src="/img/${db.files}" width="100px;" height="100" alt="식단표 업로드 불가">
+                  </div>
                </a>
+            <%--    <div class="MOD_FEATURE_TextContainer">
+                  <p class="MOD_FEATURE_Title" data-theme="_ts2">${db.title}</p>
+               </div> --%>
             </a>
-        </div>
+<%--          </div>
+
+         <jsp:include
+               page="/WEB-INF/views/fullcalendar/fullcalendar_mini.jsp" />
+
+      </div>
       
+      
+      
+      <div data-layout="_r2">
+         <div data-layout="ch8 ec4"> --%>
+   
+      <!-- 탭 div -->
+      </div>
       <div style="height: 215px; width: 570px; border: 1px solid lightgray;">
       <div id="notice" class="tabcontent" style="padding-bottom: 40px;">
          <!-- <p>공지사항</p> -->

@@ -41,6 +41,12 @@ div.card2 {
   padding-left: 10px;
   padding-right: 60px; 
 }
+div.card2>ul>li{
+	background-color: #f1f1f1;
+}
+div.card>ul>li{
+	background-color: #f1f1f1;
+}
 #rcorners2 {
   border-radius: 15px;
   border: 3px solid #002266;
@@ -56,7 +62,7 @@ ul {
   margin: 0;
   padding: 0;
   width: 180px;
-  background-color: #f1f1f1;
+  
 }
 
 li a {
@@ -66,7 +72,7 @@ li a {
   text-decoration: none;
 }
 
-li a:hover:not(.active) {
+li .a1:hover:not(.active) {
   background-color: #002266;
   color: white;
 }
@@ -158,7 +164,7 @@ li a:hover:not(.active) {
 <div class="card">
 <div id="rcorners2">회원 관리&nbsp;<span class="glyphicon glyphicon-user"></span></div>
 <ul>
-  <li><a style="font-size:15px;" href="${pageContext.request.contextPath}/manager/memberManage">회원 목록/탈퇴</a></li>
+  <li><a class="a1" style="font-size:15px;" href="${pageContext.request.contextPath}/manager/memberManage">회원 목록/탈퇴</a></li>
 </ul>
 </div>
 </td>
@@ -167,7 +173,7 @@ li a:hover:not(.active) {
 <div class="card">
 <div id="rcorners2">일정 관리&nbsp;<span class="glyphicon glyphicon-calendar"></span></div>
 <ul>
-  <li><a style="font-size:15px;" href="${pageContext.request.contextPath}/manager/calendarManage">일정 목록/삭제</a></li>
+  <li><a class="a1" style="font-size:15px;" href="${pageContext.request.contextPath}/manager/calendarManage">일정 목록/삭제</a></li>
 </ul>
 </div>
 </td>
@@ -176,7 +182,7 @@ li a:hover:not(.active) {
 <div class="card">
 <div id="rcorners2">메인 페이지 관리&nbsp;<span class="glyphicon glyphicon-home"></span></div>
 <ul>
-  <li><a style="font-size:15px;" href="${pageContext.request.contextPath}/manager/mgWriteForm">메인 페이지 사진 변경</a></li>
+  <li><a class="a1" style="font-size:15px;" href="${pageContext.request.contextPath}/manager/mgWriteForm">메인 페이지 사진 변경</a></li>
 </ul>
 </div>
 </td>
@@ -195,9 +201,9 @@ li a:hover:not(.active) {
 <div class="card2">
 <div id="rcorners2">게시판 관리&nbsp;<span class="glyphicon glyphicon-pencil"></span></div>
 <ul>
-  <li><a style="font-size:15px;" href="${pageContext.request.contextPath}/manager/boardNoticeManage?sort=1">공지사항 게시판 관리</a></li>
-  <li><a style="font-size:15px;" href="${pageContext.request.contextPath}/manager/boardBulletinManage?sort=1">자유 게시판 관리</a></li>
-  <li><a style="font-size:15px;" href="${pageContext.request.contextPath}/manager/boardGalleryManage?sort=1">갤러리 게시판 관리</a></li>
+  <li><a class="a1" style="font-size:15px;" href="${pageContext.request.contextPath}/manager/boardNoticeManage?sort=1">공지사항 게시판 관리</a></li>
+  <li><a class="a1" style="font-size:15px;" href="${pageContext.request.contextPath}/manager/boardBulletinManage?sort=1">자유 게시판 관리</a></li>
+  <li><a class="a1" style="font-size:15px;" href="${pageContext.request.contextPath}/manager/boardGalleryManage?sort=1">갤러리 게시판 관리</a></li>
 </ul>
 </div>
 </td>
@@ -206,8 +212,8 @@ li a:hover:not(.active) {
 <div class="card2">
 <div id="rcorners2">도서 관리&nbsp;<span class="glyphicon glyphicon-book"></span></div>
 <ul>
-  <li><a style="font-size:15px;" href="${pageContext.request.contextPath}/manager/rent">도서 목록/반납</a></li>
-  <li><a style="font-size:15px;" href="${pageContext.request.contextPath}/book/add_book">도서 업로드</a></li>
+  <li><a class="a1" style="font-size:15px;" href="${pageContext.request.contextPath}/manager/rent">도서 목록/반납</a></li>
+  <li><a class="a1" style="font-size:15px;" href="${pageContext.request.contextPath}/book/add_book">도서 업로드</a></li>
 </ul>
 </div>
 </td>
@@ -216,9 +222,9 @@ li a:hover:not(.active) {
 <div class="card2">
 <div id="rcorners2">유치원 통계 관리&nbsp;<span class="glyphicon glyphicon-signal"></span></div>
 <ul>
-  <li><a style="font-size:15px;" href="${pageContext.request.contextPath}/manager/memberStat">회원 통계</a></li>
-  <li><a style="font-size:15px;" href="${pageContext.request.contextPath}/manager/payStat">원비 통계</a></li>
-  <li><a style="font-size:15px;" href="${pageContext.request.contextPath}/manager/bookStat">도서 통계</a></li>
+  <li><a class="a1" style="font-size:15px;" href="${pageContext.request.contextPath}/manager/memberStat">회원 통계</a></li>
+  <li><a class="a1" style="font-size:15px;" href="${pageContext.request.contextPath}/manager/payStat">원비 통계</a></li>
+  <li><a class="a1" style="font-size:15px;" href="${pageContext.request.contextPath}/manager/bookStat">도서 통계</a></li>
 </ul>
 </div>
 </td>

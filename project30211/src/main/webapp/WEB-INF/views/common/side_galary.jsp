@@ -32,8 +32,8 @@ a {
 <!-- 측면 메뉴바 -->
     <div data-layout="al16 al-o2 de-o1 de6 ec4" style="position: absolute; width: 10%;" id="side1">
       <div data-layout="ch-half">
-      <nav class="MOD_SUBNAVIGATION1_Menu" data-theme="_bo2">
-        <p class="MOD_SUBNAVIGATION1_Menutitle" data-theme="_bgs">우리반이야기</p>
+      <nav class="MOD_SUBNAVIGATION1_Menu" data-theme="_bo2" style="background-color: #F9F5B3;">
+        <p class="MOD_SUBNAVIGATION1_Menutitle" data-theme="_bgs" style="background-color: #f9ca5b;">우리반이야기</p>
         <ul>
           <li><a href="${pageContext.request.contextPath }/boardGallery/galleryList?mng_group=1&sort=2">1반</a></li>
           <li><a href="${pageContext.request.contextPath }/boardGallery/galleryList?mng_group=2&sort=2">2반</a></li>

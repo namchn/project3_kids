@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -7,42 +7,26 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript"
+	src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <link href="<c:url value="../resources/css/style.min.css" />"
 	rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />"
 	rel="stylesheet">
-	
+
 <meta charset="UTF-8">
 
 <script type="text/javascript">
 $(document).ready(function(){
-		   
-	 var mem_code = $('#mem_code').val(); 
-	 alert(mem_code);
-	 //var mem_code = $('#mem_code').name(); 
-	   if(mem_code==1){
-		   $("#visitorDetail").show();
-		   $("#parentDetail").hide();
-		   $("#teacherDetail").show();
-       }else if(mem_code==2){ 
-    	   $("#visitorDetail").show();
-		   $("#teacherDetail").hide();
-    	   $("#parentDetail").show();
-       }else if(mem_code==3){ 
-    	   $("#teacherDetail").hide();
-    	   $("#parentDetail").hide();
-    	   $("#visitorDetail").show();
-       }else if(mem_code==0){
-    	   $("#visitorDetail").show();
-    	   $("#teacherDetail").hide();
-    	   $("#parentDetail").hide();
-       }
+/* 		   
 	$('#editBtn').click(function() {
 		alert('editBtn');
 	   var id = $('#id').val(); 
@@ -55,21 +39,75 @@ $(document).ready(function(){
 	      }else
 	    	  alert('수정되었습니다');
 	    	  $("#editForm").submit();      
-	});	
+	}); */
+	
+	  //회원가입 조건
+	   $('#editBtn').click(function() {
+		   alert("회원 수정 버튼");
+		   var phoneJoinResult = $('#phoneJoinResult').html();
+		   var phone = $('#editPhone').val();
+		   var pw = $('#editPw').val();
+		   //alert(pw);
+		   var phoneLength = phone.length;
+		   var pwLength = pw.length;
+		  // alert(pwLength);
+		   
+		     if(pwLength>12||pwLength<8){
+		    	  alert('비밀번호는 8자리 이상 12자리 이하여야 합니다');
+		      }
+		      else if(phoneLength<10||phoneLength>11){
+		    	  alert('연락처는 10자리 혹은 11자리이어야 합니다');
+		      }
+		      else if(phoneEditResult!='사용가능한 연락처'){
+		    	  alert('연락처 중복체크를 완료하십시오');
+		      }
+		      else{
+		    	  $('#editForm').submit();
+		      }
+		             
+		   });
 }); 
 
-function passCheck() {
-	var pw = $("#pw").val();
-	var pw_check = $("#pw_check").val();
+function passCheck1() {
+	var pw = $("#editPw").val();
+	var pw_check = $("#editPw_check").val();
 	if (pw != pw_check) {
-		$("#pwResult").html("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+		$("#editPwResult").html("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
 	} else {
-		$("#pwResult").html("");
-		$("#pwResult").html("일치");
+		$("#editPwResult").html("");
+		$("#editPwResult").html("일치");
 	}
 } 
 
-function execDaumPostcode() {
+function editPhoneBtn(){
+	
+	var phone = $('#editPhone').val();
+    var phoneLength = phone.length;
+    var param = "phone="+phone;
+      
+      $.ajax({ //비동기적 요청보내다
+         type:"POST",
+         url:"${pageContext.request.contextPath}/member/checkPhone", //보낼곳
+         data:param, //전송할 데이터
+         success:function(data){ //응답제대로받았을때 호출되는 함수 (서버에서 처리된값을 가져오는 함수)
+            var obj = eval('('+data+')'); //obj:멤버변수 flag //eval : json 표현을 바꿔주다
+            var str = '';
+            if(obj.flag) {
+               str='사용가능한 연락처';
+            }else {
+               str ='중복된 연락처';
+               $('#editPhone').val('');
+            }
+            $('#phoneEditResult').html(str);
+         }
+      });
+     
+}
+
+
+
+
+function execDaumPostcode1() {
     new daum.Postcode({
         oncomplete: function(data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -82,8 +120,10 @@ function execDaumPostcode() {
             //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
             if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
                 addr = data.roadAddress;
+            alert("addr: "+addr);
             } else { // 사용자가 지번 주소를 선택했을 경우(J)
                 addr = data.jibunAddress;
+                alert("addr2: "+addr);
             }
 
             // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
@@ -92,118 +132,171 @@ function execDaumPostcode() {
                 // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
                 if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
                     extraAddr += data.bname;
+                    
                 }
                 // 건물명이 있고, 공동주택일 경우 추가한다.
                 if(data.buildingName !== '' && data.apartment === 'Y'){
-                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                   extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
                 }
                 // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
                 if(extraAddr !== ''){
                     extraAddr = ' (' + extraAddr + ')';
+                    alert("extaddr: "+extraAddr);
                 }
                 // 조합된 참고항목을 해당 필드에 넣는다.
-                document.getElementById("extraAddress").value = extraAddr;
+                document.getElementById("editExtraAddress").value = extraAddr;
             
             } else {
-                document.getElementById("extraAddress").value = '';
+                document.getElementById("editExtraAddress").value = '';
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('postcode').value = data.zonecode;
-            document.getElementById("address").value = addr;
+            document.getElementById('editPostcode').value = data.zonecode;
+            document.getElementById("editAddress").value = addr;
             // 커서를 상세주소 필드로 이동한다.
-            document.getElementById("detailAddress").focus();
+            document.getElementById("editDetailAddress").focus();
         }
     }).open();
 }
+
  </script>
 </head>
 
 <body class="default">
- <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	
-<!--회원정보수정-->
-<div style="margin-left: 400px;">
-<h3>${sessionScope.id }님의 회원정보</h3>
-<div align="right">
-      <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
-</div><br><br>
+	<!-- 상단바 -->
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<!-- 사이드바 -->
 
-	<div class="container">
-   <form action="${pageContext.request.contextPath}/member/edit" method="post" id="editForm">
-   	 
-   	  
-   	  <input type="hidden" name="mem_code" id="mem_code" value="${m.mem_code}"><br>
-   	 
-                        <div id="visitorDetail">
-                        <p>*표시는 필수입력사항입니다.</p>
-                                                   
-                        <div class="form-group">
-                                <label for="id"><span class="glyphicon glyphicon-user"></span> UserID</label>
-                                <input type="text" class="form-control" name="id" id="id" placeholder="Enter userID" value="${m.id}">
-                                <input type="button" value="중복체크" id="idBtn"><span id="idResult"></span><br> 
-                              </div>
-                        
-                         <div class="form-group">
-                                <label for="pw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-                               <input type="password" class="form-control" name="pw" id="pw" placeholder="Enter password" onkeyup="passCheck()" value="${m.pw}">
-                              </div> 
-                              <div class="form-group">
-                                <label for="pw"><span class="glyphicon glyphicon-eye-open"></span> Password 확인</label>
-                               <input type="password" class="form-control" name="pw_check" id="pw_check" placeholder="Enter password" onkeyup="passCheck()" value="${m.pw}"> 
-                               <span id="pwResult"></span><br>
-                              </div> 
-                        <div class="form-group">
-                                <label for="name"><span class="glyphicon glyphicon-book-address"></span> 이름</label>
-                               <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" value="${m.name}">
-                             </div> 
-                             <div class="form-group">
-                                <label for="phone"><span class="glyphicon glyphicon-phone"></span> 연락처</label>
-                               <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter phone" value="${m.phone}">
-                             </div> 
-                             <div class="form-group">
-                                <label for="postcode"><span class="glyphicon glyphicon-envelope"></span> 우편번호</label>
-                               <input type="text" class="form-control" name="postcode" id="postcode" placeholder="우편번호" value="${m.postcode}">
-                               <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-                             </div>
-                             <div class="form-group">
-                                <label for="address"><span class="glyphicon glyphicon-home"></span> 주소</label>
-                               <input type="text" class="form-control" name="address" id="address" placeholder="주소" value="${m.address}">
-                           <input type="text" class="form-control" name="detailAddress" id="detailAddress" placeholder="상세주소" value="${m.detailAddress}">
-                           <input type="text" class="form-control" name="extraAddress" id="extraAddress" placeholder="참고항목" value="${m.extraAddress}">
-                             </div>          
+	<div style="margin-top: 40px; margin-left: 175px;">
+		<jsp:include page="/WEB-INF/views/common/side_my.jsp"></jsp:include>
+	</div>
 
-                        <div id="teacherDetail">
-                        <div class="form-group">
-                                <label for="mng_group"><span class="glyphicon glyphicon-family"></span>담당 반</label>
-                               <input type="text" class="form-control" name="mng_group" id="mng_group" placeholder="담당 반" value="${m.mng_group}">                         
-                             </div>
-                        </div>
 
-                        <div id="parentDetail">
-                           <div class="form-group">
-                                      <label for="stu_name"><span class="glyphicon glyphicon-girl"></span>아기 이름</label>
-                                     <input type="text" class="form-control" name="stu_name" id="stu_name" placeholder="아기 이름" value="${m.stu_name}">   
-                            </div>
-                               <div class="form-group">
-                                      <label for="stu_group"><span class="glyphicon glyphicon-users"></span>아기 반</label>
-                                     <input type="text" class="form-control" name="stu_group" id="stu_group" placeholder="아기 반" value="${m.stu_group}">   
-                            </div>
-                        </div>
-    
-      <br> 
-      </div>
-      <div align="center">
-      <input type="button" value="수정" id="editBtn">
-      <input type="reset" value="뒤로 돌아가기" onclick="javascript:history.go(-1)"><br> 
-      </div>
-   </form>
-   </div>
-   
-   <!--/회원정보수정-->   
-</div>
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-<script src="../resources/js/index.js"></script>
+	<div class="container" style="width: 500px; margin-bottom: 50px;">
+		<h3>나의 회원정보 수정</h3>
+		<hr>
+		<div align="right">
+			<a class="glyphicon glyphicon-home"
+				style="font-size: 12px; color: darkred; text-decoration: none"
+				href="${pageContext.request.contextPath }"></a> <a
+				style="font-size: 13px; color: gray; text-decoration: none"
+				href="${pageContext.request.contextPath }/member/myInfo"> >
+				마이페이지</a>
+		</div>
+		<br> <br>
+		<form action="${pageContext.request.contextPath}/member/edit"
+			method="post" id="editForm">
+
+			<div class="form-group" style="margin-left: 25%;">
+				<input type="hidden" name="mem_code" id="mem_code"
+					value="${sessionScope.mem_code}"><br>
+
+				<div id="visitorDetail">
+					<p>*표시는 필수입력사항입니다.</p>
+
+
+					<label for="id">UserID</label>
+					<div style="display: flex;">
+						<input type="text" class="form-control" name="id" id="editId"
+							value="${m.id}" style="margin-right: 10px;" readonly>
+					</div>
+
+					<label for="pw">Password</label> <input type="password"
+						class="form-control" name="pw" id="editPw"
+						placeholder="Enter password" onkeyup="passCheck1()"
+						value="${m.pw}" required="required"> <label for="pw">Password
+						확인</label> <input type="password" class="form-control" name="pw_check"
+						id="editPw_check" placeholder="Enter password"
+						onkeyup="passCheck1()" value="${m.pw}" required="required">
+					<span id="editPwResult"></span><br> <label for="name">이름</label>
+					<input type="text" class="form-control" name="name" id="editName"
+						placeholder="Enter name" value="${m.name}" required="required">
+					<label for="phone"> 연락처</label> <input type="text"
+						class="form-control" name="phone" id="editPhone"
+						value="${m.phone}" required="required" onkeyup="editPhoneBtn()">
+					<span id="phoneEditResult"></span><br> 
+					
+					<div class="form-group">
+					<label for="editPostcode">우편번호</label> <input
+						type="text" class="form-control" name="postcode" id="editPostcode"
+						 placeholder="우편번호"> <input type="button"
+						onclick="execDaumPostcode1()" value="우편번호 찾기"><br>
+				
+				
+					<label for="editAddress">
+						주소</label> <input type="text" class="form-control" name="editAddress"
+						id="address" placeholder="주소"> <input type="text"
+						class="form-control" name="detailAddress" id="editDetailAddress"
+						placeholder="상세주소"> <input type="text"
+						class="form-control" name="extraAddress" id="editExtraAddress"
+						placeholder="참고항목">
+				</div>
+				</div>
+			
+
+				<c:if test="${sessionScope.mem_code eq 1 }">
+					<div id="teacherDetail">
+
+						<label for="mng_group" style="width: max-content;">담당
+							반&nbsp;&nbsp;</label> <select id="selectBox" name="selectMngGroupBox">
+							<c:choose>
+								<c:when test="${sessionScope.mng_group eq 1}">
+									<option value="1" selected>장미반</option>
+									<option value="2">해바라기반</option>
+									<option value="3">민들레반</option>
+									<option value="4">벚꽃반</option>
+								</c:when>
+								<c:when test="${sessionScope.mng_group eq 2}">
+									<option value="1">장미반</option>
+									<option value="2" selected>해바라기반</option>
+									<option value="3">민들레반</option>
+									<option value="4">벚꽃반</option>
+								</c:when>
+								<c:when test="${sessionScope.mng_group eq 3}">
+									<option value="1">장미반</option>
+									<option value="2">해바라기반</option>
+									<option value="3" selected>민들레반</option>
+									<option value="4">벚꽃반</option>
+								</c:when>
+								<c:otherwise>
+									<option value="1">장미반</option>
+									<option value="2">해바라기반</option>
+									<option value="3">민들레반</option>
+									<option value="4" selected>벚꽃반</option>
+								</c:otherwise>
+							</c:choose>
+						</select>
+					</div>
+				</c:if>
+				<c:if test="${sessionScope.mem_code eq 2 }">
+					<div id="parentDetail">
+
+						<label for="stu_name">아기 이름</label> <input type="text"
+							class="form-control" name="stu_name" id="stu_name"
+							placeholder="아기 이름" value="${m.stu_name}"> <label
+							for="stu_group">아기 반</label> <input type="text"
+							class="form-control" name="stu_group" id="stu_group"
+							placeholder="아기 반" value="${m.stu_group}">
+
+					</div>
+				</c:if>
+
+				<br>
+			</div>
+			<div style="position: relative; left: 70%;">
+				<input class="btn btn-primary" type="button" value="수정" id="editBtn"
+					style="width: 70px;"> <input class="btn btn-primary"
+					type="reset" value="뒤로 돌아가기" onclick="javascript:history.go(-1)"
+					style="width: 130px;"><br>
+			</div>
+
+
+		</form>
+	</div>
+
+	<!--/회원정보수정-->
+
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	<script src="../resources/js/index.js"></script>
 </body>
 </html>

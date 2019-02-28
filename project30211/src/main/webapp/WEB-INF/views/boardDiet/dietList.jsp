@@ -24,7 +24,7 @@
    
 	<!-- 사이드바 -->
 	<div style="margin-top: 40px; margin-left: 175px;">
-		<jsp:include page="/WEB-INF/views/common/side_galary.jsp" />
+		<jsp:include page="/WEB-INF/views/common/side_com.jsp" />
 	</div>
 
 
@@ -38,7 +38,11 @@
 				</div>
 			</div>
 
-
+		<div class="row">	
+			<c:if test="${sessionScope.id=='manager'}">
+				<input class="btn btn-primary" type="button" onclick="location.href=${pageContext.request.contextPath}/boardDiet/uploadDietForm" value="식단표 작성">
+			</c:if>
+		</div>	
 
 			<div class="row">
 				<c:forEach var="db" items="${db}">

@@ -45,10 +45,10 @@ a {
 </head>
 <body>
    <!-- 측면 메뉴바 -->
-   <div data-layout="al16 al-o2 de-o1 de6 ec4" style="position: absolute; width: 10%" id="side1">
+   <div data-layout="al16 al-o2 de-o1 de6 ec4" style="position: absolute; width: 10%" id="side1" >
       <div data-layout="ch-half">
-         <nav class="MOD_SUBNAVIGATION1_Menu" data-theme="_bo2">
-            <p class="MOD_SUBNAVIGATION1_Menutitle" data-theme="_bgs">커뮤니티</p>
+         <nav class="MOD_SUBNAVIGATION1_Menu" data-theme="_bo2" style="background-color: #F9F5B3;">
+            <p class="MOD_SUBNAVIGATION1_Menutitle" data-theme="_bgs" style="background-color: #f9ca5b;">커뮤니티</p>
             <ul>
                <li><a
                   href="${pageContext.request.contextPath }/boardNotice/noticeList?sort=2"

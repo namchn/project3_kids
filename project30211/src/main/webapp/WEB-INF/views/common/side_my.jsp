@@ -52,14 +52,28 @@ a {
         <ul>
           <li><a href="${pageContext.request.contextPath}/member/myInfoEdit">내 정보 수정</a></li>
           <li><a href="${pageContext.request.contextPath}/msg/msg">내 쪽지함</a></li>
-          <c:if test="${sessionScope..mem_code eq 2}">   <!-- 학부모 -->
+          <c:if test="${sessionScope.mem_code eq 2}">   <!-- 학부모 -->
             <li><a href="${pageContext.request.contextPath}/pay/payForm">원비 결제</a></li>
             <li><a href="${pageContext.request.contextPath}/pay/complete2">내 결제정보 확인</a></li>
             <li><a href="${pageContext.request.contextPath}/book/myrent">내 대출 목록</a></li>
             <li><a href="${pageContext.request.contextPath}/book/myCart">찜한 도서목록</a></li>
         </c:if>
-          <c:if test="${sessionScope.mem_code eq 1}">   <!-- 선생님 -->
-            <li><a href="${pageContext.request.contextPath}/member/mystu">담임 반 원생 목록</a></li>
+		<c:if test="${sessionScope.mem_code eq 1}">   <!-- 선생님 -->
+             <c:choose>
+            <c:when test="${sessionScope.mng_group eq 1}">
+               <c:set var="group" value="장미"></c:set>
+            </c:when>
+            <c:when test="${sessionScope.mng_group eq 2}">
+               <c:set var="group" value="해바라기"></c:set>
+            </c:when>
+            <c:when test="${sessionScope.mng_group eq 3}">
+               <c:set var="group" value="민들레"></c:set>
+            </c:when>
+            <c:otherwise>
+               <c:set var="group" value="벚꽃"></c:set>
+            </c:otherwise>
+         </c:choose>
+            <li><a href="${pageContext.request.contextPath}/member/mystu">${group}반 원생 목록</a></li>
             <li><a href="${pageContext.request.contextPath}/pay/complete">원생 결제정보 확인</a></li>
           </c:if>   
           <c:if test="${sessionScope.mem_code eq 0}">   <!-- 관리자-->

@@ -86,13 +86,25 @@ background-color: #03a9f4;
 </head>
 <body class="default">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-
+<div style="margin-top: 40px; margin-left: 175px;">
+    <jsp:include page="/WEB-INF/views/common/side_com.jsp"/>
+    </div>
 
 <div id="wrapper">
-<h3>${p.poll_subject }</h3>
+<h3 style="margin-left: 14%;">투표하기</h3>
+<hr>
 <input type="hidden" value="${p.poll_num }" id="pn" name="poll_num">
-<div id="poll">
-<table>
+<div class="container" id="poll">
+	<div class="card shadow mb-4" style="width: 70%;">
+	<div class="card-header py-3" style="margin-bottom: 20px;">
+		<h4 class="m-0 font-weight-bold text-primary">${p.poll_subject }</h4>
+	</div>
+	<ul style="margin-top: 20px;">
+		<li>참여자 수 : ${p.voter }</li>
+		<li>시작일: ${p.start_date }</li>
+		<li>종료일: ${p.end_date }</li>
+	</ul>
+<table style="margin-bottom: 30px; margin-left: 5%; margin-top: 20px;">
 <c:forEach var="pc" items="${pc }">
 <tr>
 <td style="width: 30px;">
@@ -105,33 +117,31 @@ background-color: #03a9f4;
 <input type="hidden" id="votenum${pc.poll_candidate_num }" value="${pc.vote_num }">
 </c:forEach>
 </table>
+	</div>
 <input type="hidden" id="pvoter" value="${p.voter }">
-<ul>
-<li>참여자 수 : ${p.voter }</li>
-<li>시작일: ${p.start_date }</li>
-<li>종료일: ${p.end_date }</li>
-</ul>
-<c:if test="${sessionScope.id != null }">
-<button id="pbtn" class="btn1">투표하기</button></c:if>
-<c:if test="${sessionScope.id == pch.id }">
-<button id="pbtn2" class="btn1">결과보기</button></c:if>
-<button id="btn2" class="btn1" onclick="location.href='${pageContext.request.contextPath}/poll/list'">목록으로</button>
-<c:if test="${sessionScope.id eq 'manager'}">
-<button class="btn1" onclick="location.href='${pageContext.request.contextPath }/poll/delete?poll_num=${p.poll_num }'">삭제</button>
-</c:if>
+<div style="position: relative; left: 43%;">
+	<c:if test="${sessionScope.id != null }">
+	<button id="pbtn" class="btn btn-primary">투표하기</button></c:if>
+	<c:if test="${sessionScope.id == pch.id }">
+	<button id="pbtn2" class="btn btn-primary">결과보기</button></c:if>
+	<button id="btn2" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/poll/list'">목록으로</button>
+	<c:if test="${sessionScope.id eq 'manager'}">
+	<button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath }/poll/delete?poll_num=${p.poll_num }'">삭제</button>
+	</c:if>
+</div>
 </div>
 
 <!-- Project Card Example -->
-<form style="height:550px;">
-<div class="container">
-              <div id="result2" class="card shadow mb-4" style="display: none; width: 70%;">
-                
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">투표 결과 보기</h6>
+<div class="container" id="result2" style="display: none;">
+<form style="height:550px; display: inline;">
+
+              <div class="card shadow mb-4" style="width: 70%;">
+                <div class="card-header py-3" style="margin-bottom: 20px;">
+                  <h4 class="m-0 font-weight-bold text-primary">${p.poll_subject }</h4>
                 </div>
                 
                 <div class="card-body">
-                <ul>
+                <ul style="margin-bottom: 20px;">
                <li>참여자 수 : <b id="voter">${p.voter }</b></li>
                <li>시작일: ${p.start_date }</li>
                <li>종료일: ${p.end_date }</li>
@@ -140,21 +150,35 @@ background-color: #03a9f4;
                   <c:forEach var="pc" items="${pc }">
                   <%-- <div id="myBar${pc.poll_candidate_num }" class="w3-container" style="height:20px; width:${pc.vote_num}%; padding:0; float:left;"></div> --%>
                    <%-- <b id="${pc.poll_candidate_num}" style="margin-left: 10px;">후보 : ${pc.vote_num }</b><br><br> --%>
-                  <div style="margin-right: 55%;">
+                  
+                  <div style="margin-right: 15px;">
+                  <ul>
+                  <li><b>${pc.poll_candidate }</b></li>
+                  </ul>
+                  </div>
+                   <div style="display: flex;">
+                  <div class="progress mb-4" style="width: 40%; margin-left: 20px;" >
+                    <div class="progress-bar" id="myBar3${pc.poll_candidate_num }" style="width: ${pc.vote_num/p.voter*100}%;" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div style="margin-left: 15px;">
                   <span class="float-right" id="myBar2${pc.poll_candidate_num }">${pc.vote_num}명</span>
                   </div>
-                  <div class="progress mb-4" style="width: 40%" >
-                    <div class="progress-bar bg-danger" id="myBar3${pc.poll_candidate_num }" style="width: ${pc.vote_num/p.voter*100}%;" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"><b style="text-align: left; margin-left: 135px;">${pc.poll_candidate }</b></div>
                   </div>
-                  
                   </c:forEach>
 
 
                  </div>
 
          </div>
+         </form>
+                       <div style="position: relative; left: 53%;">
+                <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/poll/list'" style="width: 80px; margin-right: 5px;">목록으로</button>
+				<c:if test="${sessionScope.id eq 'manager'}">
+				<button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath }/poll/delete?poll_num=${p.poll_num }'" style="width: 80px;">삭제</button>
+				</c:if>
+			  </div>
 </div>
-</form>
+
 
 </div>
 

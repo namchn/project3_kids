@@ -45,7 +45,6 @@ rel="stylesheet">
             return;
          }else if(file1 != null || file1 != ""){
            $('#fileInsertForm1').css("display","none");
-            /* $('#fileInsertFormDiv'+(b)).css("display","block"); */
             str1 +='<div id="fileInsertFormDiv2"';
             str1 +=' name="fileInsertFormDiv">';
             str1 +='file2 : <input type="file" id="file2" name="file2">';
@@ -61,7 +60,6 @@ rel="stylesheet">
             return;
          }else if(file2 != null || file2 != ""){
            $('#fileInsertForm2').css("display","none");
-            /* $('#fileInsertFormDiv'+(b)).css("display","block"); */
             str2 +='<div id="fileInsertFormDiv3"';
             str2 +=' name="fileInsertFormDiv">';
             str2 +='file3 : <input type="file" id="file3" name="file3">';
@@ -77,7 +75,6 @@ rel="stylesheet">
             return;
          }else if(file3 != null || file3 != ""){
            $('#fileInsertForm3').css("display","none");
-            /* $('#fileInsertFormDiv'+(b)).css("display","block"); */
             str3 +='<div id="fileInsertFormDiv4"';
             str3 +=' name="fileInsertFormDiv">';
             str3 +='file4 : <input type="file" id="file4" name="file4">';

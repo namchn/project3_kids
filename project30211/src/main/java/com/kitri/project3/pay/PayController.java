@@ -56,42 +56,42 @@ public class PayController {
 	}
 
 	// 담임 반 원생 결제 정보 조회
-	@RequestMapping("/pay/complete")
-	public ModelAndView payresult(HttpServletRequest req) {
-		HttpSession session = req.getSession(false);
-		String id = (String) session.getAttribute("id");
-		Pay p = service.getC(id);
-		Member m = service.getM(id);
-		ArrayList<Pay> list = service.getS(m.getMng_group()); // 완납한 원생 목록
-		ArrayList<Member> mlist = service.getStudent(m.getMng_group()); // 담임 반 원생 목록
+	   @RequestMapping("/pay/complete")
+	   public ModelAndView payresult(HttpServletRequest req) {
+	      HttpSession session = req.getSession(false);
+	      String id = (String) session.getAttribute("id");
+	      Pay p = service.getC(id);
+	      Member m = service.getM(id);
+	      ArrayList<Pay> list = service.getS(m.getMng_group()); // 완납한 원생 목록
+	      ArrayList<Member> mlist = service.getStudent(m.getMng_group()); // 담임 반 원생 목록
 
-		String[] str = new String[mlist.size()];
-		for (int i = 0; i < mlist.size(); i++) {
-			for (int j = 0; j < list.size(); j++) {
-				if (mlist.get(i).getId().equals(list.get(j).getId())) {
-					str[i] = "완납";
-					break;
-				} else {
-					str[i] = "미납";
-				}
-			}
-		}
+	      String[] str = new String[mlist.size()];
+	      for (int i = 0; i < mlist.size(); i++) {
+	         for (int j = 0; j < list.size(); j++) {
+	            if (mlist.get(i).getId().equals(list.get(j).getId())) {
+	               str[i] = list.get(j).getTime();
+	               break;
+	            } else {
+	               str[i] = "미납";
+	            }
+	         }
+	      }
 
-		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-		for (int i = 0; i < str.length; i++) {
-			map.put(mlist.get(i).getId(), str[i]);
-		}
+	      LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+	      for (int i = 0; i < str.length; i++) {
+	         map.put(mlist.get(i).getId(), str[i]);
+	      }
 
-		System.out.println(map);
+	      System.out.println(map);
 
-		ModelAndView mav = new ModelAndView("/pay/payresult");
-		mav.addObject("mlist", mlist); // 담임 반 원생 목록
-		mav.addObject("p", p);
-		mav.addObject("m", m);
-		mav.addObject("list", list); // 완납한 원생 목록
-		mav.addObject("map", map);
-		return mav;
-	}
+	      ModelAndView mav = new ModelAndView("/pay/payresult");
+	      mav.addObject("mlist", mlist); // 담임 반 원생 목록
+	      mav.addObject("p", p);
+	      mav.addObject("m", m);
+	      mav.addObject("list", list); // 완납한 원생 목록
+	      mav.addObject("map", map);
+	      return mav;
+	   }
 
 	// 내 결제 여부 조회, 내 결제 정보 조회
 	@RequestMapping("/pay/complete2")

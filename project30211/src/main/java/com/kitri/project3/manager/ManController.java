@@ -321,21 +321,7 @@ public class ManController {
 	@RequestMapping("/manager/mgWrite")
 	public String mainGallery(HttpServletRequest req, GalleryBoard gb) {
 
-		/*
-		 * String[] abc1 = req.getParameterValues("abc");
-		 * System.out.println("abc1 : "+abc1[0]); System.out.println("abc1 : "+abc1[1]);
-		 * System.out.println("abc1 : "+abc1[2]); System.out.println("abc1 : "+abc1[3]);
-		 */
-//	         String[] fileName = null;
-//	         for(int i=1; i<5; i++) {
-//	            fileName = req.getParameterValues(Integer.toString(i));
-//	         }
-//	         String file1 = fileName[0];
-//	         String file2 = fileName[1];
-//	         String file3 = fileName[2];
-//	         String file4 = fileName[3];
-//	         //String add = "";
-//	         String files_path = "";
+	
 		String files_path = "";
 
 		if (gb.getFile1() != null) {
@@ -363,10 +349,6 @@ public class ManController {
 
 		}
 
-//	         HttpSession hs = request.getSession();
-//	         Member m = (Member)hs.getAttribute("MEMBER");   
-//	         b.setId(m.getId());
-		// return "redirect:/boardGallery/galleryList";
 		return "redirect:/manager/memberManage";
 
 	}
@@ -375,9 +357,6 @@ public class ManController {
 	public String makeFile(MultipartFile f, int num) {
 		File file = null;
 		try {
-			// String fname = f.getOriginalFilename();
-			// int idx1 = fname.lastIndexOf(".");
-			// String str1 = fname.substring(idx1);
 			file = new File(path + num + ".jpg");
 			f.transferTo(file);
 		} catch (IllegalStateException e) {

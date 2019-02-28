@@ -12,17 +12,17 @@
 <script src="${pageContext.request.contextPath}/resources/js/paging.js"></script>
 <link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-<style>
-a:link{
-font-size: 15px;
-}
+<title>떡잎유치원 - 찜한 도서 목록</title>
 
-.page-link{
-font-size: 15px;
+<style type="text/css">
+table>thead>tr>th{
+	text-align: center;
+}
+table>tbody>tr>td{
+	text-align: center;
 }
 </style>
-<title>찜한 도서 목록</title>
+
 <script>
 var check = false;
 function CheckAll() {
@@ -41,24 +41,26 @@ function CheckAll() {
 }
 </script>
 </head>
+
 <body>
-<div style="padding: 50px; margin-left: 5%;">
-<jsp:include page="/WEB-INF/views/common/side_book.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<div style="margin-top: 40px; margin-left: 175px;">
+	<jsp:include page="/WEB-INF/views/common/side_book.jsp"></jsp:include>
 </div>
 <!-- 현재날짜 -->
-<div class="container" style="margin-left: 20%;">
-  <h1>찜한 도서 목록</h1><br> 
-  <div align="right">
+<div class="container" style="margin-top:50px; margin-left: 450px;">
+  <h3>찜한 도서 목록</h3>
+  <div style="position: absolute; left: 72%;">
       <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath}"></a>
       <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
       <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/book/myCart">  >  찜한 도서 목록</a>
   </div><br><br>   
   <div id="todayDiv"></div>
   <form name="checkTest" action="${pageContext.request.contextPath}/book/my_cart" method="post">
-  <table class="table table-hover">
+  <table class="table table-hover" style="font-size: 15px;">
     <thead>
       <tr>
-        <th style="width: 8%"><input type="checkbox" id="checkall" name="checkall" onclick="javascript:CheckAll()"></th>
+        <th style="width: 2%"><input type="checkbox" id="checkall" name="checkall" onclick="javascript:CheckAll()"></th>
         <th style="width: 10%">번호</th>
         <th style="width: 25%">제목</th>
         <th style="width: 10%">저자</th>
@@ -71,7 +73,7 @@ function CheckAll() {
       <tr>
         <td><input type="checkbox" name="checked_cart" value="${myCart.book_num}"></td>
       	<td>${myCart.cart_num}</td>
-        <td><a href="${pageContext.request.contextPath}/book/book_rent?book_num=${myCart.book_num}">${myCart.book_title}</a></td>
+        <td style="text-align: left"><a href="${pageContext.request.contextPath}/book/book_rent?book_num=${myCart.book_num}" style="font-size: 15px">${myCart.book_title}</a></td>
         <td>${myCart.book_writer}</td>
         <td>${myCart.book_publisher}</td>
         <td>${myCart.rest_amount}</td>

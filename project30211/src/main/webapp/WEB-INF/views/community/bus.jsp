@@ -5,24 +5,23 @@
 <html>
 <!-- Start Head -->
 <head>
-   <meta charset="UTF-8">
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>KITRI 유치원 - 셔틀버스</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-   <link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
-   <link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">   
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
+<link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">   
+<title>떡잎유치원 - 셔틀버스</title>
 
-   <style type="text/css">
-   a:visited {color: black;}
-   a:link {color: black;}
-   a{text-decoration: none; font-size: 20px;}
-   .glyphicon {font-size: 20px; color: gray;}
+<style type="text/css">
+a:visited {color: black;}
+a:link {color: black;}
+a{text-decoration: none; font-size: 20px;}
    
-   html, body {width:100%;height:100%;margin:0;padding:0;} 
+html, body {width:100%;height:100%;margin:0;padding:0;} 
 .map_wrap {position:relative;overflow:hidden;width:100%;height:350px;}
 .radius_border{border:1px solid #919191;border-radius:5px;}     
 .custom_typecontrol {position:absolute;top:10px;right:10px;overflow:hidden;width:130px;height:30px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
@@ -36,28 +35,23 @@
 .custom_zoomcontrol span {display:block;height:40px;cursor:pointer;}     
 .custom_zoomcontrol span img {width:15px;height:15px;padding:12px 0;border:none;}             
 .custom_zoomcontrol span:first-child{border-bottom:1px solid #bfbfbf;}
-
 </style>
 </head>
-<!-- End Head -->
 
 <body class="default">
-
-<!--
-START MODULE AREA 1: Header 3
--->
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<div style="padding: 30px; margin-left: 10%;"><jsp:include page="/WEB-INF/views/common/side_com.jsp"/></div>
-<section>
-  <div data-layout="_r">
-  <div style="margin-left: 30%;">
-  <h1>셔틀버스</h1>
-  <div align="right">
+<div style="margin-top: 40px; margin-left: 175px;">
+   <jsp:include page="/WEB-INF/views/common/side_com.jsp"></jsp:include>
+</div>
+  <div style="margin-top:50px; margin-left: 450px; margin-bottom: 50px; margin-right: 960px">
+  <h3>셔틀버스</h3>
+  <div style="position: absolute; left: 55%;">
       <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
       <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/">  >  커뮤니티</a>
       <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/community/application">  >  셔틀버스</a>
   </div><br><br>
-  <a href="http://map.daum.net/link/to/한국정보기술연구원,37.485126,126.898812" style="font-size: 15px; font-weight: bold; float: right" target="_blank"><span class="glyphicon glyphicon-search" style="font-size: 15px"></span>길 찾기</a>
+  <a href="http://map.daum.net/link/to/한국정보기술연구원,37.485126,126.898812" style="font-size: 15px; font-weight: bold; float: right" target="_blank">
+  <span class="glyphicon glyphicon-search" style="font-size: 15px"></span>길 찾기</a>
   <div class="map_wrap">
   <div id="map" style="width:500px;height:400px; position: sticky;"></div>
   <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
@@ -157,41 +151,22 @@ var polyline = new daum.maps.Polyline({
 
 // 지도에 선을 표시합니다 
 polyline.setMap(map);
-
 </script>
 
 <div style="border-bottom: 2px solid lightgray">
 <br>
-<span class="glyphicon glyphicon-map-marker"></span>
+<span class="glyphicon glyphicon-map-marker" style="color: gray; font-size: 20px"></span>
 <span style="color: gray; font-weight: bold; font-size: 20px">주소&emsp;</span>
 <span style="font-size: 15px">서울특별시 구로구 디지털로34길 43 코오롱싸이언스밸리1차</span>
 </div><br>    
 <div style="border-bottom: 2px solid lightgray">
-<span class="glyphicon glyphicon-phone"></span>
+<span class="glyphicon glyphicon-phone" style="color: gray; font-size: 20px"></span>
 <span style="color: gray; font-weight: bold; font-size: 20px">전화&emsp;</span>
 <span style="font-size: 15px">02-1234-1234</span>
 </div>
-    </div>
-    
-   
-  </div>
-</section>
-<!-- /측면 메뉴바 -->
-
-<!--
-  END MODULE AREA 3: Text | Text
--->
-
-<!--
-START MODULE AREA 4: Footer 2
--->
+</div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-<!--
-END MODULE AREA 4: Footer 2
--->
-
 <script src="../resources/js/index.js"></script>
 </body>
-
 </html>
          

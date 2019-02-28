@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>KITRI유치원</title>
+<title>떡잎유치원</title>
 <script type="text/javascript"
    src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet"
@@ -56,16 +56,25 @@
 <style type="text/css">
 a:visited {
 	color: black;
+	text-decoration: none;
 }
 
 a:link {
 	color: black;
+	text-decoration: none;
 }
 
 a {
 	text-decoration: none;
+	font-size: 15px;
+}
+
+.gbtn, .upMenu{
+	text-decoration: none;
 	font-size: 20px;
 }
+
+
 </style>
 
 <!-- 쪽지스타일 -->
@@ -76,6 +85,13 @@ a {
 	border-radius: 50%;
 	background-color: yellow;
 	margin-bottom: auto;
+}
+</style>
+
+<!-- page 폰트 사이즈 스타일 -->
+<style type="text/css">
+.page-link{
+font-size: 15px;
 }
 </style>
 
@@ -180,7 +196,7 @@ body {
 	text-align: center;
 	margin: 0 -25px -25px;
 	font-size: 13px;
-	justify-content: center;
+	justify-content: center; 
 }
 
 .modal-login a {
@@ -967,25 +983,24 @@ $(document).ready(function(){    //$(document)객체
                      <input type="hidden" id="mem_code" value="${sessionScope.mem_code }">
                      <input type="hidden" id="AccessId" value="${sessionScope.id }">
 				<ul class="AP_Menu_List">
-					<li><a
+					<li><a class="upMenu"
 						href="${pageContext.request.contextPath }/introduce/introduce"
 						data-theme="_bgp">유치원소개</a>
 						<ul>
-							<li><a
+							<li><a class="upMenu"
 								href="${pageContext.request.contextPath }/introduce/introduce"
 								data-theme="_bgpd">유치원소개</a></li>
-							<li><a
+							<li><a class="upMenu"
 								href="${pageContext.request.contextPath }/introduce/applicants"
 								data-theme="_bgpd">모집요강</a></li>
-							<li><a href="${pageContext.request.contextPath }/info/map"
+							<li><a class="upMenu" href="${pageContext.request.contextPath }/info/map"
 								data-theme="_bgpd">오시는길</a></li>
 						</ul></li>
-					<li><a href="#" data-theme="_bgp">우리반이야기</a>
+					<li><a class="upMenu" href="#" data-theme="_bgp">우리반이야기</a>
 						<ul>
 							<li>
-								<!-- <a href="" data-theme="_bgpd" id="group1">장미반</a> --> <input
-								data-theme="_bgpd" type="button" value="장미반" id="group1"
-								class="gbtn">
+								<input
+								class="gbtn" data-theme="_bgpd" type="button" value="장미반" id="group1">
 							</li>
 
 							<li><input data-theme="_bgpd" type="button" value="해바라기반"
@@ -998,36 +1013,36 @@ $(document).ready(function(){    //$(document)객체
 								id="group4" class="gbtn"> <!-- <a href="" data-theme="_bgpd" id="group4">벚꽃반</a> -->
 							</li>
 						</ul></li>
-					<li><a
+					<li><a class="upMenu"
 						href="${pageContext.request.contextPath }/boardNotice/noticeList?sort=2"
 						data-theme="_bgp">커뮤니티</a>
 						<ul>
-							<li><a
+							<li><a class="upMenu"
 								href="${pageContext.request.contextPath }/boardNotice/noticeList?sort=2"
 								data-theme="_bgpd">공지사항</a></li>
-							<li><a
+							<li><a class="upMenu"
 								href="${pageContext.request.contextPath }/boardBulletin/bulletinList?sort=2"
 								data-theme="_bgpd">자유게시판</a></li>
-							<li><a
+							<li><a class="upMenu"
 								href="${pageContext.request.contextPath }/community/bus"
 								data-theme="_bgpd">셔틀버스</a></li>
-							<li><a
+							<li><a class="upMenu"
 								href="${pageContext.request.contextPath }/community/application"
 								data-theme="_bgpd">원아모집</a></li>
-							<li><a
+							<li><a class="upMenu"
 								href="${pageContext.request.contextPath }/boardDiet/dietListForm"
 								data-theme="_bgpd">식단표</a></li>
-							<li><a href="${pageContext.request.contextPath }/poll/list"
+							<li><a class="upMenu" href="${pageContext.request.contextPath }/poll/list"
 								data-theme="_bgpd">설문조사</a></li>
-							<li><a
+							<li><a class="upMenu"
 								href="${pageContext.request.contextPath }/fullcalendar/fullcalendarAll"
 								data-theme="_bgpd">행사일정</a></li>
 						</ul></li>
-					<li><a
+					<li><a class="upMenu"
 						href="${pageContext.request.contextPath }/book/booklistForm"
 						data-theme="_bgp">도서관</a>
 						<ul>
-							<li><a
+							<li><a class="upMenu"
 								href="${pageContext.request.contextPath }/book/booklistForm"
 								data-theme="_bgpd">도서목록</a></li>
 						</ul></li>

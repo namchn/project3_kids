@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">
+
 <script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -29,17 +30,37 @@
 
 </head>
 <body>
- <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	<!-- 상단바 -->
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	<!-- 사이드바 -->
+	<div style="margin-top: 40px; margin-left: 175px;">
+		<jsp:include page="/WEB-INF/views/common/side_galary.jsp"/>
+	</div>
+
+	<div class="container" style="margin-top:50px; margin-left: 450px;">
+		<h3>갤러리 게시판 글 작성</h3>
+		<p style="width: 70%;">다른 사람의 인격을 침해하거나 명예를 훼손하게 하는 글, 불쾌감을 주는 욕설 또는 비방하는 글, 유언비어나 허위사실을 유포하는 글, 도배성 글의 경우 글이 삭제되거나 이용제재를 받을 수 있습니다.</p> 	
+
  
-   <form  id="galleryWrite" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath }/boardGallery/galleryWrite">
-      write : <input type="text" name="id" value="${sessionScope.id}" readonly><br>
-      mng_group: <input type="text" name="mng_group" value="${sessionScope.mng_group}" readonly><br>
-      title : <input type="text" name="title" required="required"><br>
-      content: <textarea name="content"></textarea><br>
-      <div id="fileInsertFormDiv1" name="fileInsertFormDiv">
-         file1 : <input type="file" id="file1" name="file1" required="required">
-         <input type="button" id="fileInsertForm1" class="fileInsert" value="파일추가"><br>
-      </div>
+		<form  id="galleryWrite" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath }/boardGallery/galleryWrite">
+			<input type="hidden" name="id" value="${sessionScope.id}">
+			<input type="hidden" name="mng_group" value="${sessionScope.mng_group}">
+
+			<div class="form-group">
+				<label for="title">글 제목:</label>
+				<input type="text" class="form-control" id="title" name="title" required="required" style="max-width: 100%; width: 70%;">
+			</div>
+
+			<div class="form-group">
+				<label for="content">글 내용:</label>
+				<textarea class="form-control" rows="5" id="content" name="content" required="required" style="resize: none; max-width: 100%; width: 70%;" ></textarea>
+			</div>
+      
+			<div id="fileInsertFormDiv1" name="fileInsertFormDiv">
+				사진첨부 1 : <input type="file" id="file1" name="file1" required="required">
+				<input type="button" id="fileInsertForm1" class="fileInsert" value="파일추가">
+			</div>
+			
       <c:forEach var="i" begin="2" end="10" step="1">
          <div id="fileInsertFormDiv${i }" name="fileInsertFormDiv" style="display: none">
             file${i } : <input type="file" id="file${i }" name="file${i }">
@@ -50,8 +71,9 @@
       <input type="submit" id="submit" value="작성">
    </form>
    
-   
+	</div>
+	<!-- 하단바 -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-<script src="../resources/js/index.js"></script>
+	<script src="../resources/js/index.js"></script>
 </body>
 </html>

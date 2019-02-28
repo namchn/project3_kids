@@ -3,43 +3,41 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<!-- Start Head -->
 <head>
-   <meta charset="utf-8">
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-   <link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
-   <link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">   
+<link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
+<link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">   
 
-   <style type="text/css">
-   a:visited {color: black;}
-   a:link {color: black;}
-   a{text-decoration: none; font-size: 20px;}
-   .glyphicon {font-size: 20px; color: gray;}
+<style type="text/css">
+a:visited {color: black;}
+a:link {color: black;}
+a{text-decoration: none; font-size: 20px;}
+table>tbody>tr>td:first-child{
+	font-weight: bolder;
+}
 </style>
 </head>
 
-
 <body class="default">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<div style="margin-top: 40px; margin-left: 175px;">
+   <jsp:include page="/WEB-INF/views/common/side_my.jsp"></jsp:include>
+</div>
 
-
-<!-- 측면 메뉴바 -->
-<section>
-  <div data-layout="_r">
-  <div style="margin-left: 400px;">
-  <h1>${m.id}님의 마이페이지</h1>
-  <div align="right">
-      <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
-  </div><br><br>
-  <div class="container" style="width:500px; height:400px">
-                                                          
-  <table class="table">
+<div style="margin-top:50px; margin-left: 450px; margin-bottom: 90px; max-width: 500px">
+<h3>${m.id}님의 마이페이지</h3>
+<div style="position: absolute; left: 55%;">
+	<a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
+	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
+</div><br><br>
+<div class="container" style="width:500px; height:400px">                                                      
+<table class="table">
     <thead>
       <tr>
         <th>항목</th>
@@ -89,21 +87,12 @@
         <td>${m.mng_group}</td>
       </tr>
       </c:if>
-
     </tbody>
   </table>
 </div>
 </div>
-
- <jsp:include page="/WEB-INF/views/common/side_my.jsp" />
- </div>   
-</section>
-<!-- /측면 메뉴바 -->
-
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-
 <script src="../resources/js/index.js"></script>
 </body>
-
 </html>
          

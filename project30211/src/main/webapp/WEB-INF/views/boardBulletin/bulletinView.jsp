@@ -36,32 +36,25 @@ $(document).ready(function() {
          success:function(data) {
             alert("success완료");
             var arr = eval('('+data+')');
-            var str = '';   
-            str += "<table>";
-            for(i=0; i<arr.length; i++) {
-               str += "<tr>";
-               str += "<td>" + arr[i].reply_num + "</td>";
-               str += "<td>" + arr[i].id + "</td>";
-               str += "<td>" + arr[i].time + "</td>";
-               str += "<td><div id='replyContent"+ arr[i].reply_num +"'>"+arr[i].content+"</div></td>";
-               
-               
-               str += "<td><div id='edit_div_"+ arr[i].reply_num +"' style='display:none;' align='right'>"
-               str += "<textarea id='replyEditContent"+ arr[i].reply_num +"' name='replyEditContent' placeholder='댓글 작성'>"+arr[i].content+"</textarea>";
-               
-               str += "<button type='button' id='replyEditCancel"+ arr[i].reply_num +"' name='replyEditCancel' value='"+ arr[i].reply_num +"' class='replyEditCancel'>수정취소</button>";
-               str += "<button type='button' id='replyEditComplete"+ arr[i].reply_num +"' name='replyEditComplete' value='"+ arr[i].reply_num +"' class='replyEditComplete'>수정완료</button>";
-               str += "</div></td>"                  
+            var str = '';    
 
+            for(i=0; i<arr.length; i++) {
+               str += "<div style='border:1px solid gray; margin-top:5px; padding:5px; width:600px'>";
+               str += "<div class='glyphicon glyphicon-user' style='float:left;'>" + arr[i].id + "</div>";
+               str += "<div style='margin-left:500px;'>" + arr[i].time + "</div>";
+               str += "<div id='replyContent"+arr[i].reply_num+"' style='margin-left:5px; float:left;'>"+arr[i].content+"</div>";      
                if("${sessionScope.id}"== arr[i].id) {
-                  str += "<td>";
-                  str += "<button type='button' id='replyEditForm"+ arr[i].reply_num +"' name='replyEditForm' value='"+ arr[i].reply_num +"' class='replyEditForm'>수정</button>";   
-                  str += "<button type='button' id='replyDelete"+ arr[i].reply_num +"' name='replyDelete' value='"+ arr[i].reply_num +"' class='replyDelete'>삭제</button>";
-                  str += "</td>";         
+                  str += "<div><button type='button' id='replyEditForm"+arr[i].reply_num+"' name='replyEditForm' value='"+arr[i].reply_num+"' class='replyEditForm btn btn-default btn-xs' style='float:left;'>수정</button></div>";
+                  str += "<div><button type='button' id='replyDelete"+arr[i].reply_num+"' name='replyDelete' value='"+arr[i].reply_num+"' class='replyDelete btn btn-default btn-xs'>삭제</button></div>";            
                }
-               str += "</tr>";
+               str += "<div id='edit_div_"+ arr[i].reply_num +"' style='display:none;'>";
+               str += "<input type='text' id='replyEditContent"+ arr[i].reply_num +"' name='replyEditContent' value="+arr[i].content+" style='max-width: 100%; width: 450px;'>";                
+               str += "<button type='button' id='replyEditCancel"+ arr[i].reply_num +"' name='replyEditCancel' value='"+ arr[i].reply_num +"' class='replyEditCancel btn btn-default btn-xs'>수정취소</button>";
+               str += "<button type='button' id='replyEditComplete"+ arr[i].reply_num +"' name='replyEditComplete' value='"+ arr[i].reply_num +"' class='replyEditComplete btn btn-default btn-xs'>수정완료</button>";            
+               str += "</div>"                  
+               str += "</div>";         
+            
             }
-            str += "</table>";
 
             $('#replyList').html(str);
          }
@@ -111,32 +104,24 @@ $(document).ready(function() {
          success:function(data) {
             var arr = eval('('+data+')');
             var str = '';   
-            str += "<table>";
+
             for(i=0; i<arr.length; i++) {
-               str += "<tr>";
-               str += "<td>" + arr[i].reply_num + "</td>";
-               str += "<td>" + arr[i].id + "</td>";
-               str += "<td>" + arr[i].time + "</td>";
-               str += "<td><div id='replyContent"+ arr[i].reply_num +"'>"+arr[i].content+"</div></td>";
-               
-               
-               str += "<td><div id='edit_div_"+ arr[i].reply_num +"' style='display:none;' align='right'>"
-               str += "<textarea id='replyEditContent"+ arr[i].reply_num +"' name='replyEditContent' placeholder='댓글 작성'>"+arr[i].content+"</textarea>";
-               
-               str += "<button type='button' id='replyEditCancel"+ arr[i].reply_num +"' name='replyEditCancel' value='"+ arr[i].reply_num +"' class='replyEditCancel'>수정취소</button>";
-               str += "<button type='button' id='replyEditComplete"+ arr[i].reply_num +"' name='replyEditComplete' value='"+ arr[i].reply_num +"' class='replyEditComplete'>수정완료</button>";
-               str += "</div></td>"                  
-
+               str += "<div style='border:1px solid gray; margin-top:5px; padding:5px; width:600px'>";
+               str += "<div class='glyphicon glyphicon-user' style='float:left;'>" + arr[i].id + "</div>";
+               str += "<div style='margin-left:500px;'>" + arr[i].time + "</div>";
+               str += "<div id='replyContent"+arr[i].reply_num+"' style='margin-left:5px; float:left;'>"+arr[i].content+"</div>";      
                if("${sessionScope.id}"== arr[i].id) {
-                  str += "<td>";
-                  str += "<button type='button' id='replyEditForm"+ arr[i].reply_num +"' name='replyEditForm' value='"+ arr[i].reply_num +"' class='replyEditForm'>수정</button>";   
-                  str += "<button type='button' id='replyDelete"+ arr[i].reply_num +"' name='replyDelete' value='"+ arr[i].reply_num +"' class='replyDelete'>삭제</button>";
-                  str += "</td>";         
+                  str += "<div><button type='button' id='replyEditForm"+arr[i].reply_num+"' name='replyEditForm' value='"+arr[i].reply_num+"' class='replyEditForm btn btn-default btn-xs' style='float:left;'>수정</button></div>";
+                  str += "<div><button type='button' id='replyDelete"+arr[i].reply_num+"' name='replyDelete' value='"+arr[i].reply_num+"' class='replyDelete btn btn-default btn-xs'>삭제</button></div>";            
                }
-               str += "</tr>";
+               str += "<div id='edit_div_"+ arr[i].reply_num +"' style='display:none;'>";
+               str += "<input type='text' id='replyEditContent"+ arr[i].reply_num +"' name='replyEditContent' value="+arr[i].content+" style='max-width: 100%; width: 450px;'>";                
+               str += "<button type='button' id='replyEditCancel"+ arr[i].reply_num +"' name='replyEditCancel' value='"+ arr[i].reply_num +"' class='replyEditCancel btn btn-default btn-xs'>수정취소</button>";
+               str += "<button type='button' id='replyEditComplete"+ arr[i].reply_num +"' name='replyEditComplete' value='"+ arr[i].reply_num +"' class='replyEditComplete btn btn-default btn-xs'>수정완료</button>";            
+               str += "</div>"                  
+               str += "</div>";         
+            
             }
-            str += "</table>";
-
             
             $('#replyList').html(str);
          }
@@ -156,32 +141,25 @@ $(document).ready(function() {
                   
          success:function(data) {
             var arr = eval('('+data+')');
-            var str = '';   
-            str += "<table>";
-            for(i=0; i<arr.length; i++) {
-               str += "<tr>";
-               str += "<td>" + arr[i].reply_num + "</td>";
-               str += "<td>" + arr[i].id + "</td>";
-               str += "<td>" + arr[i].time + "</td>";
-               str += "<td><div id='replyContent"+ arr[i].reply_num +"'>"+arr[i].content+"</div></td>";
-               
-               
-               str += "<td><div id='edit_div_"+ arr[i].reply_num +"' style='display:none;' align='right'>"
-               str += "<textarea id='replyEditContent"+ arr[i].reply_num +"' name='replyEditContent' placeholder='댓글 작성'>"+arr[i].content+"</textarea>";
-               
-               str += "<button type='button' id='replyEditCancel"+ arr[i].reply_num +"' name='replyEditCancel' value='"+ arr[i].reply_num +"' class='replyEditCancel'>수정취소</button>";
-               str += "<button type='button' id='replyEditComplete"+ arr[i].reply_num +"' name='replyEditComplete' value='"+ arr[i].reply_num +"' class='replyEditComplete'>수정완료</button>";
-               str += "</div></td>"                  
+            var str = ''; 
 
+            for(i=0; i<arr.length; i++) {
+               str += "<div style='border:1px solid gray; margin-top:5px; padding:5px; width:600px'>";
+               str += "<div class='glyphicon glyphicon-user' style='float:left;'>" + arr[i].id + "</div>";
+               str += "<div style='margin-left:500px;'>" + arr[i].time + "</div>";
+               str += "<div id='replyContent"+arr[i].reply_num+"' style='margin-left:5px; float:left;'>"+arr[i].content+"</div>";      
                if("${sessionScope.id}"== arr[i].id) {
-                  str += "<td>";
-                  str += "<button type='button' id='replyEditForm"+ arr[i].reply_num +"' name='replyEditForm' value='"+ arr[i].reply_num +"' class='replyEditForm'>수정</button>";   
-                  str += "<button type='button' id='replyDelete"+ arr[i].reply_num +"' name='replyDelete' value='"+ arr[i].reply_num +"' class='replyDelete'>삭제</button>";
-                  str += "</td>";         
+                  str += "<div><button type='button' id='replyEditForm"+arr[i].reply_num+"' name='replyEditForm' value='"+arr[i].reply_num+"' class='replyEditForm btn btn-default btn-xs' style='float:left;'>수정</button></div>";
+                  str += "<div><button type='button' id='replyDelete"+arr[i].reply_num+"' name='replyDelete' value='"+arr[i].reply_num+"' class='replyDelete btn btn-default btn-xs'>삭제</button></div>";            
                }
-               str += "</tr>";
+               str += "<div id='edit_div_"+ arr[i].reply_num +"' style='display:none;'>";
+               str += "<input type='text' id='replyEditContent"+ arr[i].reply_num +"' name='replyEditContent' value="+arr[i].content+" style='max-width: 100%; width: 450px;'>";                
+               str += "<button type='button' id='replyEditCancel"+ arr[i].reply_num +"' name='replyEditCancel' value='"+ arr[i].reply_num +"' class='replyEditCancel btn btn-default btn-xs'>수정취소</button>";
+               str += "<button type='button' id='replyEditComplete"+ arr[i].reply_num +"' name='replyEditComplete' value='"+ arr[i].reply_num +"' class='replyEditComplete btn btn-default btn-xs'>수정완료</button>";            
+               str += "</div>"                  
+               str += "</div>";         
+            
             }
-            str += "</table>";
             
             $('#replyList').html(str);
          }
@@ -220,40 +198,43 @@ $(document).ready(function() {
       </tr>   
          
    </table>
+   
+   
+   
+   
+			<!-- 댓글작성 -->
+			<form action="" method="post">
+			댓글<input type="text" id="content" name="content">
+			<input type="button" id="replyInsert" name="replyInsert" value="작성">
 
-   <!-- 댓글 -->
-   <span id="replyList" name="replyList">
-      <table>
-         <c:forEach var="a" items="${replyList }">
-            <tr>
-               <td>${a.reply_num}</td>
-               <td>${a.id }</td>
-               <td>${a.time }</td>         
-               <td><div id="replyContent${a.reply_num }">${a.content }</div></td>
-               <td>
-                  <div id="edit_div_${a.reply_num}" style='display:none;' align="right">
-                     <textarea id="replyEditContent${a.reply_num }" name="replyEditContent" placeholder="댓글 작성">${a.content }</textarea>
-                     <button type="button" id="replyEditCancel${a.reply_num }" name="replyEditCancel" value="${a.reply_num }" class="replyEditCancel">수정취소</button>
-                     <button type="button" id="replyEditComplete${a.reply_num }" name="replyEditComplete" value="${a.reply_num }" class="replyEditComplete">수정완료</button>
-                  </div>
-               </td>
-               <c:if test="${sessionScope.id==a.id}">                     
-                  <td>   
-                     <button type="button" id="replyEditForm${a.reply_num }" name="replyEditForm" value="${a.reply_num }" class="replyEditForm">수정</button>         
-                     <button type="button" id="replyDelete${a.reply_num }" name="replyDelete" value="${a.reply_num }" class="replyDelete">삭제</button>
-                  </td>
-               </c:if>
-            </tr>
+			</form>  
 
-         </c:forEach>
-      </table>
-   </span>
+      		<!-- 댓글목록 -->
+  			<span id="replyList" name="replyList">
+				<c:forEach var="a" items="${replyList }">	            
+	            <div style="border:1px solid gray; margin-top:5px; padding:5px; width:600px">
+            		<div class="glyphicon glyphicon-user" style="float:left;"> ${a.id }</div>
+            		<div style="margin-left:500px;">${a.time }</div>
+            	
+	            	<div id="replyContent${a.reply_num }" style="margin-left:5px; float:left;">${a.content }</div>
+	            	<c:if test="${sessionScope.id==a.id}">
+	            		<div><button type="button" id="replyEditForm${a.reply_num }" name="replyEditForm" value="${a.reply_num }" class="replyEditForm btn btn-default btn-xs" style="float:left;">수정</button></div>
+	            		<div><button type="button" id="replyDelete${a.reply_num }" name="replyDelete" value="${a.reply_num }" class="replyDelete btn btn-default btn-xs">삭제</button></div>
+	            	</c:if>
+                  	<div id="edit_div_${a.reply_num}" style="display:none;">
+                   		<input type="text" id="replyEditContent${a.reply_num }" name="replyEditContent" value=${a.content } style="max-width: 100%; width: 450px;">
+                   		
+
+                   		
+                   		
+                   		<button type="button" id="replyEditCancel${a.reply_num }" name="replyEditCancel" value="${a.reply_num }" class="replyEditCancel btn btn-default btn-xs">수정취소</button>
+                   		<button type="button" id="replyEditComplete${a.reply_num }" name="replyEditComplete" value="${a.reply_num }" class="replyEditComplete btn btn-default btn-xs">수정완료</button>
+                  	</div>
+	            </div>
+	        	</c:forEach>
+   		</span>
 
 
-   <form action="" method="post">
-      댓글<input type="text" id="content" name="content">
-      <input type="button" id="replyInsert" name="replyInsert" value="작성">
-   </form>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 <script src="../resources/js/index.js"></script>

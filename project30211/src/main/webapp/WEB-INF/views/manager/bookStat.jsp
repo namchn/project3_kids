@@ -1,6 +1,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+   <%@page import="java.util.Date" %>
+<%@page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html>
 <!-- Start Head -->
@@ -55,7 +57,17 @@ table>thead>tr>th{
 	 <!-- Page Wrapper -->
   <div id="wrapper" style="border: 1px solid lightgray;padding-left:30px;padding-right:30px;padding-top:20px;padding-bottom:30px">
 
-   <p align="right">(2019년 현재 기준)</p> 
+     <p align="right">(
+   
+   	<% Date now =new Date(); %>
+	<% SimpleDateFormat sf = new SimpleDateFormat("yyyy"); 
+	String year =sf.format(now);%><%= year %>
+   
+   년 
+   <% SimpleDateFormat sf2 = new SimpleDateFormat("MM"); 
+	String month =sf2.format(now);%><%= month %>
+   
+   월 기준)</p> 
 
       <!-- Main Content -->
       <div id="content">

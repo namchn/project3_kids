@@ -3,57 +3,49 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html/loos.dtd">
 <html>
-<!-- Start Head -->
 <head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>KITRI 유치원 - 원비 결제</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-	<link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
-	<link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">
+<link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
+<link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">
+<title>떡잎유치원 - 원비 결제</title>
 
-	<style type="text/css">
-	a:visited {color: black;}
-	a:link {color: black;}
-	a{text-decoration: none; font-size: 20px;}
-	.glyphicon {font-size: 20px; color: gray;}
+<style type="text/css">
+a:visited {color: black;}
+a:link {color: black;}
+a{text-decoration: none; font-size: 20px;}
+table>tbody>tr>td:first-child{
+	font-weight: bolder;
+}
 </style>
 </head>
-<!-- End Head -->
 
 <body class="default">
-
-<!--
-START MODULE AREA 1: Header 3
--->
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-
-
-<!-- 측면 메뉴바 -->
-<section>
-  <div data-layout="_r">
-  <div style="margin-left: 400px;">
-  <h1>원비 결제</h1>
-<a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfoPay">  >  원비 결제</a>
- 
-  <div style="width:500px;height:400px; position: sticky;">
-<!-- <div id="Result">
-</div> -->
-
-  <form id="okForm" action="${pageContext.request.contextPath}/pay/okdk" method="post">
+<div style="margin-top: 40px; margin-left: 175px;">
+	<jsp:include page="/WEB-INF/views/common/side_my.jsp"/>
+</div>
+<div style="margin-top:50px; margin-left: 450px; margin-bottom: 90px; max-width: 500px">
+<h3>원비 결제</h3>
+<div style="position: absolute; left: 55%;">
+	<a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
+	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
+	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfoPay">  >  원비 결제</a>
+</div><br><br>
+<div style="width:500px;height:400px; position: sticky;">
+<form id="okForm" action="${pageContext.request.contextPath}/pay/okdk" method="post">
 	<input type="hidden" id="id1" name="id" value="${m.id}">
 	<input type="hidden" id="name" name="name" value="${m.name}">
 	<input type="hidden" id="stu_name" name="stu_name" value="${m.stu_name}">
 	<input type="hidden" id="phone" name="phone" value="${m.phone}">
-  </form>
+</form>
 
 <div class="container" style="width:500px;">                                                         
   <table class="table">
@@ -102,7 +94,7 @@ START MODULE AREA 1: Header 3
    	<button class="btn btn-primary" id="check_module" type="button" name="aaaa">결제하기</button>
    </c:when>
    <c:otherwise>
-  	 이미 결제하셨습니다.
+  	 <b>이미 결제하셨습니다.</b>
    </c:otherwise>
   </c:choose>
   </div>
@@ -143,17 +135,8 @@ $('#check_module').click(function() {
 	});
 });
 </script>
-
-  </div>
-</section>
-
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-<!--
-END MODULE AREA 4: Footer 2
--->
-
 <script src="../resources/js/index.js"></script>
 </body>
-
 </html>
 			

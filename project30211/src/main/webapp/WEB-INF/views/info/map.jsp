@@ -3,26 +3,23 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<!-- Start Head -->
 <head>
-   <meta charset="utf-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>KITRI 유치원 - 오시는 길</title>
-   <link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
-   <link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">   
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
+<link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">   
+<title>떡잎유치원 - 오시는 길</title>
 
-   <style type="text/css">
-   a:visited {color: black;}
-   a:link {color: black;}
-   a{text-decoration: none; font-size: 20px;}
-   .glyphicon {font-size: 20px; color: gray;}
-   
-   html, body {width:100%;height:100%;margin:0;padding:0;} 
+<style type="text/css">
+a:visited {color: black;}
+a:link {color: black;}
+a{text-decoration: none; font-size: 20px;}
+html, body {width:100%;height:100%;margin:0;padding:0;} 
 .map_wrap {position:relative;overflow:hidden;width:100%;height:350px;}
 .radius_border{border:1px solid #919191;border-radius:5px;}     
 .custom_typecontrol {position:absolute;top:10px;right:10px;overflow:hidden;width:130px;height:30px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
@@ -36,44 +33,35 @@
 .custom_zoomcontrol span {display:block;height:40px;cursor:pointer;}     
 .custom_zoomcontrol span img {width:15px;height:15px;padding:12px 0;border:none;}             
 .custom_zoomcontrol span:first-child{border-bottom:1px solid #bfbfbf;}
-
 </style>
 </head>
-<!-- End Head -->
 
 <body class="default">
-
-<!--
-START MODULE AREA 1: Header 3
--->
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-
-<section>
-<div style="padding: 30px; margin-left: 10%; float: left;">
-    <jsp:include page="/WEB-INF/views/common/side_info.jsp"/>
-    </div>
-  <div data-layout="_r">
-      <div style="margin-left: 30%; margin-bottom: 70px;">
-      <h1>오시는 길</h1>
-      <div align="right">
-      <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/">  >  유치원 소개</a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/community/application">  >  오시는 길</a>
-      </div><br><br>
-    <a href="http://map.daum.net/link/to/한국정보기술연구원,37.485126,126.898812" style="font-size: 15px; font-weight: bold; float: right" target="_blank"><span class="glyphicon glyphicon-search" style="font-size: 15px"></span>길 찾기</a>
-    <div class="map_wrap">
-     <div id="map" style="width:500px;height:400px; position: sticky;"></div>
+<div style="margin-top: 40px; margin-left: 175px;">
+	<jsp:include page="/WEB-INF/views/common/side_info.jsp"/>
+</div>
+<div style="margin-top:50px; margin-left: 450px; margin-bottom: 50px; margin-right: 960px">
+<h3>오시는 길</h3>
+<div style="position: absolute; left: 55%;">
+	<a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
+	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/">  >  유치원 소개</a>
+	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/community/application">  >  오시는 길</a>
+</div><br><br>
+<a href="http://map.daum.net/link/to/한국정보기술연구원,37.485126,126.898812" style="font-size: 15px; font-weight: bold; float: right" target="_blank"><span class="glyphicon glyphicon-search" style="font-size: 15px"></span>길 찾기</a>
+<div class="map_wrap">
+<div id="map" style="width:500px;height:400px; position: sticky;"></div>
      <!-- 지도타입 컨트롤 div 입니다 -->
      <!-- <div class="custom_typecontrol radius_border">
         <span id="btnRoadmap" class="selected_btn" onclick="setMapType('roadmap')">지도</span>
         <span id="btnSkyview" class="btn" onclick="setMapType('skyview')">스카이뷰</span>
      </div> -->
      <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
-     <div class="custom_zoomcontrol radius_border"> 
-        <span onclick="zoomIn()" style="color: #4a5c79; font-size: 28px; font-weight: bolder; text-align: center">+</span>  
-        <span onclick="zoomOut()" style="color: #4a5c79; font-size: 25px; font-weight: bolder; margin-left: 6px;">ㅡ</span>
-     </div>
-    </div>
+<div class="custom_zoomcontrol radius_border"> 
+	<span onclick="zoomIn()" style="color: #4a5c79; font-size: 28px; font-weight: bolder; text-align: center">+</span>  
+	<span onclick="zoomOut()" style="color: #4a5c79; font-size: 25px; font-weight: bolder; margin-left: 6px;">ㅡ</span>
+</div>
+</div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cb0b1955634d613647bc41931ca8ebe9&libraries=services"></script>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -141,26 +129,18 @@ geocoder.addressSearch('서울특별시 구로구 디지털로34길 43 코오롱
 
 <div style="border-bottom: 2px solid lightgray">
 <br>
-<span class="glyphicon glyphicon-map-marker"></span>
+<span class="glyphicon glyphicon-map-marker" style="color: gray; font-size: 20px"></span>
 <span style="color: gray; font-weight: bold; font-size: 20px">주소&emsp;</span>
 <span style="font-size: 15px">서울특별시 구로구 디지털로34길 43 코오롱싸이언스밸리1차</span>
 </div><br>    
 <div style="border-bottom: 2px solid lightgray">
-<span class="glyphicon glyphicon-phone"></span>
+<span class="glyphicon glyphicon-phone" style="color: gray; font-size: 20px"v></span>
 <span style="color: gray; font-weight: bold; font-size: 20px">전화&emsp;</span>
 <span style="font-size: 15px">02-1234-1234</span>
 </div>
-    </div>
-    
-
-    </div>
-
-</section>
-
+</div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-
 <script src="../resources/js/index.js"></script>
 </body>
-
 </html>
          

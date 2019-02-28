@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +10,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/paging.js"></script>
-<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">
-<title>도서 관리</title>
+<title>떡잎유치원 - 도서 관리</title>
 <script>
 var check = false;
 
@@ -42,23 +40,24 @@ function delRent() {
 
 </script>
 
-<style>
-a:link{
-font-size: 15px;
+<style type="text/css">
+table>thead>tr>th{
+	text-align: center;
 }
-.page-link{
-font-size: 15px;
+table>tbody>tr>td{
+	text-align: center;
 }
 </style>
 </head>
+
 <body>
-<!-- 현재날짜 -->
-<!-- <div class="container" style="margin-left: 20%; margin-top: 50px;"> -->
-<form style="height:550px;">
-<div class="container">
-  <h1>도서관리</h1><br>
-  <hr> 
-  <div align="right">
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<div style="margin-top: 40px; margin-left: 175px;">
+   <jsp:include page="/WEB-INF/views/common/side_book.jsp"></jsp:include>
+</div>
+<div class="container" style="margin-top:50px; margin-left: 450px;">
+  <h3>도서관리</h3><br> 
+  <div style="position: absolute; left: 73%;">
       <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
       <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/manager">  >  관리자페이지</a>
       <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/rentpage">  >  도서관리</a>
@@ -68,13 +67,13 @@ font-size: 15px;
   <table class="table table-hover" style="font-size: 15px">
     <thead>
       <tr>
-         <th style="width: 8%"><input type="checkbox" id="checkall" name="checkall" onclick="javascript:CheckAll()"></th>
-        <th style="width: 10%">대출번호</th>
-        <th style="width: 10%">대여인</th>
-        <th style="width: 20%">제목</th>
+        <th style="width: 3%"><input type="checkbox" id="checkall" name="checkall" onclick="javascript:CheckAll()"></th>
+        <th style="width: 8%">대출번호</th>
+        <th style="width: 8%">대여인</th>
+        <th style="width: 25%">제목</th>
         <th style="width: 10%">시작일</th>
         <th style="width: 10%">종료일</th>
-        <th style="width: 10%">대출수량</th>
+        <th style="width: 8%">대출수량</th>
         <th style="width: 10%">반납여부</th>
       </tr>
     </thead>
@@ -84,7 +83,7 @@ font-size: 15px;
          <td><input type="checkbox" name="checked_rent" value="${list.rent_num}"></td>
          <td>${list.rent_num}</td>
          <td>${list.id}</td>
-        <td><a href="${pageContext.request.contextPath}/book/book_rent?book_title=${list.book_title}">${list.book_title}</a></td>
+        <td style="text-align: left"><a href="${pageContext.request.contextPath}/book/book_rent?book_title=${list.book_title}" style="font-size: 15px;  margin-left: 40px;">${list.book_title}</a></td>
         <td>${list.s_date}</td>
         <td id="endDate">${list.e_date}</td>
         <td>${list.rent_amount}</td>
@@ -142,8 +141,6 @@ font-size: 15px;
             <input type="hidden" name='listCnt' id='listCnt' value='${paging.listCnt}'>
       </form>
 </div>
-</form>
-<!-- </div> -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
