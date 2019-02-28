@@ -14,4 +14,6 @@ public interface msgDao {
 	ArrayList<Message> newMessage(String id);
 	int selectTotalPaging(String id);
 	ArrayList<Member> selectGrp(String id);
+	ArrayList<Message> selectMyMessage(PagingVO pvo);
+	int selectTotalMyPaging(String id);
 }

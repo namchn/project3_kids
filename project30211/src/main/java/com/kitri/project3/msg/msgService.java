@@ -14,5 +14,7 @@ public interface msgService {
 	ArrayList<Message> MsgCheck(String id);
 	int getMsgCnt(String id);
 	ArrayList<Member> getGrp(String id);
+	ArrayList<Message> getMyMessage(PagingVO pvo);
+	int getTotalMyPaging(String id);
 }
 

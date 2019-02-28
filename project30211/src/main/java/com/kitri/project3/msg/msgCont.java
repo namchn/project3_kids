@@ -33,6 +33,19 @@ private msgService service;
 		mav.addObject("paging", pvo);
 		return mav;
 	}
+	@RequestMapping(value="/msg/my")
+	public ModelAndView my(HttpServletRequest r, PagingVO pvo) {
+		HttpSession s = r.getSession();
+		String id = s.getAttribute("id").toString();
+		pvo.setSender(id);
+		ArrayList<Message> list = service.getMyMessage(pvo);
+		pvo.setTotal(service.getTotalMyPaging(id));
+		ModelAndView mav = new ModelAndView("/message/my");
+		mav.addObject("list", list);
+		mav.addObject("paging", pvo);
+		return mav;
+		
+	}
 	@RequestMapping(value="/msg/send")
 	public ModelAndView sendmsg(Message m, HttpServletRequest r, PagingVO pvo) {
 		String sender = r.getParameter("sender");

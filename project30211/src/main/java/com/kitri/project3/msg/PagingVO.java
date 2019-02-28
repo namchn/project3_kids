@@ -7,8 +7,16 @@ public class PagingVO {
       private int listCnt;    // 출력할 리스트 갯수
       private int total;      // 리스트 총 개수
       private String receiver;
-      
-       public String getReceiver() {
+      private String sender;
+       public String getSender() {
+		return sender;
+	}
+
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
+
+	public String getReceiver() {
 		return receiver;
 	}
 

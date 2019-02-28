@@ -62,20 +62,18 @@ font-size: 15px;
 
 
 <div class="wrapper" style="margin-left: 30%;">
-<h3>${sessionScope.id }님의 쪽지함</h3>
+<h3>${sessionScope.id }님의 보낸 쪽지함</h3>
 <hr>
 <br>
 <form action="${pageContext.request.contextPath}/msg/delete">
 <%-- <a href="${pageContext.request.contextPath}/#"
                         style="font-size: 15px">홈으로 돌아가기</a>    --%>
     <div style="margin-bottom: 50px;">
-<a href="#sendmsg" class="btn btn-primary" data-toggle="modal" data-target="#sendmsg"
-                        style="font-size: 15px; color:white;">쪽지 쓰기</a>
-<a href="${pageContext.request.contextPath }/msg/my" class="btn btn-primary" style="font-size: 15px; color:white;">보낸 쪽지함</a>
 <input class="btn btn-primary" type="submit" class="btn btn-primary" value="선택 삭제" style="width: 100px; height:35px;">  
 <div align="right">
       <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="#">  >  나의 쪽지함</a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/msg/msg">  >  나의 쪽지함</a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="#">  >  나의 보낸 쪽지함</a>
       </div> 
     </div>
 
@@ -87,7 +85,7 @@ font-size: 15px;
           <th style="display: none">쪽지번호</th>
           <th>보낸 날짜</th>
           <th>내용</th>
-          <th name="sender">보낸 사람</th>
+          <th name="sender">받은 사람</th>
       </tr>
     </thead>
     <tbody>
@@ -107,7 +105,7 @@ font-size: 15px;
            </c:otherwise>
            </c:choose>
         </td>
-        <td name="sender">${a.sender }</td>
+        <td name="sender">${a.receiver }</td>
       </tr>
     </c:forEach>
     </tbody>
@@ -138,7 +136,7 @@ font-size: 15px;
              
          </ul>
         </div>
-<form action="${pageContext.request.contextPath }/msg/msg" method="post" id="frmPaging">
+<form action="${pageContext.request.contextPath }/msg/my" method="post" id="frmPaging">
             <!--출력할 페이지번호, 출력할 페이지 시작 번호, 출력할 리스트 개수 -->
             <input type="hidden" name='index' id='index' value='${paging.index}'>
             <input type="hidden" name='pageStartNum' id='pageStartNum' value='${paging.pageStartNum}'>
@@ -179,7 +177,7 @@ font-size: 15px;
                <div class="form-group">
                   <div class="modal-body">
                      
-                        <div><label>보낸 사람</label>
+                        <div><label>받은 사람</label>
                         <div id="sender1" style="border: 1px solid lightgray; border-radius: 3px; padding: 5px;"></div></div>
                         <div><label>보낸 시간</label>
                         <div id="time1" style="border: 1px solid lightgray; border-radius: 3px; padding: 5px;"></div>
@@ -192,98 +190,14 @@ font-size: 15px;
                   
                      <button class="btn btn-primary" type="button"
                         data-dismiss="modal" onclick="location.reload()" style="float: right; margin-right: 30px;">확인</button>
-                     <button class="btn btn-primary" type="button"
-                        data-toggle="modal" data-target="#sendmsg" id="rep" style="float: right; margin-right: 10px;">답장</button>
-                     <!-- <a href="#sendmsg" class="btn btn-primary" data-toggle="modal" data-target="#sendmsg"
-         style="color: white; background-color: #337ab7; border-color: #2e6da4; line-height: 1.42857143; border-radius: 4px;
-         padding: 6px 12px; display: inline-block; font-size: 14px;"   >답장</a> -->
-                  </div>
-            
-               </div></div></div>
-<div class="modal fade" id="sendmsg" >
-      <div class="modal-dialog" style="width: 380px;" align="center">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h4 class="modal-title" style="font-size: 25px;">쪽지 보내기</h4>
-               <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <div class="container">
-            <form action="${pageContext.request.contextPath}/msg/send" method="post" id="sendform">
-               <div class="form-group" style="float: left; margin-right: 40px; display: inline;">
-                  <div class="modal-body" style="text-align: left;">
-                        <label>받는 사람</label><span>                        
-                        <input type="button" class="btn btn-primary" onclick="location.href='#m1'" data-toggle="modal" data-target="#m1" style="font-size: 12px; width: 50px;" value="목록">
-                        </span><br>
-                        
-                        <span style="display: inline;">
-                        <input type="text" name="receiver" id="re" required="required" class="form-control" style="display: inline; max-width: 100%; width: 300px;">
-                        </span><br>
-                  <label>내용</label>
-                     <textarea name="content" style="resize: none; height: 150px; max-width: 100%; width: 300px;" required="required" class="form-control"></textarea>
-                  </div>
-                     <button class="btn btn-primary" type="button"
-                        data-dismiss="modal">닫기</button>
-                  <input type="hidden" value="${sessionScope.id }" name="sender">
-                     <button class="btn btn-primary">보내기</button>
                   
+                
                   </div>
-            </form>
-            </div>
-            
             
                </div></div></div>
-      <div class="modal fade" id="m1" >
-      <div class="modal-dialog" style="width: 300px;" align="center">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h4 class="modal-title">우리 반 목록</h4>
-               <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
 
-            <div class="container" style="width: 100%; overflow: auto;">
-            
-               
  
-<div class="container" style="margin-top: 10px; width: 100%; font-size: 12px;">
-  <div class="list-group">
-  <c:forEach items="${mlist }" var="m">
-     <c:choose>
-        <c:when test="${m.mng_group ne null }">
-           <a href="#" class="list-group-item" style="font-size: 14px;" data-dismiss="modal">
-           <p>${m.id }</p>
-              <p>선생님</p>
-           </a>
-        </c:when>
-        <c:otherwise>
-           <a href="#" class="list-group-item" style="font-size: 14px;" data-dismiss="modal">
-           <p>${m.id }</p>
-        <p>아이 이름  ${m.stu_name }</p>   </a>
-        </c:otherwise>
-     </c:choose>
-       
-    </c:forEach>
-  </div>
-</div>
-
-                  <button class="btn btn-primary" type="button"
-                        data-dismiss="modal" style="float: right; margin: 15px;">닫기</button>
-         
-            </div>            
-               </div></div></div>
-      <script type="text/javascript">
-         $('#rep').click(function(){
-            var re = $('#sender1').text();
-            $('#re').val(re);
-         });
-         $('#submit').click(function(){
-            
-         });
-         $('.list-group-item').click(function(){
-            var r = $(this).children().first().html();
-            $('#re').val(r);
-         });
-      </script>
+ 
 
 
    <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

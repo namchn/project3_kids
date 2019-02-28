@@ -228,6 +228,7 @@ public class MemController {
 		System.out.println("memcon의 myInfoEdit입니다");
 		String id = (String) session.getAttribute("id");
 		Member m = service.getMyInfo(id);
+		System.out.println(m.getAddress());
 		ModelAndView mav = new ModelAndView("/member/myInfoEdit");
 		mav.addObject("m", m);
 		return mav;

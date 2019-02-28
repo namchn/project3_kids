@@ -1,75 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kitri.project3.msg.msgDao">
 
-	<resultMap id="msgResult" type="com.kitri.project3.msg.Message">
-		<result column="message_num" property="message_num"/>
-		<result column="sender" property="sender" />
-		<result column="receiver" property="receiver" />
-		<result column="content" property="content" />	
-		<result column="time" property="time"/>
-		<result column="read" property="read"/>		
-	</resultMap>
-	<resultMap type="com.kitri.project3.msg.PagingVO" id="pageResult">
-		<result column="pageCnt" property="pageCnt"/>
-		<result column="index" property="index" />
-		<result column="pageStartNum" property="pageStartNum" />
-		<result column="listCnt" property="listCnt" />	
-		<result column="total" property="total"/>
-		<result column="receiver" property="receiver"/>
-	</resultMap>
-	<resultMap id="memberResult" type="com.kitri.project3.member.Member">
-		<result column="mem_code" property="mem_code" />
-		<result column="id" property="id" />
-		<result column="pw" property="pw" />
-		<result column="name" property="name" />
-		<result column="postcode" property="postcode" />
-		<result column="address" property="address" />
-		<result column="detailAddress" property="detailAddress" />
-		<result column="extraAddress" property="extraAddress" />
-		<result column="phone" property="phone" />
-		<result column="stu_name" property="stu_name" />
-		<result column="stu_group" property="stu_group" />
-		<result column="mng_group" property="mng_group" />	
-	</resultMap>
-	<insert id="insertMessage" parameterType="com.kitri.project3.msg.Message">
-		insert into message values(msg_seq.nextval, #{sender}, 
-		#{receiver}, #{content}, sysdate, 0)
-	</insert>
-	
+   <resultMap id="msgResult" type="com.kitri.project3.msg.Message">
+      <result column="message_num" property="message_num"/>
+      <result column="sender" property="sender" />
+      <result column="receiver" property="receiver" />
+      <result column="content" property="content" />   
+      <result column="time" property="time"/>
+      <result column="read" property="read"/>      
+   </resultMap>
+   <resultMap type="com.kitri.project3.msg.PagingVO" id="pageResult">
+      <result column="pageCnt" property="pageCnt"/>
+      <result column="index" property="index" />
+      <result column="pageStartNum" property="pageStartNum" />
+      <result column="listCnt" property="listCnt" />   
+      <result column="total" property="total"/>
+      <result column="receiver" property="receiver"/>
+      <result column="sender" property="sender"/>
+   </resultMap>
+   <resultMap id="memberResult" type="com.kitri.project3.member.Member">
+      <result column="mem_code" property="mem_code" />
+      <result column="id" property="id" />
+      <result column="pw" property="pw" />
+      <result column="name" property="name" />
+      <result column="postcode" property="postcode" />
+      <result column="address" property="address" />
+      <result column="detailAddress" property="detailAddress" />
+      <result column="extraAddress" property="extraAddress" />
+      <result column="phone" property="phone" />
+      <result column="stu_name" property="stu_name" />
+      <result column="stu_group" property="stu_group" />
+      <result column="mng_group" property="mng_group" />   
+   </resultMap>
+   <insert id="insertMessage" parameterType="com.kitri.project3.msg.Message">
+      insert into message values(msg_seq.nextval, #{sender}, 
+      #{receiver}, #{content}, sysdate, 0)
+   </insert>
+   
    <select id="selectMessageList" parameterType="com.kitri.project3.msg.PagingVO" resultMap="msgResult">   
       select * from (select ROWNUM r, p.* from (select * from message where receiver=#{receiver} order by message_num DESC) p) where r between #{start} and #{last}
    </select>
-	
-	<select id="newMessage" parameterType="String" resultMap="msgResult">
-		select * from message where receiver=#{receiver} and read=0
-	</select>
-	
-	<select id="idSelect" parameterType="String" resultMap="msgResult">
-		select id from member where id=#{receiver}
-	</select>
-	
-	<select id="selectMessage" parameterType="int" resultMap="msgResult">
-		select * from message where message_num=#{message_num} order by message_num desc
-	</select>
-	
-	<update id="updateRead" parameterType="int">
-		update message set read=1 where message_num=#{message_num}
-	</update>
-	
-	<delete id="deleteMessage" parameterType="int">
-		delete message where message_num=#{message_num}
-	</delete>
    
-   <!-- 모든 도서 목록 개수 구하기 -->
-    <select id="selectTotalPaging" parameterType="String" resultType="int">   
+   <select id="newMessage" parameterType="String" resultMap="msgResult">
+      select * from message where receiver=#{receiver} and read=0
+   </select>
+   
+   <select id="idSelect" parameterType="String" resultMap="msgResult">
+      select id from member where id=#{receiver}
+   </select>
+   
+   <select id="selectMessage" parameterType="int" resultMap="msgResult">
+      select * from message where message_num=#{message_num} order by message_num desc
+   </select>
+   
+   <update id="updateRead" parameterType="int">
+      update message set read=1 where message_num=#{message_num}
+   </update>
+   
+   <delete id="deleteMessage" parameterType="int">
+      delete message where message_num=#{message_num}
+   </delete>
+   
+   
+   <select id="selectTotalPaging" parameterType="String" resultType="int">   
       select count(*) from message where receiver=#{receiver}
    </select>
    <!-- 같은 반 사람 목록 구하기 -->
     <select id="selectGrp" parameterType="String" resultMap="memberResult">
-    	select * from member where stu_group=(select stu_group from member where id=#{id}) or mng_group=(select stu_group from member where id=#{id}) or stu_group=(select mng_group from member where id=#{id}) or mng_group=(select mng_group from member where id=#{id})
+       select * from member where stu_group=(select stu_group from member where id=#{id}) or mng_group=(select stu_group from member where id=#{id}) or stu_group=(select mng_group from member where id=#{id}) or mng_group=(select mng_group from member where id=#{id})
     </select>
+    
+    <select id="selectMyMessage" parameterType="com.kitri.project3.msg.PagingVO" resultMap="msgResult">   
+      select * from (select ROWNUM r, p.* from (select * from message where sender=#{sender} order by message_num DESC) p) where r between #{start} and #{last}
+    </select>
+    <select id="selectTotalMyPaging" parameterType="String" resultType="int">   
+      select count(*) from message where sender=#{sender}
+   </select>
 </mapper>
-

@@ -74,5 +74,15 @@ public void setSqlSession(SqlSession sqlSession) {
 		this.dao = sqlSession.getMapper(msgDao.class);
 		return dao.selectGrp(id);
 	}
+	@Override
+	public ArrayList<Message> getMyMessage(PagingVO pvo) {
+		this.dao = sqlSession.getMapper(msgDao.class);
+		return dao.selectMyMessage(pvo);
+	}
+	@Override
+	public int getTotalMyPaging(String id) {
+		this.dao = sqlSession.getMapper(msgDao.class);
+		return dao.selectTotalMyPaging(id);
+	}
 
 }

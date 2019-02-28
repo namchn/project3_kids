@@ -232,13 +232,13 @@ START MODULE AREA 4: Feature 1
       <div data-layout="_r">
      
      	 <!-- 식단표 -->
-         <div data-layout="ch8 ec4">
+         <div data-layout="ch8 ec4" style="border-bottom:solid 1px lightgray;">
             <a href="${pageContext.request.contextPath}/boardDiet/detailDiet?diet_num=${db.diet_num}"
                class="MOD_FEATURE_Container"> 
                <a href="${pageContext.request.contextPath}/boardDiet/detailDiet?diet_num=${db.diet_num}">
              	  <p style="padding-top:30px; padding-left:50px;">
                      <a align="center" href="${pageContext.request.contextPath}/boardDiet/detailDiet?diet_num=${db.diet_num}"
-                           align="center">${db.title}</a>                        
+                           align="center" style="font-weight:bold; font-color:lightgray;">${db.title}</a>                        
                      </p>
                    <img src="/img/${db.files}" width="100px;" height="100" alt="식단표 업로드 불가">
                </a>

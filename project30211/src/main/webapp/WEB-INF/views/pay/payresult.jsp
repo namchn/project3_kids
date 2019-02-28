@@ -1,6 +1,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    	<%@page import="java.util.Date" %>
+<%@page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +15,6 @@
 <script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">	
-<title>떡잎유치원 - 내 결제정보 확인</title>
 
 <style type="text/css">
 a:visited {color: black;}
@@ -44,7 +45,8 @@ table>tbody>tr>td{
 	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
 	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/pay/complete2">  >  내 결제정보 확인</a>
 </div><br><br>
-<div class="container" style="width:500px;">                                                         
+<div class="container" style="width:500px;">   
+                                              
   <table class="table">
     <thead>
       <tr>
@@ -103,7 +105,33 @@ table>tbody>tr>td{
 </c:if>
 
 <c:if test="${sessionScope.mem_code eq 1}">
-<h3>원생 결제정보 확인</h3>
+<c:choose>
+            <c:when test="${sessionScope.mng_group eq 1}">
+               <c:set var="group" value="장미"></c:set>
+            </c:when>
+            <c:when test="${sessionScope.mng_group eq 2}">
+               <c:set var="group" value="해바라기"></c:set>
+            </c:when>
+            <c:when test="${sessionScope.mng_group eq 3}">
+               <c:set var="group" value="민들레"></c:set>
+            </c:when>
+            <c:otherwise>
+               <c:set var="group" value="벚꽃"></c:set>
+            </c:otherwise>
+         </c:choose>
+<h3>${group }반 결제정보 확인</h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+  (
+   	<% Date now =new Date(); %>
+	<% SimpleDateFormat sf = new SimpleDateFormat("yyyy"); 
+	String year =sf.format(now);%><%= year %>
+   
+   년 
+   <% SimpleDateFormat sf2 = new SimpleDateFormat("MM"); 
+	String month =sf2.format(now);%><%= month %>
+   
+   월 기준)  
+
 <div style="position: absolute; left: 55%;">
 	<a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
 	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>

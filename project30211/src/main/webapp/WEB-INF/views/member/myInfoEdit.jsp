@@ -7,16 +7,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="text/javascript"
-	src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <link href="<c:url value="../resources/css/style.min.css" />"
 	rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />"
@@ -104,59 +97,58 @@ function editPhoneBtn(){
      
 }
 
-
-
-
 function execDaumPostcode1() {
-    new daum.Postcode({
-        oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	
+	
+	new daum.Postcode({
+		oncomplete : function(data) {
+			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-            var addr = ''; // 주소 변수
-            var extraAddr = ''; // 참고항목 변수
+			// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+			var addr = ''; // 주소 변수
+			var extraAddr = ''; // 참고항목 변수
 
-            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                addr = data.roadAddress;
-            alert("addr: "+addr);
-            } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                addr = data.jibunAddress;
-                alert("addr2: "+addr);
-            }
+			//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+			if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+				addr = data.roadAddress;
+				
+			} else { // 사용자가 지번 주소를 선택했을 경우(J)
+				addr = data.jibunAddress;
+		
+			}
 
-            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-            if(data.userSelectedType === 'R'){
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraAddr += data.bname;
-                    
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraAddr !== ''){
-                    extraAddr = ' (' + extraAddr + ')';
-                    alert("extaddr: "+extraAddr);
-                }
-                // 조합된 참고항목을 해당 필드에 넣는다.
-                document.getElementById("editExtraAddress").value = extraAddr;
-            
-            } else {
-                document.getElementById("editExtraAddress").value = '';
-            }
+			// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+			if (data.userSelectedType === 'R') {
+				// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+				// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+				if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+					extraAddr += data.bname;
+				
+				}
+				// 건물명이 있고, 공동주택일 경우 추가한다.
+				if (data.buildingName !== '' && data.apartment === 'Y') {
+					extraAddr += (extraAddr !== '' ? ', '
+							+ data.buildingName : data.buildingName);
+				}
+				// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+				if (extraAddr !== '') {
+					extraAddr = ' (' + extraAddr + ')';
+				}
+				// 조합된 참고항목을 해당 필드에 넣는다.
+				document.getElementById("editExtraAddress").value = extraAddr;
 
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('editPostcode').value = data.zonecode;
-            document.getElementById("editAddress").value = addr;
-            // 커서를 상세주소 필드로 이동한다.
-            document.getElementById("editDetailAddress").focus();
-        }
-    }).open();
+			} else {
+				document.getElementById("editExtraAddress").value = '';
+			}
+			// 우편번호와 주소 정보를 해당 필드에 넣는다.
+			document.getElementById("editPostcode").value = data.zonecode;
+			document.getElementById("editAddress").value = addr;
+			// 커서를 상세주소 필드로 이동한다.
+			document.getElementById("editDetailAddress").focus();
+			document.getElementById("editDetailAddress").value = '';
+		}
+	}).open();
 }
 
  </script>
@@ -216,22 +208,20 @@ function execDaumPostcode1() {
 						value="${m.phone}" required="required" onkeyup="editPhoneBtn()">
 					<span id="phoneEditResult"></span><br> 
 					
-					<div class="form-group">
+			
 					<label for="editPostcode">우편번호</label> <input
 						type="text" class="form-control" name="postcode" id="editPostcode"
-						 placeholder="우편번호"> <input type="button"
+						 placeholder="우편번호" value="${m.postcode}"> <input type="button"
 						onclick="execDaumPostcode1()" value="우편번호 찾기"><br>
 				
 				
-					<label for="editAddress">
-						주소</label> <input type="text" class="form-control" name="editAddress"
-						id="address" placeholder="주소"> <input type="text"
-						class="form-control" name="detailAddress" id="editDetailAddress"
-						placeholder="상세주소"> <input type="text"
-						class="form-control" name="extraAddress" id="editExtraAddress"
-						placeholder="참고항목">
-				</div>
-				</div>
+					<label for="editAddress">주소</label> 
+						<input type="text" class="form-control" name="address" id="editAddress" placeholder="주소" value="${m.address}"> 
+						<input type="text" class="form-control" name="detailAddress" id="editDetailAddress" placeholder="상세주소" value="${m.detailAddress}"> 
+						<input type="text" class="form-control" name="extraAddress" id="editExtraAddress" placeholder="참고항목" value="${m.extraAddress}">
+					</div>
+				
+				
 			
 
 				<c:if test="${sessionScope.mem_code eq 1 }">
@@ -271,12 +261,12 @@ function execDaumPostcode1() {
 				<c:if test="${sessionScope.mem_code eq 2 }">
 					<div id="parentDetail">
 
-						<label for="stu_name">아기 이름</label> <input type="text"
+						<label for="stu_name">원아 이름</label> <input type="text"
 							class="form-control" name="stu_name" id="stu_name"
-							placeholder="아기 이름" value="${m.stu_name}"> <label
-							for="stu_group">아기 반</label> <input type="text"
+							placeholder="원아 이름" value="${m.stu_name}"> <label
+							for="stu_group">원아 반</label> <input type="text"
 							class="form-control" name="stu_group" id="stu_group"
-							placeholder="아기 반" value="${m.stu_group}">
+							placeholder="원아 반" value="${m.stu_group}">
 
 					</div>
 				</c:if>
@@ -285,9 +275,10 @@ function execDaumPostcode1() {
 			</div>
 			<div style="position: relative; left: 70%;">
 				<input class="btn btn-primary" type="button" value="수정" id="editBtn"
-					style="width: 70px;"> <input class="btn btn-primary"
-					type="reset" value="뒤로 돌아가기" onclick="javascript:history.go(-1)"
-					style="width: 130px;"><br>
+					style="width: 70px;"> 
+					<input class="btn btn-primary"
+					type="reset" value="리셋" style="width: 70px;"><br>
+					
 			</div>
 
 
