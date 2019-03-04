@@ -47,7 +47,7 @@ html, body {width:100%;height:100%;margin:0;padding:0;}
 	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/info/map">  >  오시는 길</a>
 </div><br><br>
 <a href="http://map.daum.net/link/to/한국정보기술연구원,37.485126,126.898812" style="font-size: 15px; font-weight: bold; float: right" target="_blank"><span class="glyphicon glyphicon-search" style="font-size: 15px"></span>길 찾기</a>
-<div class="map_wrap">
+<div class="map_wrap" style="width:500px;height:400px; position: sticky;">
 <div id="map" style="width:500px;height:400px; position: sticky;"></div>
      <!-- 지도타입 컨트롤 div 입니다 -->
      <!-- <div class="custom_typecontrol radius_border">

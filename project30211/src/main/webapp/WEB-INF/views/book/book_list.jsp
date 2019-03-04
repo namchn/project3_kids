@@ -172,7 +172,7 @@ $(document).ready(function(){
 	      }
 	      else{
 	    	  
-	    	  $('#form').attr("action", "${pageContext.request.contextPath }/manager/delRent");
+	    	  $('#form').attr("action", "${pageContext.request.contextPath }/manager/delBook");
 	         $("#form").submit();
 	    	  
 	      }
