@@ -8,18 +8,16 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">   
-<title>떡잎유치원 - 셔틀버스</title>
 
 <style type="text/css">
 a:visited {color: black;}
 a:link {color: black;}
-a{text-decoration: none; font-size: 20px;}
+a{text-decoration: none; 
+/* font-size: 20px; */}
    
 html, body {width:100%;height:100%;margin:0;padding:0;} 
 .map_wrap {position:relative;overflow:hidden;width:100%;height:350px;}
@@ -43,12 +41,13 @@ html, body {width:100%;height:100%;margin:0;padding:0;}
 <div style="margin-top: 40px; margin-left: 175px;">
    <jsp:include page="/WEB-INF/views/common/side_com.jsp"></jsp:include>
 </div>
-  <div style="margin-top:50px; margin-left: 450px; margin-bottom: 50px; margin-right: 960px">
+  <div style="margin-top:50px; margin-left: 22%; margin-bottom: 50px; margin-right: 960px">
   <h3>셔틀버스</h3>
+  <hr style="width: 850px">
   <div style="position: absolute; left: 55%;">
       <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/">  >  커뮤니티</a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/community/application">  >  셔틀버스</a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/boardNotice/noticeList?sort=2">  >  커뮤니티</a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/community/bus">  >  셔틀버스</a>
   </div><br><br>
   <a href="http://map.daum.net/link/to/한국정보기술연구원,37.485126,126.898812" style="font-size: 15px; font-weight: bold; float: right" target="_blank">
   <span class="glyphicon glyphicon-search" style="font-size: 15px"></span>길 찾기</a>

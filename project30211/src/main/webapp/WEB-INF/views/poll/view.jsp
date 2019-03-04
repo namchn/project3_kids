@@ -6,14 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link href="<c:url value="../resources/css/style.min.css" />"
    rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />"
    rel="stylesheet">
    <script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-   
    <script type="text/javascript">
    $(document).ready(function(){
    $('#pbtn').click(function(){
@@ -30,17 +28,13 @@
         success:function(data){ //응답제대로받았을때 호출되는 함수 (서버에서 처리된값을 가져오는 함수)
            var obj = eval('('+data+')'); //obj:멤버변수 flag //eval : json 표현을 바꿔주다
            if(obj.id == "no"){ //첫투표
-              var str = "참여자 수 : ";
+              var str = "";
               
                 var eachPortion = "참여자대비선택된값";
                str += obj.voter; //전체 투표 인원
-               alert(str);
                $('#voter').html(str);
                var str2 = obj.cnt; //득표 수
-               alert(str2);
                var str3 = ((obj.cnt/obj.voter)*100);//득표율
-               
-               alert(str3);
                $('#'+poll_candidate_num).html(str2);
                $('#myBar'+poll_candidate_num).css("width", str2+"%");    
                //$('#myBar2'+poll_candidate_num).css("width", str3+"%"); 

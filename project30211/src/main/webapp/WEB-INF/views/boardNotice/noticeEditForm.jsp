@@ -1,15 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="<c:url value="../resources/css/style.min.css" />"
-	rel="stylesheet">
-<link href="<c:url value="../resources/css/modules.css" />"
-rel="stylesheet">
-<title>Insert title here</title>
+<link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
+<link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">
 <script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
    function deletefile() {
@@ -31,10 +27,10 @@ rel="stylesheet">
 	
 	
 	
-	<div class="container" style="margin-top:50px; margin-left: 450px;">
+	<div class="container" style="margin-top:50px; margin-left: 450px; margin-bottom: 50px;">
 	
 	
-		<h3>공지사항  수정</h3>
+		<h3>공지사항 게시판  글 수정</h3>
 		<p style="width: 70%;">다른 사람의 인격을 침해하거나 명예를 훼손하게 하는 글, 불쾌감을 주는 욕설 또는 비방하는 글, 유언비어나 허위사실을 유포하는 글, 도배성 글의 경우 글이 삭제되거나 이용제재를 받을 수 있습니다.</p>
 
 		<form action="${pageContext.request.contextPath }/boardNotice/noticeEdit" method="post" enctype="multipart/form-data">
@@ -55,16 +51,14 @@ rel="stylesheet">
 
 
       <input type="hidden" id="files" name="files" value="${nb.files}">
-      <input type="button" value="첨부파일삭제" onclick="deletefile();">
-      
+      <input type="button" value="첨부파일삭제" onclick="deletefile();" style="width:100px;"><br><br>
 
-      
       <input type="hidden" name="notice_num" value="${nb.notice_num}">
       <input type="hidden" name="sort" value="${sort}">
-      <input type="submit" value="수정">
+      <input type="submit" value="수정" class="btn btn-primary">
+	
    </form>
 
-	<a href="${pageContext.request.contextPath}/boardNotice/noticeList">목록</a>
 	
 	
 	

@@ -38,15 +38,22 @@
   top: 200px;
   background-color: #f9ca5b;
 }
+
+@media only screen and (max-width: 1300px) {
+  #side1{
+    display: none;
+  }
+}
 </style>
 </head>
 <body>
-
+<div id="side1">
 <a id="info">유치원 소개</a>
 <div id="mySidenav" class="sidenav">
   <a href="${pageContext.request.contextPath}/introduce/introduce" style="top:265px">유치원 소개</a>
   <a href="${pageContext.request.contextPath}/introduce/applicants" style="top:310px">모집 요강</a>
   <a href="${pageContext.request.contextPath}/info/map" style="top:355px">오시는 길</a>
+</div>
 </div>
 <script src="../resources/js/index.js"></script>
 </body>

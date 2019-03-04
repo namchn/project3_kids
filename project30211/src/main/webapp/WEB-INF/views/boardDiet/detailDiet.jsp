@@ -7,7 +7,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aperitif - Custom Template</title>
 <link href="<c:url value="../resources/css/style.min.css" />"
 	rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />"
@@ -30,7 +29,7 @@
 <h3>식단 정보</h3>
 	<%-- <form action="${pageContext.request.contextPath}/boardDiet/editDiet" method="post" enctype="multipart/form-data" id="totalImgForm"> --%>
 		<form enctype="multipart/form-data" id="totalImgForm" method="post" > 
-		<img src="/img/${db.files}" width="150" height="150"><br>
+		<img src="../resources/img/${db.files}" width="150" height="150"><br>
 		제목<br>
 		<label>${db.title}</label>
 		<%-- <input type="text" name="title" id="title" value="${db.title}"><br>  --%>

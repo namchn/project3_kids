@@ -1,11 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">
 
@@ -37,10 +35,13 @@
 		<jsp:include page="/WEB-INF/views/common/side_galary.jsp"/>
 	</div>
 
-	<div class="container" style="margin-top:50px; margin-left: 450px;">
+	<div class="container" style="margin-top:50px; margin-left: 450px; margin-bottom:50px">
 		<h3>갤러리 게시판 글 작성</h3>
-		<p style="width: 70%;">다른 사람의 인격을 침해하거나 명예를 훼손하게 하는 글, 불쾌감을 주는 욕설 또는 비방하는 글, 유언비어나 허위사실을 유포하는 글, 도배성 글의 경우 글이 삭제되거나 이용제재를 받을 수 있습니다.</p> 	
-
+		<hr> 	
+<div align="right" style="margin-bottom: 50px; margin-right: 30%;">
+			<a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
+			<input type="button" style="font-size: 13px; color: gray; width: 100px;background-color: white; text-decoration:none; border: 0; outline: none;" value=">  우리반이야기" onclick="history.back(-1);">
+		</div>
  
 		<form  id="galleryWrite" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath }/boardGallery/galleryWrite">
 			<input type="hidden" name="id" value="${sessionScope.id}">
@@ -58,7 +59,7 @@
       
 			<div id="fileInsertFormDiv1" name="fileInsertFormDiv">
 				사진첨부 1 : <input type="file" id="file1" name="file1" required="required">
-				<input type="button" id="fileInsertForm1" class="fileInsert" value="파일추가">
+				<input type="button" id="fileInsertForm1" class="fileInsert btn btn-primary" style="margin-top: 10px;"value="파일추가">
 			</div>
 			
       <c:forEach var="i" begin="2" end="10" step="1">
@@ -66,9 +67,9 @@
             file${i } : <input type="file" id="file${i }" name="file${i }">
             <input type="button" class="fileInsert" id="fileInsertForm${i }" value="파일추가"><br>
          </div>
-      </c:forEach>
+      </c:forEach><br>
       <input type="hidden" name="sort" value="${sort}">
-      <input type="submit" id="submit" value="작성">
+      <input type="submit" id="submit" value="작성"  class="btn btn-primary">
    </form>
    
 	</div>

@@ -1,15 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>       
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="<c:url value="../resources/css/style.min.css" />"
-	rel="stylesheet">
-<link href="<c:url value="../resources/css/modules.css" />"
-rel="stylesheet">
-<title>Insert title here</title>
+<link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
+<link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">
 </head>
 <body>
 	<!-- 상단바 -->
@@ -19,14 +15,9 @@ rel="stylesheet">
 		<jsp:include page="/WEB-INF/views/common/side_galary.jsp"/>
 	</div>
 	
-	<div class="container" style="margin-top:50px; margin-left: 450px;">
+	<div class="container" style="margin-top:50px; margin-left: 450px; margin-bottom:50px">
 		<h3>자유 게시판 글 작성</h3>
 		<p style="width: 70%;">다른 사람의 인격을 침해하거나 명예를 훼손하게 하는 글, 불쾌감을 주는 욕설 또는 비방하는 글, 유언비어나 허위사실을 유포하는 글, 도배성 글의 경우 글이 삭제되거나 이용제재를 받을 수 있습니다.</p> 	
-
-
-
-
-
 	
 		<form action="${pageContext.request.contextPath }/boardBulletin/bulletinWrite">	 
 		 
@@ -58,14 +49,43 @@ rel="stylesheet">
 			</div>
 
 
-			
 
-	      비밀글여부 : <input type="radio" name="secret" value="1">예
-	             <input type="radio" name="secret" value="0" checked>아니오<br>
+
+
+
+			<!-- 	비밀글 : 	 -->
+			비밀글 : 
+		    <div class=" form-group custom-control custom-radio custom-control-inline">
+		      <input type="radio" class="custom-control-input" id="secret1" name="secret" value="1">
+		      <label class="custom-control-label" for="secret1">예</label>
+		    </div>
+		    <div class="custom-control custom-radio custom-control-inline">
+		      <input type="radio" class="custom-control-input" id="secret0" name="secret" value="0" checked>
+		      <label class="custom-control-label" for="secret0">아니오</label>
+		    </div><br>
+			
 			<input type="hidden" name="sort" value="${sort}">
-			<input type="submit" value="작성">
+			<input type="submit" value="작성" class="btn btn-primary">
+			
+			
+			
+			
+			
+			
 		</form>   
 	</div>
+	
+	
+
+
+
+	
+	
+	
+	
+	
+	
+	
 
 	<!-- 하단바 -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

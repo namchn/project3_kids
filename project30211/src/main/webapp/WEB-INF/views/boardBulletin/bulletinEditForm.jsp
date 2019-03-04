@@ -1,15 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="<c:url value="../resources/css/style.min.css" />"
-	rel="stylesheet">
-<link href="<c:url value="../resources/css/modules.css" />"
-rel="stylesheet">
+<link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
+<link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">
 </head>
 <body>
 	<!-- 상단바 -->
@@ -19,8 +15,8 @@ rel="stylesheet">
 		<jsp:include page="/WEB-INF/views/common/side_com.jsp"></jsp:include>
 	</div>
 	
-	<div class="container" style="margin-top:50px; margin-left: 450px;">
-		<h3>자유 게시판 글 작성</h3>
+	<div class="container" style="margin-top:50px; margin-left: 450px; margin-bottom: 50px;">
+		<h3>자유 게시판 글 수정</h3>
 		<p style="width: 70%;">다른 사람의 인격을 침해하거나 명예를 훼손하게 하는 글, 불쾌감을 주는 욕설 또는 비방하는 글, 유언비어나 허위사실을 유포하는 글, 도배성 글의 경우 글이 삭제되거나 이용제재를 받을 수 있습니다.</p> 	
 
     
@@ -43,20 +39,35 @@ rel="stylesheet">
 				<label for="content">글 내용:</label>
 				<textarea class="form-control" rows="10" id="content" name="content" required="required" style="resize: none; max-width: 100%; width: 70%;" >${bb.content }</textarea>
 			</div>
+			
+			
+			<!-- 	비밀글 : 	 -->
+			비밀글 :
+			<c:if test="${bb.secret==1}">
+				<div class=" form-group custom-control custom-radio custom-control-inline">
+					<input type="radio" class="custom-control-input" id="secret1" name="secret" value="1" checked>
+					<label class="custom-control-label" for="secret1">예</label>
+				</div>          
+				<div class="custom-control custom-radio custom-control-inline">
+					<input type="radio" class="custom-control-input" id="secret0" name="secret" value="0">
+					<label class="custom-control-label" for="secret0">아니오</label>
+				</div>          
+      		</c:if>     		
+			<c:if test="${bb.secret==0}">
+				<div class=" form-group custom-control custom-radio custom-control-inline">
+					<input type="radio" class="custom-control-input" id="secret1" name="secret" value="1" >
+					<label class="custom-control-label" for="secret1">예</label>
+				</div>          
+				<div class="custom-control custom-radio custom-control-inline">
+					<input type="radio" class="custom-control-input" id="secret0" name="secret" value="0" checked>
+					<label class="custom-control-label" for="secret0">아니오</label>
+				</div> 
+      		</c:if><br>
 
-
-      <c:if test="${bb.secret==1}">
-         비밀글여부 : <input type="radio" name="secret" value="1" checked>예
-             <input type="radio" name="secret" value="0">아니오<br>
-      </c:if>
-      <c:if test="${bb.secret==0}">
-         비밀글여부 : <input type="radio" name="secret" value="1">예
-             <input type="radio" name="secret" value="0" checked>아니오<br>
-      </c:if>
           
       <input type="hidden" name="bulletin_num" value="${bb.bulletin_num }">
       <input type="hidden" name="sort" value="${sort}">
-      <input type="submit" value="작성">
+      <input type="submit" value="작성"  class="btn btn-primary">
 	</form>   
    
    

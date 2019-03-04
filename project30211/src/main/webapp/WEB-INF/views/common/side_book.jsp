@@ -38,10 +38,16 @@
   top: 200px;
   background-color: #f9ca5b;
 }
+
+@media only screen and (max-width: 1300px) {
+  #side1{
+    display: none;
+  }
+}
 </style>
 </head>
 <body>
-
+<div id="side1">
 <a id="info">도서관</a>
 <div id="mySidenav" class="sidenav">
   <c:if test="${sessionScope.mem_code eq 0}">   <!-- 관리자 -->   
@@ -57,6 +63,7 @@
   <c:if test="${sessionScope.mem_code eq 3}">   <!-- 방문객 -->   
     <a href="${pageContext.request.contextPath}/book/booklistForm" style="top:265px">도서 목록</a>
   </c:if>
+</div>
 </div>
 <script src="../resources/js/index.js"></script>
 </body>

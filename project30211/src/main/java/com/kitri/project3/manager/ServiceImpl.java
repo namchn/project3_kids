@@ -7,11 +7,11 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
+import com.kitri.project3.book.Book;
 import com.kitri.project3.book.Rent;
 import com.kitri.project3.calendar.Calendar;
 import com.kitri.project3.member.Member;
 import com.kitri.project3.paging.PagingVO;
-import com.kitri.project3.pay.Pay;
 
 @Component("manService") // 빈이름등록
 public class ServiceImpl implements ManService {
@@ -214,6 +214,17 @@ public class ServiceImpl implements ManService {
 		      this.dao = sqlSession.getMapper(Dao.class);
 		      dao.deleteCartList(book_num);
 		   }
+
+		@Override
+		public void modBook(Book b) {
+			this.dao = sqlSession.getMapper(Dao.class);
+			dao.updateBook(b);
+		}
+		@Override
+		public void modBook2(Book b) {
+			this.dao = sqlSession.getMapper(Dao.class);
+			dao.updateBook2(b);
+		}
 
 
 }

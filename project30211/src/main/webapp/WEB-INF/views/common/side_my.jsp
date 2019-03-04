@@ -38,10 +38,16 @@
   top: 200px;
   background-color: #f9ca5b;
 }
+
+@media only screen and (max-width: 1300px) {
+  #side1{
+    display: none;
+  }
+}
 </style>
 </head>
 <body>
-
+<div id="side1">
 <a id="info">마이페이지</a>
 <div id="mySidenav" class="sidenav">
   <a href="${pageContext.request.contextPath}/member/myInfoEdit" style="top: 265px">내 정보 수정</a>
@@ -75,6 +81,7 @@
   <a href="${pageContext.request.contextPath}/book/myCart" style="top: 490px">찜한 도서목록</a>
   <a href="${pageContext.request.contextPath}/member/outForm" style="top: 535px">회원 탈퇴</a>
   </c:if>
+</div>
 </div>
 <script src="../resources/js/index.js"></script>
 </body>

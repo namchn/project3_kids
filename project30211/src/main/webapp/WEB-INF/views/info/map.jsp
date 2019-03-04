@@ -6,19 +6,16 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
-<link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">   
-<title>떡잎유치원 - 오시는 길</title>
+<link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">  
 
 <style type="text/css">
 a:visited {color: black;}
 a:link {color: black;}
-a{text-decoration: none; font-size: 20px;}
+a{text-decoration: none;
+/*  font-size: 20px; */}
 html, body {width:100%;height:100%;margin:0;padding:0;} 
 .map_wrap {position:relative;overflow:hidden;width:100%;height:350px;}
 .radius_border{border:1px solid #919191;border-radius:5px;}     
@@ -41,12 +38,13 @@ html, body {width:100%;height:100%;margin:0;padding:0;}
 <div style="margin-top: 40px; margin-left: 175px;">
 	<jsp:include page="/WEB-INF/views/common/side_info.jsp"/>
 </div>
-<div style="margin-top:50px; margin-left: 450px; margin-bottom: 50px; margin-right: 960px">
+<div style="margin-top:50px; margin-left: 22%; margin-bottom: 50px; margin-right: 960px">
 <h3>오시는 길</h3>
+<hr style="width: 850px">
 <div style="position: absolute; left: 55%;">
 	<a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/">  >  유치원 소개</a>
-	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/community/application">  >  오시는 길</a>
+	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/introduce/introduce">  >  유치원 소개</a>
+	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/info/map">  >  오시는 길</a>
 </div><br><br>
 <a href="http://map.daum.net/link/to/한국정보기술연구원,37.485126,126.898812" style="font-size: 15px; font-weight: bold; float: right" target="_blank"><span class="glyphicon glyphicon-search" style="font-size: 15px"></span>길 찾기</a>
 <div class="map_wrap">
@@ -72,22 +70,6 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 
 // 지도를 생성합니다    
 var map = new daum.maps.Map(mapContainer, mapOption);
-
-/* //지도타입 컨트롤의 지도 또는 스카이뷰 버튼을 클릭하면 호출되어 지도타입을 바꾸는 함수입니다
-function setMapType(maptype) { 
-    var roadmapControl = document.getElementById('btnRoadmap');
-    var skyviewControl = document.getElementById('btnSkyview'); 
-    if (maptype === 'roadmap') {
-        map.setMapTypeId(daum.maps.MapTypeId.ROADMAP);    
-        roadmapControl.className = 'selected_btn';
-        skyviewControl.className = 'btn';
-    } else {
-        map.setMapTypeId(daum.maps.MapTypeId.HYBRID);    
-        skyviewControl.className = 'selected_btn';
-        roadmapControl.className = 'btn';
-    }
-} */
-
 // 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
 function zoomIn() {
     map.setLevel(map.getLevel() - 1);

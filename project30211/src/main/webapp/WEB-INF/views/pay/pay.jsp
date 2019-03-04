@@ -5,26 +5,25 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">
-<title>떡잎유치원 - 원비 결제</title>
 
 <style type="text/css">
 a:visited {color: black;}
 a:link {color: black;}
-a{text-decoration: none; font-size: 20px;}
+a{text-decoration: none;}
 table>tbody>tr>td:first-child{
 	font-weight: bolder;
 }
+.table{
+	width: 60%;
+}
 </style>
+<script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 
 <body class="default">
@@ -32,14 +31,7 @@ table>tbody>tr>td:first-child{
 <div style="margin-top: 40px; margin-left: 175px;">
 	<jsp:include page="/WEB-INF/views/common/side_my.jsp"/>
 </div>
-<div style="margin-top:50px; margin-left: 450px; margin-bottom: 90px; max-width: 500px">
-<h3>원비 결제</h3>
-<div style="position: absolute; left: 55%;">
-	<a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
-	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfoPay">  >  원비 결제</a>
-</div><br><br>
-<div style="width:500px;height:400px; position: sticky;">
+
 <form id="okForm" action="${pageContext.request.contextPath}/pay/okdk" method="post">
 	<input type="hidden" id="id1" name="id" value="${m.id}">
 	<input type="hidden" id="name" name="name" value="${m.name}">
@@ -47,8 +39,15 @@ table>tbody>tr>td:first-child{
 	<input type="hidden" id="phone" name="phone" value="${m.phone}">
 </form>
 
-<div class="container" style="width:500px;">                                                         
-  <table class="table">
+<div class="container" style="margin-left: 23%; margin-bottom: 120px;"> 
+<h3>원비 결제</h3>
+<hr>
+<div align="right"style="margin-bottom: 50px; margin-right: 20%;">
+	<a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
+	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
+	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfoPay">  >  원비 결제</a>
+</div>                                                        
+  <table class="table" style="width: 50%;">
     <thead>
       <tr>
         <th>항목</th>
@@ -76,7 +75,7 @@ table>tbody>tr>td:first-child{
    <c:when test="${p.id eq null}">
    	<tr class="warning">
         <td>이번 달&nbsp;&nbsp;결제금액</td>
-        <td>150원</td>
+        <td>30만원</td>
     </tr>
    </c:when>
    <c:otherwise>
@@ -88,7 +87,7 @@ table>tbody>tr>td:first-child{
   </c:choose>
     </tbody>
   </table>
-  <div align="right">
+  <div style="margin-left: 40%;">
   <c:choose>
    <c:when test="${p.id eq null}">
    	<button class="btn btn-primary" id="check_module" type="button" name="aaaa">결제하기</button>
@@ -99,8 +98,7 @@ table>tbody>tr>td:first-child{
   </c:choose>
   </div>
 </div>
-  </div>
-    </div>
+    
     <script>
 $('#check_module').click(function() {
 	var IMP = window.IMP; // 생략가능
@@ -110,7 +108,7 @@ $('#check_module').click(function() {
 	    pay_method : 'card',
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : 'KITRI 유치원',
-	    amount : 150,
+	    amount : 300,
 	    buyer_email : 'iamport@siot.do',
 	    buyer_name : '홍길동',
 	    buyer_tel : '010-1234-5678',

@@ -45,6 +45,10 @@ public class MemController {
 		String mem_code = req.getParameter("mem_code");
 		System.out.println(mem_code);
 		switch(mem_code) {
+	    case "3": 
+	         m.setMng_group("");
+	         m.setStu_group("");
+	         break;
 		case "2": 
 			String stu_group = req.getParameter("selectStuGroupBox");
 			m.setStu_group(stu_group);
@@ -58,7 +62,7 @@ public class MemController {
 		}
 		
 		service.join(m);
-		return "/member/loginSuccess";
+		return "redirect:/";
 	}
 
 	@RequestMapping("/member/checkId")
@@ -70,9 +74,10 @@ public class MemController {
 	}
 	
 	@RequestMapping("/member/checkPhone")
-	public ModelAndView checkPhone(@RequestParam(value = "phone") String phone) {
+	public ModelAndView checkPhone(@RequestParam(value = "phone") int phone) {
 		ModelAndView mav = new ModelAndView("member/checkPhone");
-		boolean flag = service.checkPhone(phone);
+		String p = "0"+Integer.toString(phone);
+		boolean flag = service.checkPhone(p);
 		mav.addObject("flag", flag);
 		return mav;
 	}
@@ -133,7 +138,7 @@ public class MemController {
 	
 	@RequestMapping("/member/findId")
 	public String findId(HttpServletRequest req, HttpServletResponse res, Member m) throws IOException {
-		System.out.println("memcon의 findId입니다");
+		
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
 
@@ -142,12 +147,10 @@ public class MemController {
 		res.setContentType("text/html;charset=UTF-8");
 
 		HttpSession session = req.getSession();
-		System.out.println(m.getName());
-		System.out.println(m.getPhone());
 		Member m2  = service.findId(m);
-		String id = m2.getId();
-		System.out.println(id);
-		if (id!=null) {
+		String id="";		
+		if (m2!=null) {
+			id = m2.getId();
 			out.println("<script>");
 			out.println("alert('회원님의 아이디는 "+id+" 입니다');");
 			out.println("location.href='/project3/';");
@@ -155,7 +158,7 @@ public class MemController {
 			out.close();
 		} else {
 			out.println("<script>");
-			out.println("alert('입력하신 아이디가 존재하지 않습니다';");
+			out.println("alert('입력하신 아이디가 존재하지 않습니다');");
 			out.println("location.href='/project3/';");
 			out.println("</script>");
 			out.close();		
@@ -166,7 +169,7 @@ public class MemController {
 	
 	@RequestMapping("/member/findPw")
 	public String findPw(HttpServletRequest req, HttpServletResponse res, Member m) throws IOException {
-		System.out.println("memcon의 findPw입니다");
+
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
 
@@ -175,17 +178,17 @@ public class MemController {
 		res.setContentType("text/html;charset=UTF-8");
 
 		HttpSession session = req.getSession();
-		System.out.println(m.getName());
-		System.out.println(m.getPhone());
+	
 		Member m2  = service.findPw(m);
-		String pw = m2.getPw();
 		
-		StringBuffer sb = new StringBuffer(pw);
+		
 
-		String result = sb.replace(pw.length()-5, pw.length()-3, "**" ).toString();
-		System.out.println(result);
+		if (m2!=null) {
+			String pw = m2.getPw();
+			
+			StringBuffer sb = new StringBuffer(pw);
 
-		if (result!=null) {
+			String result = sb.replace(pw.length()-5, pw.length()-3, "**" ).toString();
 			out.println("<script>");
 			out.println("alert('회원님의 비밀번호는"+result+" 입니다');");
 			out.println("location.href='/project3/';");
@@ -193,7 +196,7 @@ public class MemController {
 			out.close();
 		} else {
 			out.println("<script>");
-			out.println("alert('정보를 잘못 입럭하셨습니다';");
+			out.println("alert('정보를 잘못 입럭하셨습니다');");
 			out.println("location.href='/project3/';");
 			out.println("</script>");
 			out.close();		
@@ -201,17 +204,15 @@ public class MemController {
 		return "redirect:/";
 	}
 
-
-	private void replace(String substring, String string) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@RequestMapping("/member/myInfo")
 	public ModelAndView myInfo(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		String id = (String) session.getAttribute("id");
 		Member m = service.getMyInfo(id);
+		System.out.println(m.getDetailAddress());
+		System.out.println(m.getAddress());
+		System.out.println(m.getExtraAddress());
+		System.out.println(m.getPostcode());
 		ModelAndView mav = new ModelAndView("/member/myInfo");
 		mav.addObject("m", m);
 		return mav;
@@ -235,12 +236,57 @@ public class MemController {
 	}
 
 	@RequestMapping(value = "/member/edit")
-	public String edit(Member m) {
+	public String edit(Member m, HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("memcon의 edit입니다");
-		System.out.println(m.getMem_code());
 		System.out.println(m.getId());
-		System.out.println(m.getName());
+		
+		switch(m.getMem_code()) {
+		case "2": 
+			String stu_group = req.getParameter("selectStuGroupBox");
+			m.setStu_group(stu_group);
+			m.setMng_group("");
+			break;
+		case "1": 
+			String mng_group = req.getParameter("selectMngGroupBox");
+			m.setMng_group(mng_group);
+			m.setStu_group("");
+			break;
+		case "0":
+			m.setStu_group("");
+			m.setStu_name("");
+			m.setMng_group("");
+			break;	
+		case "3":
+			m.setStu_group("");
+			m.setStu_name("");
+			m.setMng_group("");
+			break;			
+		}
+		
+		switch(m.getMem_code()) {
 
+		case "0":
+			m.setStu_group("");
+			m.setStu_name("");
+			m.setMng_group("");
+			break;
+			
+		case "1":
+			m.setStu_group("");
+			m.setStu_name("");
+			break;
+			
+		case "2":
+			m.setMng_group("");
+			break;
+			
+		case "3":
+			m.setStu_group("");
+			m.setStu_name("");
+			m.setMng_group("");
+			break;		
+
+		}
 		service.editMyInfo(m);
 		return "redirect:/";
 	}

@@ -63,7 +63,7 @@ public class BookController {
          if(s.equals("")) {
             b.setBook_img("");
          } else {
-            b.setBook_img("/img/" + s);
+            b.setBook_img("../resources/img/" + s);
          } 
       } else {
          b.setBook_img("");

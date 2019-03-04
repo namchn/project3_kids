@@ -38,10 +38,16 @@
   top: 200px;
   background-color: #f9ca5b;
 }
+
+@media only screen and (max-width: 1300px) {
+  #side1{
+    display: none;
+  }
+}
 </style>
 </head>
 <body>
-
+<div id="side1">
 <a id="info">커뮤니티</a>
 <div id="mySidenav" class="sidenav">
   <a href="${pageContext.request.contextPath }/boardNotice/noticeList?sort=2" style="top: 265px">공지사항</a>
@@ -51,6 +57,7 @@
   <a href="${pageContext.request.contextPath }/boardDiet/dietListForm" style="top: 445px">식단표</a>
   <a href="${pageContext.request.contextPath }/poll/list" style="top: 490px">설문조사</a>
   <a href="${pageContext.request.contextPath }/fullcalendar/fullcalendarAll" style="top: 535px">행사일정</a>
+</div>
 </div>
 <script src="../resources/js/index.js"></script>
 </body>

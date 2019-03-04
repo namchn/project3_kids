@@ -21,24 +21,28 @@ public class BulletinController {
 	@Resource(name = "boardReplyService")
 	private ReplyService replyService;
 
-	// 자유 게시판 글목록(페이징처리)
-	@RequestMapping("/boardBulletin/bulletinList")
-	public ModelAndView bulletinList(PagingVO paging, @RequestParam(value = "sort") String sort) {	
-		ModelAndView mav = new ModelAndView("");
-		if(sort.equals("1")) {
-			mav = new ModelAndView("/manager/boardManage");
-		}else if(sort.equals("2")) {
-			mav = new ModelAndView("/boardBulletin/bulletinList");
-		}
-		
-		ArrayList<BulletinBoard> list = service.getAll(paging);
-		paging.setTotal(service.getTotalPaging());
+	 @RequestMapping("/boardBulletin/bulletinList")
+	   public ModelAndView bulletinList(PagingVO paging, @RequestParam(value = "sort") String sort) {   
+	      System.out.println(sort);
+	      ModelAndView mav = new ModelAndView("");
+	      if(sort.equals("1")) {
+	         mav = new ModelAndView("/manager/boardManage");
+	      }else if(sort.equals("2")) {
+	         mav = new ModelAndView("/boardBulletin/bulletinList");
+	      }
+	      
+	      ArrayList<BulletinBoard> list = service.getAll(paging);
+	      paging.setTotal(service.getTotalPaging());
 
-		mav.addObject("list", list);
-		mav.addObject("paging", paging);
 
-		return mav;
-	}
+	      mav.addObject("sort", sort);
+
+	      mav.addObject("list", list);
+	      mav.addObject("paging", paging);
+
+	      return mav;
+	   }
+
 
 	// 자유 게시판 상세 글조회
 	@RequestMapping("/boardBulletin/bulletinView")

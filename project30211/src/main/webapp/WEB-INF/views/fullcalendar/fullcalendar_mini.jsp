@@ -9,17 +9,13 @@
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- <META HTTP-EQUIV="refresh" CONTENT="60"> -->
-  <title>Calendar</title>
 </head>
 
 <link rel='stylesheet' href='${pageContext.request.contextPath }/resources/fullcalendar/fullcalendar.css' />
 <script src='${pageContext.request.contextPath }/resources/fullcalendar/lib/jquery.min.js'></script>
 <script src='${pageContext.request.contextPath }/resources/fullcalendar/lib/moment.min.js'></script>
 <script src='${pageContext.request.contextPath }/resources/fullcalendar/fullcalendar.js'></script>
-
-<!-- ì ¸ì ´ì ¤ì   -->
 <script src='${pageContext.request.contextPath }/resources/fullcalendar/lang/ko.js'></script>
-
 
 
 <script type="text/javascript">
@@ -79,24 +75,8 @@ $.ajax({
   // Create calendar when document is ready
   $(document).ready(function() {
      
-     
-     
-      ///////////////////////////////////////////////////////////////////
-/*      console.log(JSON.stringify(events_array[0].end).substr(0,11));
-      //var str =JSON.stringify(events_array)
-     var contentStr = "";
-     for(var i=0; i<events_array.length;i++){
-        contentStr += "[번호:"+ i+"]"
-        + JSON.stringify(events_array[i].start).substr(0,11) +""
-        +"~" +JSON.stringify(events_array[i].end).substr(0,11)+ ":"
-        + " " + events_array[i].title + "</br>";
-     }
-     $("#callist").html(contentStr); */
-     ///////////////////////////////////////////////////////////
+
        $('#calendar').fullCalendar('option', 'aspectRatio', 1);
-     ///////////////////////////////////////////////////////////
-     
-     
      
     // We will refer to $calendar in future code
     var $calendar = $("#calendar").fullCalendar({ //start of options
@@ -440,7 +420,10 @@ $.ajax({
     display: block;
     margin-left: auto;
     margin-right: auto;
-  }
+    padding-top: 20px;
+     border: solid 1px lightgray; 
+    background-color: #fff0ff78;
+      }
 
   .centered {
     text-align: center;
@@ -461,6 +444,11 @@ $.ajax({
     #calendar .fc-body a{
   font-size: 0.5em;
   }   
+  @media only screen and (max-width: 1300px) {
+  #calendar{
+    display: none;
+  }
+}
   
   
 </style>
@@ -471,7 +459,7 @@ $.ajax({
  <input type="hidden" name=manag value="${sessionScope.id}">
 
   <!-- The calendar container -->
-  <div id="calendar"  style="width: 25%; height: 100%; text-align: right; font-size: 0.1em;">
+  <div id="calendar"  style="width: 25%; text-align: right; font-size: 0.1em;">
   <button id="viewcal" style="background-color: grey;color:white">크게보기</button></div>  
   
   <!-- font-size: 0.1em; -->

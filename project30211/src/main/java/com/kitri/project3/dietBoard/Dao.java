@@ -17,4 +17,5 @@ public interface Dao {
 	int selectTotalPaging();
 	//홈메인에 띄울 식단표
 	DietBoard selectRecent();
+	
 }

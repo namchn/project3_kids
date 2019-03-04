@@ -12,26 +12,36 @@
 	rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />"
 rel="stylesheet">
+<script type="text/javascript"
+   src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+
 <script>
-
-//체크박스관리
-var check = false;
-function CheckAll() {
-   var chk = document.getElementsByName("check_member");
-   if(check == false) {
-      check = true;
-      for(var i = 0; i < chk.length; i++) {
-         chk[i].checked = true;   // 모두 체크
+$(document).ready(function(){
+   //최상단 체크박스 클릭
+    $("#all").click(function(){
+        //클릭되었으면
+        if($("#all").prop("checked")){
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+            $(".check").prop("checked",true);
+            //클릭이 안되있으면
+        }else{
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+            $(".check").prop("checked",false);
+        }
+    });
+   $("#dbtn").click(function(){
+   var checked = $('input:checkbox[name="check_member"]:checked').length;
+      if(checked==0){
+         alert("선택을 해야합니다");
       }
-   } else {
-      check = false;
-      for(var i = 0; i < chk.length; i++) {
-         chk[i].checked = false;   // 모두 해제
+      else{
+         $("#form").submit();
       }
-   }
-}
+   })
+})
+</script>
 
-</script>	
+	
 <meta charset="UTF-8">
 </head>
 
@@ -39,20 +49,21 @@ function CheckAll() {
 <body class="default">
  <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <!-- 본문 - 관리자페이지 -->
-<form action="${pageContext.request.contextPath}/manager/memberDelete">
+<form action="${pageContext.request.contextPath}/manager/memberDelete" id="form">
 <div class="container">
 
   <h3>회원 관리</h3>   
   <hr>   
     <div align="right">
       <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/manager">  >  관리 페이지</a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/manager">  >  관리자 페이지</a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="#">  >  회원 관리</a>
   </div><br><br>   
   
   <table class="table table-hover">
     <thead>
       <tr>
-        <th><input type="checkbox" id="checkall" name="checkall" onclick="javascript:CheckAll()"></th>
+        <th style="width: 5%;"><input type="checkbox" id="all" name="checkall" class="check" onclick="javascript:CheckAll()"></th>
         <th>회원코드</th>
         <th>ID</th>
         <th>이름</th>
@@ -80,7 +91,7 @@ function CheckAll() {
     </c:forEach>
   </table>
   <div align="right">
-  <input class="btn btn-primary" type="submit" value="삭제">
+  <input class="btn btn-primary" id="dbtn" type="button" value="삭제">
  	</div>
  </div>       
 </form>   

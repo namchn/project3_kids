@@ -38,6 +38,12 @@
   top: 200px;
   background-color: #f9ca5b;
 }
+
+@media only screen and (max-width: 1300px) {
+  #side1{
+    display: none;
+  }
+}
 </style>
 
 <script> 
@@ -143,6 +149,7 @@
 </head>
 
 <body>
+<div id="side1">
 <input type="hidden" value="${sessionScope.id}" id="AccessId">
 <input type="hidden" value="${sessionScope.mem_code}" id="mem_code">
 <input type="hidden" value="${sessionScope.mng_group}" id="mng_group">
@@ -153,6 +160,7 @@
   <a href='javascript:void(0);' style="top: 310px" onclick="group2();">해바라기반</a>
   <a href='javascript:void(0);' style="top: 355px" onclick="group3();">민들레반</a>
   <a href='javascript:void(0);' style="top: 400px" onclick="group4();">벚꽃반</a>
+</div>
 </div>
 <script src="../resources/js/index.js"></script>
 </body>

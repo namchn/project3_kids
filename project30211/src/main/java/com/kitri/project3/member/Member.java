@@ -106,6 +106,15 @@ public class Member {
 	public Member() {
 		super();
 	}
+	@Override
+	public String toString() {
+		return "Member [mem_code=" + mem_code + ", id=" + id + ", pw=" + pw + ", name=" + name + ", address=" + address
+				+ ", detailAddress=" + detailAddress + ", extraAddress=" + extraAddress + ", phone=" + phone
+				+ ", stu_name=" + stu_name + ", stu_group=" + stu_group + ", mng_group=" + mng_group + ", postcode="
+				+ postcode + "]";
+	}
+	
+	
 
 
 }

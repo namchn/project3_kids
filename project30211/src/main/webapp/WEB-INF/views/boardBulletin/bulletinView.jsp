@@ -1,15 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>      
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%
+pageContext.setAttribute("br", "<br/>");
+pageContext.setAttribute("cn", "\n");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="<c:url value="../resources/css/style.min.css" />"
-	rel="stylesheet">
-<link href="<c:url value="../resources/css/modules.css" />"
-rel="stylesheet">
+
+<link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
+<link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">
 
 <script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
@@ -34,27 +36,25 @@ $(document).ready(function() {
          url:"${pageContext.request.contextPath}/boardBulletin/bulletinReplyList",
          data:param,
          success:function(data) {
-            alert("success완료");
             var arr = eval('('+data+')');
             var str = '';    
 
             for(i=0; i<arr.length; i++) {
-               str += "<div style='border:1px solid gray; margin-top:5px; padding:5px; width:600px'>";
-               str += "<div class='glyphicon glyphicon-user' style='float:left;'>" + arr[i].id + "</div>";
-               str += "<div style='margin-left:500px;'>" + arr[i].time + "</div>";
-               str += "<div id='replyContent"+arr[i].reply_num+"' style='margin-left:5px; float:left;'>"+arr[i].content+"</div>";      
-               if("${sessionScope.id}"== arr[i].id) {
-                  str += "<div><button type='button' id='replyEditForm"+arr[i].reply_num+"' name='replyEditForm' value='"+arr[i].reply_num+"' class='replyEditForm btn btn-default btn-xs' style='float:left;'>수정</button></div>";
-                  str += "<div><button type='button' id='replyDelete"+arr[i].reply_num+"' name='replyDelete' value='"+arr[i].reply_num+"' class='replyDelete btn btn-default btn-xs'>삭제</button></div>";            
-               }
-               str += "<div id='edit_div_"+ arr[i].reply_num +"' style='display:none;'>";
-               str += "<input type='text' id='replyEditContent"+ arr[i].reply_num +"' name='replyEditContent' value="+arr[i].content+" style='max-width: 100%; width: 450px;'>";                
-               str += "<button type='button' id='replyEditCancel"+ arr[i].reply_num +"' name='replyEditCancel' value='"+ arr[i].reply_num +"' class='replyEditCancel btn btn-default btn-xs'>수정취소</button>";
-               str += "<button type='button' id='replyEditComplete"+ arr[i].reply_num +"' name='replyEditComplete' value='"+ arr[i].reply_num +"' class='replyEditComplete btn btn-default btn-xs'>수정완료</button>";            
-               str += "</div>"                  
-               str += "</div>";         
-            
-            }
+                str += "<div style='border:1px solid lightgray; margin-top:5px; padding:5px; width:682px; overflow: auto;'>";
+                str += "<div class='glyphicon glyphicon-user' style='float:left;'>" + arr[i].id + "</div>";
+                str += "<div style='margin-left:571px;'>" + arr[i].time + "</div>";
+                str += "<div id='replyContent"+arr[i].reply_num+"' style='margin-left:5px; float:left; word-break: break-all; width: 480px;'>"+arr[i].content+"</div>";      
+                if("${sessionScope.id}"== arr[i].id) {
+                   str += "<div style='margin-left: 85%;'><button type='button' id='replyEditForm"+arr[i].reply_num+"' name='replyEditForm' value='"+arr[i].reply_num+"' class='replyEditForm btn btn-default btn-xs' style='float:left;'>수정</button>";
+                   str += "<button type='button' id='replyDelete"+arr[i].reply_num+"' name='replyDelete' value='"+arr[i].reply_num+"' class='replyDelete btn btn-default btn-xs'>삭제</button></div>";            
+                }
+                str += "<div id='edit_div_"+ arr[i].reply_num +"' style='display:none;'>";
+                str += "<input type='text' id='replyEditContent"+ arr[i].reply_num +"' name='replyEditContent' value="+arr[i].content+" style='max-width: 100%; width: 450px;'>";                
+                str += "<button type='button' id='replyEditCancel"+ arr[i].reply_num +"' name='replyEditCancel' value='"+ arr[i].reply_num +"' class='replyEditCancel btn btn-default btn-xs'>수정취소</button>";
+                str += "<button type='button' id='replyEditComplete"+ arr[i].reply_num +"' name='replyEditComplete' value='"+ arr[i].reply_num +"' class='replyEditComplete btn btn-default btn-xs'>수정완료</button>";            
+                str += "</div>"                  
+                str += "</div>";         
+             }
 
             $('#replyList').html(str);
          }
@@ -64,9 +64,7 @@ $(document).ready(function() {
 
    //수정하기눌렀을때 댓글 수정 폼 생성
    $(document).on('click', '.replyEditForm', function(){
-      alert("수정하기 버튼 클릭");
       var reply_num = $(this).val();
-      alert("reply_num"+reply_num);
       $('#edit_div_'+reply_num).css('display','');
       
       $('#replyEditForm'+reply_num).hide();
@@ -78,9 +76,7 @@ $(document).ready(function() {
    
    //수정취소눌렀을때 폼사라지기
    $(document).on('click', '.replyEditCancel', function(){
-      alert("수정취소 버튼 클릭");
       var reply_num = $(this).val();
-      alert("reply_num"+reply_num);
       $("#edit_div_"+reply_num).css('display','none');
       
       $('#replyEditForm'+reply_num).show();
@@ -90,9 +86,7 @@ $(document).ready(function() {
    
    //수정완료눌렀을때 반영하기(ajax)
    $(document).on('click', '.replyEditComplete', function() {
-      alert("수정완료 버튼클릭");
       var reply_num = $(this).val();
-      alert("reply_num"+reply_num);
       var content = $('#replyEditContent'+reply_num).val();
       var param = "bulletin_num=${bb.bulletin_num}&reply_num="+reply_num+"&content="+content;
 
@@ -106,22 +100,21 @@ $(document).ready(function() {
             var str = '';   
 
             for(i=0; i<arr.length; i++) {
-               str += "<div style='border:1px solid gray; margin-top:5px; padding:5px; width:600px'>";
-               str += "<div class='glyphicon glyphicon-user' style='float:left;'>" + arr[i].id + "</div>";
-               str += "<div style='margin-left:500px;'>" + arr[i].time + "</div>";
-               str += "<div id='replyContent"+arr[i].reply_num+"' style='margin-left:5px; float:left;'>"+arr[i].content+"</div>";      
-               if("${sessionScope.id}"== arr[i].id) {
-                  str += "<div><button type='button' id='replyEditForm"+arr[i].reply_num+"' name='replyEditForm' value='"+arr[i].reply_num+"' class='replyEditForm btn btn-default btn-xs' style='float:left;'>수정</button></div>";
-                  str += "<div><button type='button' id='replyDelete"+arr[i].reply_num+"' name='replyDelete' value='"+arr[i].reply_num+"' class='replyDelete btn btn-default btn-xs'>삭제</button></div>";            
-               }
-               str += "<div id='edit_div_"+ arr[i].reply_num +"' style='display:none;'>";
-               str += "<input type='text' id='replyEditContent"+ arr[i].reply_num +"' name='replyEditContent' value="+arr[i].content+" style='max-width: 100%; width: 450px;'>";                
-               str += "<button type='button' id='replyEditCancel"+ arr[i].reply_num +"' name='replyEditCancel' value='"+ arr[i].reply_num +"' class='replyEditCancel btn btn-default btn-xs'>수정취소</button>";
-               str += "<button type='button' id='replyEditComplete"+ arr[i].reply_num +"' name='replyEditComplete' value='"+ arr[i].reply_num +"' class='replyEditComplete btn btn-default btn-xs'>수정완료</button>";            
-               str += "</div>"                  
-               str += "</div>";         
-            
-            }
+                str += "<div style='border:1px solid lightgray; margin-top:5px; padding:5px; width:682px; overflow: auto;'>";
+                str += "<div class='glyphicon glyphicon-user' style='float:left;'>" + arr[i].id + "</div>";
+                str += "<div style='margin-left:571px;'>" + arr[i].time + "</div>";
+                str += "<div id='replyContent"+arr[i].reply_num+"' style='margin-left:5px; float:left; word-break: break-all; width: 480px;'>"+arr[i].content+"</div>";      
+                if("${sessionScope.id}"== arr[i].id) {
+                   str += "<div style='margin-left: 85%;'><button type='button' id='replyEditForm"+arr[i].reply_num+"' name='replyEditForm' value='"+arr[i].reply_num+"' class='replyEditForm btn btn-default btn-xs' style='float:left;'>수정</button>";
+                   str += "<button type='button' id='replyDelete"+arr[i].reply_num+"' name='replyDelete' value='"+arr[i].reply_num+"' class='replyDelete btn btn-default btn-xs'>삭제</button></div>";            
+                }
+                str += "<div id='edit_div_"+ arr[i].reply_num +"' style='display:none;'>";
+                str += "<input type='text' id='replyEditContent"+ arr[i].reply_num +"' name='replyEditContent' value="+arr[i].content+" style='max-width: 100%; width: 450px;'>";                
+                str += "<button type='button' id='replyEditCancel"+ arr[i].reply_num +"' name='replyEditCancel' value='"+ arr[i].reply_num +"' class='replyEditCancel btn btn-default btn-xs'>수정취소</button>";
+                str += "<button type='button' id='replyEditComplete"+ arr[i].reply_num +"' name='replyEditComplete' value='"+ arr[i].reply_num +"' class='replyEditComplete btn btn-default btn-xs'>수정완료</button>";            
+                str += "</div>"                  
+                str += "</div>";         
+             }
             
             $('#replyList').html(str);
          }
@@ -130,7 +123,6 @@ $(document).ready(function() {
    
    //자유 게시판 댓글 삭제 및 조회
    $(document).on('click', '.replyDelete', function() {
-      alert("delete onclick실행");
       var reply_num = $(this).val();
       var param = "bulletin_num=${bb.bulletin_num}&reply_num="+reply_num;
    
@@ -144,99 +136,108 @@ $(document).ready(function() {
             var str = ''; 
 
             for(i=0; i<arr.length; i++) {
-               str += "<div style='border:1px solid gray; margin-top:5px; padding:5px; width:600px'>";
-               str += "<div class='glyphicon glyphicon-user' style='float:left;'>" + arr[i].id + "</div>";
-               str += "<div style='margin-left:500px;'>" + arr[i].time + "</div>";
-               str += "<div id='replyContent"+arr[i].reply_num+"' style='margin-left:5px; float:left;'>"+arr[i].content+"</div>";      
-               if("${sessionScope.id}"== arr[i].id) {
-                  str += "<div><button type='button' id='replyEditForm"+arr[i].reply_num+"' name='replyEditForm' value='"+arr[i].reply_num+"' class='replyEditForm btn btn-default btn-xs' style='float:left;'>수정</button></div>";
-                  str += "<div><button type='button' id='replyDelete"+arr[i].reply_num+"' name='replyDelete' value='"+arr[i].reply_num+"' class='replyDelete btn btn-default btn-xs'>삭제</button></div>";            
-               }
-               str += "<div id='edit_div_"+ arr[i].reply_num +"' style='display:none;'>";
-               str += "<input type='text' id='replyEditContent"+ arr[i].reply_num +"' name='replyEditContent' value="+arr[i].content+" style='max-width: 100%; width: 450px;'>";                
-               str += "<button type='button' id='replyEditCancel"+ arr[i].reply_num +"' name='replyEditCancel' value='"+ arr[i].reply_num +"' class='replyEditCancel btn btn-default btn-xs'>수정취소</button>";
-               str += "<button type='button' id='replyEditComplete"+ arr[i].reply_num +"' name='replyEditComplete' value='"+ arr[i].reply_num +"' class='replyEditComplete btn btn-default btn-xs'>수정완료</button>";            
-               str += "</div>"                  
-               str += "</div>";         
-            
-            }
+                str += "<div style='border:1px solid lightgray; margin-top:5px; padding:5px; width:682px; overflow: auto;'>";
+                str += "<div class='glyphicon glyphicon-user' style='float:left;'>" + arr[i].id + "</div>";
+                str += "<div style='margin-left:571px;'>" + arr[i].time + "</div>";
+                str += "<div id='replyContent"+arr[i].reply_num+"' style='margin-left:5px; float:left; word-break: break-all; width: 480px;'>"+arr[i].content+"</div>";      
+                if("${sessionScope.id}"== arr[i].id) {
+                   str += "<div style='margin-left: 85%;'><button type='button' id='replyEditForm"+arr[i].reply_num+"' name='replyEditForm' value='"+arr[i].reply_num+"' class='replyEditForm btn btn-default btn-xs' style='float:left;'>수정</button>";
+                   str += "<button type='button' id='replyDelete"+arr[i].reply_num+"' name='replyDelete' value='"+arr[i].reply_num+"' class='replyDelete btn btn-default btn-xs'>삭제</button></div>";            
+                }
+                str += "<div id='edit_div_"+ arr[i].reply_num +"' style='display:none;'>";
+                str += "<input type='text' id='replyEditContent"+ arr[i].reply_num +"' name='replyEditContent' value="+arr[i].content+" style='max-width: 100%; width: 450px;'>";                
+                str += "<button type='button' id='replyEditCancel"+ arr[i].reply_num +"' name='replyEditCancel' value='"+ arr[i].reply_num +"' class='replyEditCancel btn btn-default btn-xs'>수정취소</button>";
+                str += "<button type='button' id='replyEditComplete"+ arr[i].reply_num +"' name='replyEditComplete' value='"+ arr[i].reply_num +"' class='replyEditComplete btn btn-default btn-xs'>수정완료</button>";            
+                str += "</div>"                  
+                str += "</div>";         
+             }
             
             $('#replyList').html(str);
          }
       })
    })
-   
+   $('#content').keydown(function() {
+       if (event.keyCode === 13) {
+           $('#replyInsert').click();
+       }
+   });
 })
-      
-
-   
 </script>
-
+<style type="text/css">
+.a{
+margin-right: 20px;
+}
+</style>
 
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	
-	<table border="1">
-
-		      <tr>
-         <td colspan='4'>제목 : ${bb.title}</td>
-      </tr>      
+   <!-- 상단바 -->
+   <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+   <!-- 사이드바 -->
+   <div style="margin-top: 40px; margin-left: 175px;">
+      <jsp:include page="/WEB-INF/views/common/side_com.jsp"></jsp:include>
+   </div>
+   
+   
+   <!-- 바디 -->
+   <div class="container" style="margin-top:50px; margin-left: 22%;">
+   
+      
+	<table class="table" style="width: 700px">
+		<tr><th style="font-size: 30px">${bb.title}</th></tr>
+		<tr><td>${bb.id} | 조회 ${bb.viewcount} | ${bb.time}</td></tr>
+		<tr>
+			<td style="padding-top: 50px;padding-bottom: 50px;">
+				${fn:replace(bb.content,cn,br) }
+			</td>
+		</tr>
+      
       <tr>
-         <td>그룹 : ${bb.stu_group}</td><td>작성자 : ${bb.id}</td><td>작성시간 : ${bb.time}</td><td>조회수 : ${bb.viewcount}</td>
-      </tr>      
-      <tr>
-         <td colspan='4'>내용 : ${bb.content}</td>
-      </tr>         
-      <tr>
-         <td><a href="${pageContext.request.contextPath}/boardBulletin/bulletinList?sort=${sort}">목록</a></td>
-         <c:if test="${sessionScope.id==bb.id}">
-            <td><a href="${pageContext.request.contextPath}/boardBulletin/bulletinEditForm?bulletin_num=${bb.bulletin_num}&sort=${sort}">수정</a></td>
-            <td><a href="${pageContext.request.contextPath}/boardBulletin/bulletinDelete?bulletin_num=${bb.bulletin_num}&sort=${sort}">삭제</a></td>
-            <td></td>
-         </c:if>
-      </tr>   
-         
+         <td>
+            <div style="position: relative; left: 485px;">
+            <a href="${pageContext.request.contextPath}/boardBulletin/bulletinList?sort=${sort}" class="btn btn-primary" style="color: white;">글목록</a>
+            <c:if test="${sessionScope.id==bb.id}">
+				<a href="${pageContext.request.contextPath}/boardBulletin/bulletinEditForm?bulletin_num=${bb.bulletin_num}&sort=${sort}" class="btn btn-primary" style="color: white;">글수정</a>
+            	<a href="${pageContext.request.contextPath}/boardBulletin/bulletinDelete?bulletin_num=${bb.bulletin_num}&sort=${sort}" class="btn btn-primary" style="color: white;">글삭제</a>
+            </c:if>
+			</div>
+         </td>
+       </tr>
+       <tr>
+          <td style="background-color: #f5f5f5;">
+            <!-- 댓글작성 -->
+            <form action="" method="post">
+               <input type="text" id="content" name="content" style="max-width: 100%; width: 89%;" placeholder="댓글" maxlength="150">
+               <input type="button" class="btn btn-primary" id="replyInsert" name="replyInsert" value="작성" style="width: 70px;">
+            </form>     
+            <!-- 댓글목록 -->
+            <span id="replyList" name="replyList">
+           	<c:forEach var="a" items="${replyList }">               
+               <div style="border:1px solid lightgray; margin-top:5px; padding:5px; width:682px; overflow: auto;">
+                  <div class="glyphicon glyphicon-user" style="float:left;"> ${a.id }</div>
+                  <div style="margin-left:571px;">${a.time }</div>
+               
+                  <div id="replyContent${a.reply_num }" style="margin-left:5px; float:left; word-break: break-all; width: 480px;">${a.content }</div>
+                  <c:if test="${sessionScope.id==a.id}">
+                     <div style="margin-left: 85%;"><button type="button" id="replyEditForm${a.reply_num }" name="replyEditForm" value="${a.reply_num }" class="replyEditForm btn btn-default btn-xs" style="float:left;">수정</button>
+                     <button type="button" id="replyDelete${a.reply_num }" name="replyDelete" value="${a.reply_num }" class="replyDelete btn btn-default btn-xs">삭제</button></div>
+                  </c:if>
+                  <div id="edit_div_${a.reply_num}" style="display:none;">
+                      <input type="text" id="replyEditContent${a.reply_num }" name="replyEditContent" value="${fn:replace(a.content,cn,br)}" style="max-width: 100%; width: 450px;">
+                      <button type="button" id="replyEditCancel${a.reply_num }" name="replyEditCancel" value="${a.reply_num }" class="replyEditCancel btn btn-default btn-xs">수정취소</button>
+                      <button type="button" id="replyEditComplete${a.reply_num }" name="replyEditComplete" value="${a.reply_num }" class="replyEditComplete btn btn-default btn-xs">수정완료</button>
+                  </div>
+               </div>
+              </c:forEach>
+            </span>    
+          </td>
+       </tr>
    </table>
-   
-   
-   
-   
-			<!-- 댓글작성 -->
-			<form action="" method="post">
-			댓글<input type="text" id="content" name="content">
-			<input type="button" id="replyInsert" name="replyInsert" value="작성">
 
-			</form>  
+   </div>
 
-      		<!-- 댓글목록 -->
-  			<span id="replyList" name="replyList">
-				<c:forEach var="a" items="${replyList }">	            
-	            <div style="border:1px solid gray; margin-top:5px; padding:5px; width:600px">
-            		<div class="glyphicon glyphicon-user" style="float:left;"> ${a.id }</div>
-            		<div style="margin-left:500px;">${a.time }</div>
-            	
-	            	<div id="replyContent${a.reply_num }" style="margin-left:5px; float:left;">${a.content }</div>
-	            	<c:if test="${sessionScope.id==a.id}">
-	            		<div><button type="button" id="replyEditForm${a.reply_num }" name="replyEditForm" value="${a.reply_num }" class="replyEditForm btn btn-default btn-xs" style="float:left;">수정</button></div>
-	            		<div><button type="button" id="replyDelete${a.reply_num }" name="replyDelete" value="${a.reply_num }" class="replyDelete btn btn-default btn-xs">삭제</button></div>
-	            	</c:if>
-                  	<div id="edit_div_${a.reply_num}" style="display:none;">
-                   		<input type="text" id="replyEditContent${a.reply_num }" name="replyEditContent" value=${a.content } style="max-width: 100%; width: 450px;">
-                   		
-
-                   		
-                   		
-                   		<button type="button" id="replyEditCancel${a.reply_num }" name="replyEditCancel" value="${a.reply_num }" class="replyEditCancel btn btn-default btn-xs">수정취소</button>
-                   		<button type="button" id="replyEditComplete${a.reply_num }" name="replyEditComplete" value="${a.reply_num }" class="replyEditComplete btn btn-default btn-xs">수정완료</button>
-                  	</div>
-	            </div>
-	        	</c:forEach>
-   		</span>
-
-
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-<script src="../resources/js/index.js"></script>
+   <!-- 하단바 -->   
+   <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+   <script src="../resources/js/index.js"></script>   
 </body>
 </html>

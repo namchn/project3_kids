@@ -9,7 +9,6 @@
 	rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />"
 rel="stylesheet">
-<title>Insert title here</title>
 </head>
 <body>
 

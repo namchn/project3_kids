@@ -8,22 +8,16 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aperitif - Custom Template</title>
-<script type="text/javascript"
-	src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <link href="<c:url value="../resources/css/style.min.css" />"
 	rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />"
 	rel="stylesheet">
-<script type="text/javascript"
-   src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/paging.js"></script>
 <style type="text/css">
 .rb {
 	width: 50px;
 }
 </style>
-</head>
 <!-- End Head -->
 
 <body class="default">
@@ -56,7 +50,7 @@
   
     <div data-layout="ch8 ec4">
       <a href="#" class="MOD_FEATURE_Container">
-                  <img src="/img/${db.files}" width="150" height="150" alt="식단표 업로드 불가">
+                  <img src="../resources/img/${db.files}" width="150" height="150" alt="식단표 업로드 불가">
         <div class="MOD_FEATURE_TextContainer">
           <p class="MOD_FEATURE_Title" data-theme="_ts2">			 
 

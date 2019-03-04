@@ -2,11 +2,11 @@ package com.kitri.project3.manager;
 
 import java.util.ArrayList;
 
+import com.kitri.project3.book.Book;
 import com.kitri.project3.book.Rent;
 import com.kitri.project3.calendar.Calendar;
 import com.kitri.project3.member.Member;
 import com.kitri.project3.paging.PagingVO;
-import com.kitri.project3.pay.Pay;
 
 public interface Dao {
 	//회원 관리
@@ -32,6 +32,8 @@ public interface Dao {
 	void deleteBook(int book_num);
 	void deleteRentList(int book_num);
 	void deleteCartList(int book_num);
+	void updateBook(Book b);
+	void updateBook2(Book b);
 
 	//도서 통계 관리
 	int selectRentingCount();  // 대출 중 현재반납되지않은 책 개수 구하기

@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kitri.project3.boardReply.Reply;
 import com.kitri.project3.boardReply.ReplyService;
-import com.kitri.project3.paging.PagingVO;
+import com.kitri.project3.paging.PagingVO2;
 
 
 
@@ -31,38 +31,29 @@ public class GalleryController {
 	private String path = "D:\\data\\workspace\\web\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\webapps\\project3_gallery_board_files\\";
 	
 	
-	   //갤러리 게시판 글목록(페이징처리)
-	   @RequestMapping("/boardGallery/galleryList")
-	   public ModelAndView galleryList(PagingVO paging, @RequestParam(value="mng_group") String mng_group, @RequestParam("sort") String sort) {
-		   ModelAndView mav = new ModelAndView("");
+	//갤러리 게시판 글목록(페이징처리)
+    @RequestMapping("/boardGallery/galleryList")
+    public ModelAndView galleryList(PagingVO2 paging, @RequestParam(value="mng_group") String mng_group, @RequestParam("sort") String sort) {
+       ModelAndView mav = new ModelAndView("");
 
-			if(sort.equals("1")) {
-				mav = new ModelAndView("/manager/boardManage");
-			}else if(sort.equals("2")) {
-				mav = new ModelAndView("/boardGallery/galleryList");
-			}
-			
-			
-	      System.out.println("boardGallery/galleryList 입니다");
-	      
-	      System.out.println(mng_group);
-	      //ArrayList<GalleryBoard> list = service.getAll(paging);
-	      //paging.setTotal(service.getTotalPaging());
-	      HashMap<String, Object> map = new HashMap<String, Object>();
-	      map.put("paging", paging);
-	      map.put("mng_group", mng_group);
-	      
-	      ArrayList<GalleryBoard> list = service.getByGallery(map);
-	      paging.setTotal(service.getTotalPagingByGallery(mng_group));
-	      
-	      mav.addObject("list", list);
-	      mav.addObject("paging", paging);
-	      mav.addObject("mng_group", mng_group);
-	      
-	      System.out.println("/boardGallery/galleryList : "+sort);
-	      
-	      return mav;
-	   }
+       if(sort.equals("1")) {
+          mav = new ModelAndView("/manager/boardManage");
+       }else if(sort.equals("2")) {
+          mav = new ModelAndView("/boardGallery/galleryList");
+       }
+       HashMap<String, Object> map = new HashMap<String, Object>();
+       map.put("paging", paging);
+       map.put("mng_group", mng_group);         
+       ArrayList<GalleryBoard> list = service.getByGallery(map);
+       paging.setTotal(service.getTotalPagingByGallery(mng_group));
+       
+       mav.addObject("sort", sort);
+       mav.addObject("list", list);
+       mav.addObject("paging", paging);
+       mav.addObject("mng_group", mng_group);
+
+       return mav;
+    }
 	
 	
 	//갤러리 게시판 상세 글조회
@@ -459,7 +450,7 @@ public class GalleryController {
 	
 	 //갤러리 게시판 검색
 	@RequestMapping("/boardGallery/gallerySearchResult")
-	public ModelAndView gallerySearchResult(PagingVO paging, @RequestParam(value="mng_group") String mng_group, @RequestParam(value="search_type") int search_type, @RequestParam(value="search_word") String search_word) {
+	public ModelAndView gallerySearchResult(PagingVO2 paging, @RequestParam(value="mng_group") String mng_group, @RequestParam(value="search_type") int search_type, @RequestParam(value="search_word") String search_word) {
 		ModelAndView mav = new ModelAndView("/boardGallery/galleryList");
 		ArrayList<GalleryBoard> list = null;
 	      HashMap<String, Object> map = new HashMap<String, Object>();
@@ -516,7 +507,13 @@ public class GalleryController {
 	   //갤러리 게시판 댓글 수정 및 조회
 	   @RequestMapping("/boardGallery/galleryReplyEdit")
 	   public ModelAndView galleryReplyEdit(@RequestParam(value="gallery_num") int gallery_num, @RequestParam(value="reply_num") int reply_num, @RequestParam(value="content") String content) {
-	      Reply r = new Reply();
+	      System.out.println("reply_num"+reply_num);
+	      System.out.println("content"+content);
+		   
+		   
+		   
+		   
+		   Reply r = new Reply();
 	      r.setNum(gallery_num);
 	      r.setReply_num(reply_num);
 	      r.setContent(content);

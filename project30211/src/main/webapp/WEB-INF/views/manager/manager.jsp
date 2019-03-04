@@ -89,7 +89,7 @@ li .a1:hover:not(.active) {
 	<hr>
 	     <div align="right">
       <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/manager">  >  관리 페이지</a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/manager">  >  관리자 페이지</a>
   </div><br><br> 
 
 <%-- 
@@ -180,9 +180,10 @@ li .a1:hover:not(.active) {
 
 <td>
 <div class="card">
-<div id="rcorners2">메인 페이지 관리&nbsp;<span class="glyphicon glyphicon-home"></span></div>
+<div id="rcorners2">홈페이지 관리&nbsp;<span class="glyphicon glyphicon-home"></span></div>
 <ul>
   <li><a class="a1" style="font-size:15px;" href="${pageContext.request.contextPath}/manager/mgWriteForm">메인 페이지 사진 변경</a></li>
+  <li><a class="a1" style="font-size:15px;" href="${pageContext.request.contextPath}/manager/appWriteForm">원서 파일 업로드</a></li>
 </ul>
 </div>
 </td>

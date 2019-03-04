@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 <link href="<c:url value="../resources/css/style.min.css" />"
@@ -29,18 +28,23 @@
 
 
 	<section id="portfolio">
-		<div class="container" style="margin-top: 50px; margin-left: 450px;">
+		<div class="container" style="margin-top: 50px; margin-left: 23%;">
 
 			<div class="row">
-				<div class="col-lg-12 text-center">
-					<h2 class="section-heading text-uppercase">식단표</h2>
-					<h3 class="section-subheading text-muted">우리 아이들의 건강한 식단을 책임집니다~!</h3>
+				<div class="col-lg-12">
+					<h3 class="section-heading text-uppercase">식단표</h3>
+					<h4 class="section-subheading text-muted">우리 아이들의 건강한 식단을 책임집니다~!</h4>
 				</div>
 			</div>
-
-		<div class="row">	
+<hr>
+<div align="right" style="margin-bottom: 50px;">
+			<a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
+			<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/boardNotice/noticeList?sort=2">  >  커뮤니티</a>
+			<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/boardDiet/dietListForm">  >  식단표</a>
+		</div>
+		<div class="row" style="position: relative; left: 80%; margin-bottom: 50px;">	
 			<c:if test="${sessionScope.id=='manager'}">
-				<input class="btn btn-primary" type="button" onclick="location.href=${pageContext.request.contextPath}/boardDiet/uploadDietForm" value="식단표 작성">
+				<input class="btn btn-primary" type="button" onclick="location.href='${pageContext.request.contextPath}/boardDiet/uploadDietForm'" value="식단표 작성">
 			</c:if>
 		</div>	
 
@@ -49,7 +53,7 @@
 					<div class="col-md-4 col-sm-6 portfolio-item">
 						<a class="portfolio-link"
 							href="${pageContext.request.contextPath}/boardDiet/dietNumForm?diet_num=${db.diet_num}">
-							<img class="img-fluid" src="/img/${db.files}" alt="식단표 업로드 불가">
+							<img class="img-fluid" src="../resources/img/${db.files}" alt="식단표 업로드 불가">
 						</a>
 						<div class="portfolio-caption">
 							<h3>${db.title}</h3>

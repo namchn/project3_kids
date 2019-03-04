@@ -14,42 +14,53 @@
 rel="stylesheet">
 
 <meta charset="UTF-8">
-<script type="text/javascript">
-function CheckAll() {
-   var chk = document.getElementsByName("check_notice_num");
-   if(check == false) {
-      check = true;
-      for(var i = 0; i < chk.length; i++) {
-         chk[i].checked = true;   // 모두 체크
+<script type="text/javascript"
+   src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+$(document).ready(function(){
+   //최상단 체크박스 클릭
+    $("#all").click(function(){
+        //클릭되었으면
+        if($("#all").prop("checked")){
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+            $(".check").prop("checked",true);
+            //클릭이 안되있으면
+        }else{
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+            $(".check").prop("checked",false);
+        }
+    });
+   $("#dbtn").click(function(){
+   var checked = $('input:checkbox[name="check_notice_num"]:checked').length;
+      if(checked==0){
+         alert("선택을 안했습니다");
       }
-   } else {
-      check = false;
-      for(var i = 0; i < chk.length; i++) {
-         chk[i].checked = false;   // 모두 해제
+      else{
+         
+         $("#form").submit();
       }
-   }
-}
-
+   })
+})
 </script>
-<title>Insert title here</title>
 </head>
 
 
 <body class="default">
  <jsp:include page="/WEB-INF/views/common/header.jsp"/>
- <form action="${pageContext.request.contextPath}/manager/boardDelete3">
-		<hr>
+ <form action="${pageContext.request.contextPath}/manager/boardDelete3" id="form">
+		
 		<div class="container">
-	<h2>공지사항 관리</h2>
+	<h2>공지사항 관리</h2><hr>
  <div align="right">
       <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/manager">  >  관리 페이지</a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/manager">  >  관리자 페이지</a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="#">  >  공지사항 관리</a>
   </div><br><br>   
 
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th><input type="checkbox" id="checkall" name="checkall"
+						<th style="width: 5%;"><input type="checkbox" id="all" name="checkall"
 							onclick="javascript:CheckAll()"></th>
 						<th>게시판분류</th>
 						<th>공지사항num</th>
@@ -61,7 +72,7 @@ function CheckAll() {
 				<tbody>
 					<c:forEach var="n_list" items="${n_list}">
 						<tr>
-							<td><input type="checkbox" name="check_notice_num" value="${n_list.notice_num }"></td>
+							<td><input type="checkbox" name="check_notice_num" class="check" value="${n_list.notice_num }"></td>
 							<td>n_list</td>
 							<td>${n_list.notice_num}</td>
 							<td>${n_list.id }</td>
@@ -72,7 +83,7 @@ function CheckAll() {
 				</tbody>
 			</table>
 			<div align="right">
-			<input class="btn btn-primary" type="submit" value="삭제">
+			<input class="btn btn-primary" type="button" id="dbtn" value="삭제">
 			<input class="btn btn-primary" type="button" value="업로드" onclick="location.href='${pageContext.request.contextPath}/boardNotice/noticeWriteForm?sort=1'">
 			</div>
 		</div>

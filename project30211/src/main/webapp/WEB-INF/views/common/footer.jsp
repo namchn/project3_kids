@@ -31,7 +31,7 @@ width: 130px;
                </nav>
             </div> -->
             <div data-layout="al16 ch8 ch-o1 ec-third ec-o1">
-            <div id="plusfriend-addfriend-button" ></div>
+            <div id="plusfriend-addfriend-button" style="margin-top: 50px;"></div>
 <script type='text/javascript'>
   //<![CDATA[
     
@@ -49,8 +49,8 @@ width: 130px;
                <h3 style="color: #A6A6A6;">Contact</h3>
                <p>
                   Email : <a href="mailto:#" class="f" style="color: #A6A6A6; font-size:13px;">kitriChild@email.com</a><br>
-                  TEL 대표전화 : 02)869-8301<br>
-                  FAX 팩스 : 02)869-6052
+                  TEL 대표전화 : 02)1234-1234<br>
+                  FAX 팩스 : 02)4567-4567
                </p>
                <p>Copyright &copy; 2019 Company</p>
             </div>

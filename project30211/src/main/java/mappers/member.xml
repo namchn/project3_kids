@@ -42,7 +42,7 @@
 	</select>
 	
 	<select id="selectPhone" parameterType="String" resultMap="memberResult">
-		select phone from member where id=#{id}
+		select phone from member where phone=#{phone}
 	</select>
 	
 	<update id="update" parameterType="com.kitri.project3.member.Member">

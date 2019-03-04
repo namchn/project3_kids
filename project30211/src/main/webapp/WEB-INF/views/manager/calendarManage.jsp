@@ -1,6 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <!-- Start Head -->
@@ -8,35 +8,38 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <link href="<c:url value="../resources/css/style.min.css" />"
-	rel="stylesheet">
+   rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />"
 rel="stylesheet">
-
 <meta charset="UTF-8">
+<script type="text/javascript"
+   src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
-function deleteCal(){;
-
-  document.getElementById("calForm").action = "${pageContext.request.contextPath}/manager/calendarDelete";
- $('#calForm').action = "${pageContext.request.contextPath}/manager/calendarDelete";
-  //document.getElementsById("calForm")[0].submit();
-  // $('#calForm').submit()
-  
-}
-
-function editCal(){
-	 alert("edit");
-
-      document.getElementById("calForm").action = "${pageContext.request.contextPath}/manager/calendarEditForm";
-      document.getElementById("calForm").submit();
-      //$('#calForm').action = "${pageContext.request.contextPath}/manager/calendarEdit";
-      //$('#calForm').submit()
-}
-function uploadCal(){
-	alert("upload");
-	  $('#calForm').submit();
-}
+$(document).ready(function(){
+   //최상단 체크박스 클릭
+    $("#all").click(function(){
+        //클릭되었으면
+        if($("#all").prop("checked")){
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+            $(".check").prop("checked",true);
+            //클릭이 안되있으면
+        }else{
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+            $(".check").prop("checked",false);
+        }
+    });
+   $("#ebtn").click(function(){
+   var checked = $('input:checkbox[name="check_num"]:checked').length;
+      if(checked!=1){
+         alert("한개만 선택하세요");
+      }
+      else{
+         $("#form").attr("action", "${pageContext.request.contextPath }/manager/calendarEditForm");
+         $("#form").submit();
+      }
+   })
+})
 </script>
 </head>
 
@@ -45,19 +48,20 @@ function uploadCal(){
 
  <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <!-- 본문 - 관리자페이지 -->
-<form style="height:700px;">
+<form style="height:700px;" id="form" action="${pageContext.request.contextPath }/manager/calendarDelete">
 <div class="container">
 
   <h3>일정 관리</h3>  
   <hr>
       <div align="right">
       <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/manager">  >  관리 페이지</a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/manager">  >  관리자 페이지</a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/calendarManage">  >  일정 관리</a>
   </div><br><br>          
   <table class="table table-hover">
     <thead>
       <tr> 
-      	<th>선택</th>
+         <th><input type="checkbox" id="all" name="checkall"></th>
         <th>번호</th>
         <th>시작일</th>
         <th>종료일</th>
@@ -67,7 +71,7 @@ function uploadCal(){
     <c:forEach var="allc" items="${allc}">
     <tbody>
       <tr>
-        <td><input type="checkbox" name="check_num" value="${allc.num }"></td>
+        <td><input type="checkbox" name="check_num" class="check" value="${allc.num }"></td>
         <td>${allc.num }</td>
         <td>${allc.start_date }</td>
         <td>${allc.end_date }</td>
@@ -78,15 +82,14 @@ function uploadCal(){
   </table>
   
   <div align="right">
-  <input class="btn btn-primary" type="submit" value="삭제" onclick="deleteCal()">
-  <%-- <input type="button" value="수정" onclick="location.href='${pageContext.request.contextPath}/manager/calendarEditForm?num=${allc.num }'">  --%>
-  <input class="btn btn-primary" type="submit" value="수정" onclick="editCal()"> 
-  <input class="btn btn-primary" type="button" value="업로드" onclick="location.href='${pageContext.request.contextPath}/manager/calendarUploadForm'">
+  <input class="btn btn-primary" type="submit" value="삭제" id="dbtn" style="width: 70px;">
+  <input class="btn btn-primary" type="button" value="수정" id="ebtn" style="width: 70px;"> 
+  <input class="btn btn-primary" type="button" value="업로드" onclick="location.href='${pageContext.request.contextPath}/manager/calendarUploadForm'" style="width: 70px;">
   </div>
 </div>
 </form>
 
-	<div align="center">
+   <div align="center">
         <!-- 5. paging view -->    
         <ul class="pagination">
         
@@ -108,7 +111,7 @@ function uploadCal(){
             
         </ul>
 
-	
+   
         <form action="${pageContext.request.contextPath }/manager/calendarManage" method="post"  id="frmPaging">
             <!--출력할 페이지번호, 출력할 페이지 시작 번호, 출력할 리스트 갯수 -->
             <input type="hidden" name='index' id='index' value='${paging.index}'>

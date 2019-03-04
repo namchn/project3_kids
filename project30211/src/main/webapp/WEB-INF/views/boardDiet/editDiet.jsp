@@ -1,5 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -8,23 +8,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aperitif - Custom Template</title>
 <script type="text/javascript"
 	src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <link href="<c:url value="../resources/css/style.min.css" />"
 	rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />"
 	rel="stylesheet">
-<script type="text/javascript"
-   src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-<style type="text/css">
-.rb {
-	width: 50px;
-}
-</style>
-</head>
 
-<head>
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -68,6 +59,18 @@
 	"applicationCategory" : "HTML"
 	}
 	</script>
+	<style type="text/css">
+ .con{
+ margin-bottom: 10px;
+ margin-top: 10px;
+ }
+ .con>input[type=text]{
+ max-width: 40%;
+ }
+ .con>p{
+ 	font-weight: bolder;
+ }
+</style>
 </head>
 
 <!-- End Head -->
@@ -83,7 +86,6 @@ $(document).ready(function(){
 	$('#edit2').hide();//이미지변경한 후 생기는 수정버튼 hide
 	var title = $('#title').val();
 	var content = $('#content').val();
-
 });
   function imgBtnOn(){
 	  $('#editImgBtn').show();  
@@ -123,29 +125,37 @@ $(document).ready(function(){
 	  }	
   }   
  </script>
-
-</head>
-
-<body class="default">
-
+<div style="margin-left: 175px; margin-top: 40px;">
+<jsp:include page="/WEB-INF/views/common/side_com.jsp"></jsp:include>
+</div>
 <!-- 본문-->
-식단 상세조회 페이지
+<div class="container" style="margin-left: 23%; margin-bottom: 50px;">
 <h3>식단 정보</h3>
+<hr>
+<div align="right" style="margin-bottom: 50px; margin-right: 30%;">
+			<a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
+			<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/boardNotice/noticeList?sort=2">  >  커뮤니티</a>
+			<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/boardDiet/dietListForm">  >  식단표</a>
+		</div>
 	<%-- <form action="${pageContext.request.contextPath}/boardDiet/editDiet" method="post" enctype="multipart/form-data" id="totalImgForm"> --%>
 		<form enctype="multipart/form-data" id="totalImgForm" method="post" > 
-		<img src="/img/${db.files}" width="150" height="150"><br>
-		제목<br>
+		<img src="../resources/img/${db.files}" width="450px" height="300">
+		<div class="con">
+		<p>제목</p>
 		<input type="text" name="title" id="title" value="${db.title}"><br> 
-		 내용<br>
+		</div>
+		 <div class="con">
+		 <p>내용</p>
 		<input type="text" name="content" id="content" value="${db.content}"><br>
-		날짜<br/>
-		<input type="text" name="time" id="time" value="${db.time}"><br>
+		</div>
+		<div class="con">
+		<p>날짜</p>
+		<input type="datetime" name="time" style="max-width: 40%; height: 35px; margin-bottom: 10px;"id="time" value="${db.time}"><br>
 		<input type="text" name="diet_num" id="diet_num" value="${db.diet_num}"><br> 
 		 <input type="hidden" name="originalImg" id="originalImg" value="${db.files}"> 
-		
-		<p></p>
+		</div>
 		<c:if test="${sessionScope.id=='manager'}">
-		<input type="button" value="이미지 수정" onclick="imgBtnOn();" >	
+		<input type="button"  class="btn btn-primary" value="이미지 수정" style="width:110px;" onclick="imgBtnOn();" >	
 		<div id="editImgBtn">
 			수정할 이미지를 선택하세요<br>
 			<input type="file" name="mfile" id="editedImg">
@@ -153,18 +163,20 @@ $(document).ready(function(){
 		<p></p>	
 
  		<div id="edit1">
-		<input type="button" value="식단표 수정1" onclick="subOn1()">
+		<input type="button" class="btn btn-primary" style="width:110px;" value="식단표 수정" onclick="subOn1()">
 		</div> 
 		
 		<div id="edit2">
-		 <input type="button" value="식단표 수정2" onclick="subOn2()"> 
-		 <div id="editImgBtn">
+		 <input type="button" class="btn btn-primary" style="width:110px;" value="식단표 수정" onclick="subOn2()"> 
 		 </div>
-		
-		<input type="button" value="식단표 삭제" onclick="location.href='deleteDiet?diet_num=${db.diet_num}'"> 
-		<input type="reset" value="취소">
+		<div style="margin-top: 10px; margin-left: 35%;" >
+		<input type="button" class="btn btn-primary" value="식단표 삭제" style="width: 100px;" onclick="location.href='deleteDiet?diet_num=${db.diet_num}'"> 
+		<input type="reset" class="btn btn-primary" value="취소" style="width: 100px;">
+		</div>
 		</c:if>
 	</form>
+	</div>
+	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	<script src="../resources/js/index.js"></script>
 </body>

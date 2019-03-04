@@ -8,11 +8,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aperitif - Custom Template</title>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 <link href="<c:url value="../resources/css/style.min.css" />"
    rel="stylesheet">
@@ -59,22 +54,24 @@ font-size: 15px;
 <body class="default">
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<div style="margin-top: 40px; margin-left: 175px;">
+    <jsp:include page="/WEB-INF/views/common/side_my.jsp"/>
+    </div>
 
-
-<div class="wrapper" style="margin-left: 30%;">
+<div class="wrapper" style="margin-left: 22%;">
 <h3>${sessionScope.id }님의 보낸 쪽지함</h3>
 <hr>
-<br>
 <form action="${pageContext.request.contextPath}/msg/delete">
 <%-- <a href="${pageContext.request.contextPath}/#"
                         style="font-size: 15px">홈으로 돌아가기</a>    --%>
     <div style="margin-bottom: 50px;">
-<input class="btn btn-primary" type="submit" class="btn btn-primary" value="선택 삭제" style="width: 100px; height:35px;">  
-<div align="right">
+    <div align="right">
       <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
       <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/msg/msg">  >  나의 쪽지함</a>
       <a style="font-size: 13px; color: gray; text-decoration:none" href="#">  >  나의 보낸 쪽지함</a>
-      </div> 
+      </div><br> 
+<input class="btn btn-primary" type="submit" class="btn btn-primary" value="선택 삭제" style="width: 100px; height:35px;">  
     </div>
 
 <div>     
@@ -83,8 +80,8 @@ font-size: 15px;
       <tr>
         <th style="width: 50px;"><input type="checkbox" id="all"></th>
           <th style="display: none">쪽지번호</th>
-          <th>보낸 날짜</th>
-          <th>내용</th>
+          <th style="width: 20%;">보낸 날짜</th>
+          <th style="width: 40%;">내용</th>
           <th name="sender">받은 사람</th>
       </tr>
     </thead>
@@ -96,7 +93,7 @@ font-size: 15px;
         
         <td class="time">${a.time }</td>
         
-        <td style="overflow: hidden;">
+        <td  style="overflow: hidden; word-break: keep-all; text-overflow: ellipsis;white-space: nowrap;">
            <c:choose>
            <c:when test="${a.read eq 0 }">
            <a href="#msgViewModal" data-toggle="modal" data-target="#msgViewModal" style="color: black; font-size: 15px;" class="content" value="${a.message_num }" id="${a.message_num }">${a.content }</a></c:when>
@@ -113,7 +110,7 @@ font-size: 15px;
 </div> 
 </form>
     
-<ul class="pagination" style="position: relative; left: 40%;">
+<ul class="pagination" style="position: relative; left: 40%; z-index: 1">
    
        <c:if test="${paging.pageStartNum ne 1}">
            <!--맨 첫페이지 이동 -->
@@ -169,8 +166,8 @@ font-size: 15px;
       <div class="modal-dialog">
          <div class="modal-content" style="width: 400px;">
             <div class="modal-header">
-               <h4 class="modal-title" style="font-size: 25px;">쪽지 보기</h4>
-               <button type="button" class="close" data-dismiss="modal">&times;</button>
+               <h4 class="modal-title" style="font-size: 25px; margin-top: 3%;">쪽지 보기</h4>
+               <button type="button" class="close" data-dismiss="modal" style="margin-right: 10%;">&times;</button>
             </div>
 
             
@@ -178,13 +175,13 @@ font-size: 15px;
                   <div class="modal-body">
                      
                         <div><label>받은 사람</label>
-                        <div id="sender1" style="border: 1px solid lightgray; border-radius: 3px; padding: 5px;"></div></div>
+                        <div id="sender1" style="border: 1px solid lightgray; border-radius: 3px; padding: 5px; width: 90%;"></div></div>
                         <div><label>보낸 시간</label>
-                        <div id="time1" style="border: 1px solid lightgray; border-radius: 3px; padding: 5px;"></div>
+                        <div id="time1" style="border: 1px solid lightgray; border-radius: 3px; padding: 5px; width: 90%;"></div>
                         </div>
                      
                      <div><label>내용</label>
-                     <div id="content1" style="border: 1px solid lightgray; border-radius: 3px; padding: 5px; overflow-wrap: break-word; overflow: auto; max-height: 200px;"></div>
+                     <div id="content1" style="border: 1px solid lightgray; border-radius: 3px; padding: 5px; width: 90%; overflow-wrap: break-word; overflow: auto; max-height: 200px;"></div>
                      </div>
                   </div>
                   

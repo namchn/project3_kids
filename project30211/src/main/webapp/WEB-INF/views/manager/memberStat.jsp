@@ -35,7 +35,8 @@
   <hr>   
     <div align="right">
       <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/manager">  >  관리 페이지</a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/manager">  >  관리자 페이지</a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="#">  >  회원 통계 관리</a>
   </div><br><br>   
     
    <%--<p>(2019년 현재 기준)</p> 

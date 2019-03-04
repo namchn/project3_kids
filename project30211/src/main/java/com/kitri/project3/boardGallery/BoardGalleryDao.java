@@ -3,7 +3,6 @@ package com.kitri.project3.boardGallery;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.kitri.project3.paging.PagingVO;
 import com.kitri.project3.paging.PagingVO2;
 
 public interface BoardGalleryDao {

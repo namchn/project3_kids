@@ -61,7 +61,7 @@
 		SELECT * FROM (SELECT * FROM poll ORDER BY poll_num DESC) WHERE rownum < 6
 		]]> 
 	</select>
-   
+	
 	<select id="idcheck" resultMap="pollCheckResult">
 		select * from pcheck where id=#{id} and poll_num=#{poll_num}
 	</select>

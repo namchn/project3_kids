@@ -19,23 +19,9 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-/* 		   
-	$('#editBtn').click(function() {
-		alert('editBtn');
-	   var id = $('#id').val(); 
-	   var pw = $('#pw').val(); 
-	   var name = $('#name').val(); 
-	   var phone = $('#phone').val(); 
-	      if(id==''||id==null||pw==''||pw==null||name==''||name==null||phone==''||phone==null) {
-	         alert('필수정보를 모두 입력하시오');
-	         return;
-	      }else
-	    	  alert('수정되었습니다');
-	    	  $("#editForm").submit();      
-	}); */
 	
 	  //회원가입 조건
-	   $('#editBtn').click(function() {
+	   $('#editBtn1').click(function() {
 		   alert("회원 수정 버튼");
 		   var phoneJoinResult = $('#phoneJoinResult').html();
 		   var phone = $('#editPhone').val();
@@ -61,6 +47,33 @@ $(document).ready(function(){
 		   });
 }); 
 
+//회원가입 조건
+
+	function editBtn() {
+	   alert("회원 수정 버튼");
+	   var phoneEditResult = $('#phoneEditResult').html();
+	   var phone = $('#editPhone').val();
+	   var pw = $('#editPw').val();
+	   //alert(pw);
+	   var phoneLength = phone.length;
+	   var pwLength = pw.length;
+	  // alert(pwLength);
+	   
+	     if(pwLength>12||pwLength<8){
+	    	  alert('비밀번호는 8자리 이상 12자리 이하여야 합니다');
+	      }
+	      else if(phoneLength<10||phoneLength>11){
+	    	  alert('연락처는 10자리 혹은 11자리이어야 합니다');
+	      }
+	      else if(phoneEditResult!='사용가능한 연락처'){
+	    	  alert('연락처 중복체크를 완료하십시오');
+	      }
+	      else{
+	    	  $('#editForm').submit();
+	      }
+	             
+	}
+	   
 function passCheck1() {
 	var pw = $("#editPw").val();
 	var pw_check = $("#editPw_check").val();
@@ -164,7 +177,7 @@ function execDaumPostcode1() {
 	</div>
 
 
-	<div class="container" style="width: 500px; margin-bottom: 50px;">
+	<div class="container" style="width: 1000px; margin-bottom: 100px;">
 		<h3>나의 회원정보 수정</h3>
 		<hr>
 		<div align="right">
@@ -263,24 +276,49 @@ function execDaumPostcode1() {
 
 						<label for="stu_name">원아 이름</label> <input type="text"
 							class="form-control" name="stu_name" id="stu_name"
-							placeholder="원아 이름" value="${m.stu_name}"> <label
-							for="stu_group">원아 반</label> <input type="text"
-							class="form-control" name="stu_group" id="stu_group"
-							placeholder="원아 반" value="${m.stu_group}">
-
+							placeholder="원아 이름" > 
+							
+							<label for="stu_group" style="width: max-content;">원아 반&nbsp;&nbsp;</label> 
+							
+							<select id="selectBox" name="selectStuGroupBox">
+							<c:choose>
+								<c:when test="${sessionScope.stu_group eq 1}">
+									<option value="1" selected>장미반</option>
+									<option value="2">해바라기반</option>
+									<option value="3">민들레반</option>
+									<option value="4">벚꽃반</option>
+								</c:when>
+								<c:when test="${sessionScope.mng_group eq 2}">
+									<option value="1">장미반</option>
+									<option value="2" selected>해바라기반</option>
+									<option value="3">민들레반</option>
+									<option value="4">벚꽃반</option>
+								</c:when>
+								<c:when test="${sessionScope.mng_group eq 3}">
+									<option value="1">장미반</option>
+									<option value="2">해바라기반</option>
+									<option value="3" selected>민들레반</option>
+									<option value="4">벚꽃반</option>
+								</c:when>
+								<c:otherwise>
+									<option value="1">장미반</option>
+									<option value="2">해바라기반</option>
+									<option value="3">민들레반</option>
+									<option value="4" selected>벚꽃반</option>
+								</c:otherwise>
+							</c:choose>
+							
 					</div>
 				</c:if>
-
+				<!-- <input class="btn btn-primary" type="button" value="수정2" onclick="editBtn2()" style="width: 70px;">  -->
+			</div>
 				<br>
-			</div>
+			
 			<div style="position: relative; left: 70%;">
-				<input class="btn btn-primary" type="button" value="수정" id="editBtn"
-					style="width: 70px;"> 
-					<input class="btn btn-primary"
-					type="reset" value="리셋" style="width: 70px;"><br>
-					
+				<input class="btn btn-primary" type="button" value="수정" onclick="editBtn()" style="width: 70px;"> 
+				<input class="btn btn-primary" type="reset" value="리셋" style="width: 70px;"><br>	
 			</div>
-
+			
 
 		</form>
 	</div>

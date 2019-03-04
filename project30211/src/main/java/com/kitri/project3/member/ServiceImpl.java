@@ -40,9 +40,8 @@ public class ServiceImpl implements Service {
 	@Override
 	public void editMyInfo(Member m) {
 		this.dao = sqlSession.getMapper(Dao.class);
-		System.out.println("serImpl의 edit입니다");
-		System.out.println(m.getId());
-		System.out.println("phone은 "+m.getPhone());
+		System.out.println("memserImpl의 edit입니다");
+		System.out.println(m);
 		dao.update(m);
 	}
 

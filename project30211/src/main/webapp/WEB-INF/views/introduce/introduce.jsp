@@ -8,17 +8,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aperitif - Custom Template</title>
 <link href="<c:url value="../resources/css/style.min.css" />"
 	rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />"
 	rel="stylesheet">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-<!-- <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script> -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
@@ -28,18 +23,6 @@
 
 
 <style type="text/css">
-a:visited {
-	color: black;
-}
-
-a:link {
-	color: black;
-}
-
-a {
-	text-decoration: none;
-	font-size: 20px;
-}
 .ele2 {
   display: inline-block;
   position: sticky;
@@ -59,7 +42,7 @@ a {
 
 
 <section>
-<div style="padding: 30px; margin-left: 10%; float: left;">
+<div style="margin-top: 40px; margin-left: 175px;">
     <jsp:include page="/WEB-INF/views/common/side_info.jsp"/>
     </div>
   <div data-layout="_r">

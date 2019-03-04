@@ -8,16 +8,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <META HTTP-EQUIV="refresh" CONTENT="60"> -->
-  <title>Calendar</title>
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">  
-<script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script> -->
 <script src="${pageContext.request.contextPath}/resources/js/paging.js"></script>
-
-
-
-
-
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -33,7 +24,7 @@
 
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
-<jsp:include page="/WEB-INF/views/common/side_com.jsp"/>
+
 
 <link rel='stylesheet' href='${pageContext.request.contextPath }/resources/fullcalendar/fullcalendar.css' />
 <script src='${pageContext.request.contextPath }/resources/fullcalendar/lib/jquery.min.js'></script>
@@ -102,28 +93,9 @@ $.ajax({
   // Create calendar when document is ready
   $(document).ready(function() {
      
-      ///////////////////////////////////////////////////////////////////
-     //console.log(JSON.stringify(events_array[0].end).substr(0,11));
-      //var str =JSON.stringify(events_array)
-/*      var contentStr = "";
-     for(var i=0; i<events_array.length;i++){
-        contentStr += "[번호:"+ i+"]"
-        + JSON.stringify(events_array[i].start).substr(0,11) +""
-        +"~" +JSON.stringify(events_array[i].end).substr(0,11)+ ":"
-        + " " + events_array[i].title + "</br>";
-     }
-     $("#callist").html(contentStr); */
-   /////////////////////////////////////////////////////////////////
      $('#calendar').fullCalendar('option', 'aspectRatio', 1.8);
-     ///////////////////////////////////////////////////////////
-     
-     
-     
-    // We will refer to $calendar in future code
-    var $calendar = $("#calendar").fullCalendar({ //start of options
 
-        //weekends : false, // do not show saturday/sunday
-
+    var $calendar = $("#calendar").fullCalendar({ 
         header: {
           left: 'prevYear,nextYear',
           center: 'title',
@@ -248,11 +220,15 @@ $.ajax({
 
         eventRender: function(event, element, view) {
            console.log(event);
+           if(mana == id_id){
                  if (view.name == 'listDay') {
-                    element.find(".fc-list-item-time").append("<span class='closeon'>**</span>");
+                	 
+                    element.find(".fc-list-item-time").append("<span class='closeon'style='color: red'>X</span>");
+                    
                  } else {
-                    element.find(".fc-content").prepend("<span class='closeon'>**</span>");
+                    element.find(".fc-content").prepend("<span class='closeon' style='color: red'>X</span>");
                  }
+           }
                    element.find(".closeon").on('click', function(e) {
                       
                       
@@ -308,7 +284,7 @@ $.ajax({
            console.log(id_id);
            if (mana == id_id) {
           // Ask for a title. If empty it will default to "New event"
-          var title = prompt("Enter a title for this event", "New event");
+          var title = prompt("일정의 제목을 입력하세요", "새 일정");
           // If did not pressed Cancel button
           if (title != null) {
             // Create event
@@ -431,6 +407,7 @@ $.ajax({
                      });
                  }else{
                     //revertFunc();
+                    
                    return;    
                  }
              
@@ -467,22 +444,48 @@ $.ajax({
   .centered {
     text-align: center;
   }
+  .fc-sun>a:not([href]):not([tabindex]){
+   color: red;
+  }
+  .fc-sun>span{
+  	color: red;
+  }
+  .fc-sat>span{
+  	color: blue;
+  }
+  .fc-sat>a:not([href]):not([tabindex]){
+   color: blue;
+  }
 </style>
 
 <body>
+<div style="margin-left: 175px; margin-top: 40px;">
+<jsp:include page="/WEB-INF/views/common/side_com.jsp"/>
+</div>
 
+   <!-- 바디 -->
+   <div class="container" style="margin-left: 23%">
+   <h3>행사일정</h3>
+      <hr>
+      <div align="right">
+         <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
+         <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/boardNotice/noticeList?sort=2">  >  커뮤니티</a>
+         <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/fullcalendar/fullcalendarAll">  >  행사일정</a>
+      </div><br>
+   </div><br>
 <!-- 접속자 아이디 -->
  <input type="hidden" name=manag value="${sessionScope.id}">
 
   <!-- The calendar container -->
     <div id="calendar" style="width: 50%; height: 50%;  z-index: 1;
-     margin-top:10% ; margin-bottom : 1% ;text-align: right; margin"></div>
+     margin-bottom : 1% ;text-align: right;"></div>
 
   
   
   
   <!-- 달력목록 -->
-   <div class="container" style="width:70%;text-align:center;margin-left: auto;">
+   <div class="container" style="width:55%;text-align:center;margin-left: 22%;">
+   <div style="margin-left: 4%;">
     <h3>일정목록</h3>            
   <table class="table table-hover">
     <thead>
@@ -496,7 +499,7 @@ $.ajax({
     <tbody>
          <c:forEach var="a" items="${list}" varStatus="status">
          <tr>
-            <td>${status.index}</td>
+            <td>${a.num}</td>
             <td>${a.start_date} ~ ${a.end_date}</td>
             <td>${a.event}</td>   <%-- <td>${a.mng_group}</td> --%>
             <td>${a.id}</td>
@@ -504,7 +507,8 @@ $.ajax({
          </c:forEach>  
     </tbody>
   </table>
-   
+  
+   </div>
    
 <%--    
    <p >일정목록</p> 
@@ -564,7 +568,7 @@ $.ajax({
     </div>
     
   
-  
+
  <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
    <script src="../resources/js/index.js"></script>
 </body>

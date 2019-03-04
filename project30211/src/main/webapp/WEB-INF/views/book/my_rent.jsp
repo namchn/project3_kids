@@ -12,7 +12,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/paging.js"></script>
 <link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">
-<title>떡잎유치원 - 내 대출 목록</title>
 
 <style type="text/css">
 table>thead>tr>th{
@@ -27,20 +26,21 @@ table>tbody>tr>td{
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <div style="margin-top: 40px; margin-left: 175px;">
-	<jsp:include page="/WEB-INF/views/common/side_book.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/side_my.jsp"></jsp:include>
 </div>
-<div class="container" style="margin-top:50px; margin-left: 450px;">
+<div class="container" style="margin-top:50px; margin-left: 22%; margin-bottom: 80px">
   <h3>내 대출 목록</h3>
-  <div style="position: absolute; left: 73%;">
+  <hr>
+  <div align="right" style="margin-bottom: 50px; margin-right: 20%;">
       <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
       <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
       <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/book/myrent">  >  내 대출 목록</a>
   </div><br><br>   
   <div id="todayDiv"></div>
-  <table class="table table-hover">
+  <table class="table table-hover" style="width: 75%;">
     <thead>
       <tr style="text-align:center">
-        <th style="width: 5%">대출번호</th>
+        <th style="width: 8%">대출번호</th>
         <th style="width: 20%" id="title">제목</th>
         <th style="width: 8%">시작일</th>
         <th style="width: 8%">종료일</th>
@@ -73,7 +73,7 @@ table>tbody>tr>td{
   </table>
 </div>
 
-<div align="center">
+<div align="center" style="margin-bottom: 80px;">
 <!-- 5. paging view -->    
         <ul class="pagination">
         

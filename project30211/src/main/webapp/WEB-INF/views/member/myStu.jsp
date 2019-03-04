@@ -5,20 +5,16 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <link href="<c:url value="../resources/css/style.min.css" />" rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />" rel="stylesheet">	
-<title>떡잎유치원 - 담임 반 원생 목록</title>
 
 <style type="text/css">
 a:visited {color: black;}
 a:link {color: black;}
-a{text-decoration: none; font-size: 20px;}
+a{text-decoration: none;}
 table>thead>tr>th {
 	text-align: center;
 }
@@ -33,7 +29,7 @@ table>tbody>tr>td {
 <div style="margin-top: 40px; margin-left: 175px;">
 <jsp:include page="/WEB-INF/views/common/side_my.jsp"/>
 </div>
-<div class="container" style="margin-top:50px; margin-left: 450px; margin-bottom: 50px">
+<div class="container" style="margin-top:50px; margin-left: 22.5%; margin-bottom: 50px; max-width: 75%">
 <c:choose>
 <c:when test="${sessionScope.mng_group eq 1}">
 	<c:set var="group" value="장미"></c:set>
@@ -49,13 +45,13 @@ table>tbody>tr>td {
 </c:otherwise>
 </c:choose>
 <h3>${group}반 원생 목록</h3>
-<div align="right">
+<hr style="width: 1000px; float:left">
+<div style="display: inline-block; margin-left: 68%;">
 	<a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
 	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myInfo">  >  마이페이지</a>
 	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/member/myStu">  >  담임 반 원생 목록</a>
 </div><br><br>
-<div class="container">
-  <table class="table table-hover">
+  <table class="table table-hover" style="max-width: 75%; margin-top: 30px">
     <thead>
       <tr>
       	<th>ID</th>
@@ -75,7 +71,6 @@ table>tbody>tr>td {
     </c:forEach>
     </tbody>
   </table>
-  </div>
 </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 <script src="../resources/js/index.js"></script>

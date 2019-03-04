@@ -2,6 +2,7 @@ package com.kitri.project3.manager;
 
 import java.util.ArrayList;
 
+import com.kitri.project3.book.Book;
 import com.kitri.project3.book.Rent;
 import com.kitri.project3.calendar.Calendar;
 import com.kitri.project3.member.Member;
@@ -30,6 +31,8 @@ public interface ManService {
 	void delBook(int book_num);
 	void delRentList(int book_num);
 	void delCartList(int book_num);
+	void modBook(Book b);
+	void modBook2(Book b);
 	
 	//도서 통계 관리
 	int getRentingCount();  // 대출 중 현재대출중인 개수 구하기

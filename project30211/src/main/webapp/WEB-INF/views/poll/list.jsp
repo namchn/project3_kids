@@ -8,19 +8,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-<title>Insert title here</title>
 <link href="<c:url value="../resources/css/style.min.css" />"
    rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />"
    rel="stylesheet">
-   
-   
-   <!-- 여기요 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>   
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">   
 
-   <script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">   
    <script src="${pageContext.request.contextPath}/resources/js/paging.js"></script>
 <style type="text/css">
 
@@ -67,7 +60,7 @@ font-size: 1em; float: right; width: 1em; color: #a51c1c;
 margin-bottom: 1em; border: solid 1em #c1889c; border-radius: 1em; background-color: #ffc0c0;
 }
 </style>
-
+<script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 
 /* window.onload = function react(){
@@ -144,10 +137,10 @@ String strDate = strYear + "-"+strMonth +"-"+ strDay;
             <b>${a.poll_subject}</b>
             </c:when>
               <c:otherwise>
-              <c:if test="${sessionScope.id != null }">
+              <c:if test="${sessionScope.id != null && sessionScope.mem_code != '3'}">
               <a href="${pageContext.request.contextPath }/poll/view?pollnum=${a.poll_num}" style="color: black;" class="subject" id="${a.poll_num }">${a.poll_subject }</a>
                </c:if>
-               <c:if test="${sessionScope.id == null }">
+               <c:if test="${sessionScope.id == null || sessionScope.mem_code =='3'}">
                	${a.poll_subject }
                </c:if>
               </c:otherwise>

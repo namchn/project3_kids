@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
-import com.kitri.project3.paging.PagingVO;
 import com.kitri.project3.paging.PagingVO2;
 
 @Component("boardGalleryService")

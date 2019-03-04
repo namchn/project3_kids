@@ -414,7 +414,7 @@ textarea {
   padding: 1em 2em 1em 3em;
 }
 .MOD_MENU_Nav > ul ul a:focus, .MOD_MENU_Nav > ul ul a:hover, .MOD_MENU_Nav > ul ul a:active {
-  filter: brightness(1.2);
+  filter: brightness(1.1);
 }
 
 .MOD_MENU_Button {
@@ -541,14 +541,14 @@ textarea {
     padding-right: 3rem;
     position: relative;
   }
-  .MOD_MENU_Nav > ul li.hasSubmenu > a:after {
+   .MOD_MENU_Nav > ul li.hasSubmenu > a:after {
     content: '\025BE';
     position: absolute;
     font-size: 1.5em;
     line-height: 1;
     top: 0.6em;
-    right: 0.6em;
-  }
+    right: 0.4em;
+  } 
   .MOD_MENU_Nav > ul ul {
     width: auto;
     height: auto !important;

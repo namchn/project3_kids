@@ -10,8 +10,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="text/javascript"
-   src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <link href="<c:url value="../resources/css/style.min.css" />"
    rel="stylesheet">
 <link href="<c:url value="../resources/css/modules.css" />"
@@ -45,7 +43,8 @@ table>thead>tr>th{
    <hr>
    <div align="right">
       <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
-      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/manager">  >  관리 페이지</a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/manager">  >  관리자 페이지</a>
+      <a style="font-size: 13px; color: gray; text-decoration:none" href="#">  >  도서 통계 관리</a>
   </div><br><br> 
     
    <%--  <div style="padding-bottom:50px;">
@@ -164,7 +163,7 @@ table>thead>tr>th{
   <!-- End of Page Wrapper -->
 	<br>
 	
-<p style="padding-top:50px;">도서 대여/연체 목록</p><br>
+<p style="padding-top:50px;">도서 연체 목록</p><br>
 
   <table class="table table-hover"  style="text-align:center;padding-bottom:500px;">
     <thead>
