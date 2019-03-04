@@ -101,8 +101,10 @@ $(document).ready(function(){
         <ul class="pagination">
         
             <c:if test="${paging.pageStartNum ne 1}">
-                <li class="page-item"><a class="page-link" onclick='pagePre(${paging.pageCnt+1},${paging.pageCnt});'>이전</a></li>
-                <li class="page-item"><a class="page-link" onclick='pagePre(${paging.pageStartNum},${paging.pageCnt});'>다음</a></li>
+                <!--맨 첫페이지 이동 -->
+                <li class="page-item"><a class="page-link" onclick='pagePre(${paging.pageCnt+1},${paging.pageCnt});'>«</a></li>
+              <!--이전 페이지 이동 -->
+                <li class="page-item"><a class="page-link" onclick='pagePre(${paging.pageStartNum},${paging.pageCnt});'>‹</a></li>
             </c:if>
             
             <!--페이지번호 -->
@@ -112,8 +114,8 @@ $(document).ready(function(){
             </c:forEach>
             
             <c:if test="${paging.lastChk}">
-                <li class="page-item"><a class="page-link" onclick='pageNext(${paging.pageStartNum},${paging.total},${paging.listCnt},${paging1.pageCnt});'>›</a></li>
-                <li class="page-item"><a class="page-link" onclick='pageLast(${paging.pageStartNum},${paging.total},${paging.listCnt},${paging1.pageCnt});'>»</a></li>
+                <li class="page-item"><a class="page-link" onclick='pageNext(${paging.pageStartNum},${paging.total},${paging.listCnt},${paging.pageCnt});'>›</a></li>
+                <li class="page-item"><a class="page-link" onclick='pageLast(${paging.pageStartNum},${paging.total},${paging.listCnt},${paging.pageCnt});'>»</a></li>
             </c:if>
             
         </ul>
