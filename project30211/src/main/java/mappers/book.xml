@@ -64,14 +64,24 @@
 		select book_num, book_title, book_writer, book_publisher, rest_amount, book_img from book where book_num = #{book_num}
 	</select>
 	
-	<!-- 대출 테이블에 추가 -->
+	<!-- 대출 테이블에 추가 
 	<insert id="insertRent" parameterType="com.kitri.project3.book.Rent">	
 		insert into rent values (rent_seq.nextval, #{book_num}, #{rent_amount}, #{id}, #{s_date}, #{e_date}, null)
+	</insert> -->
+	
+	<!-- 대출 테이블에 추가 -->
+	<insert id="insertRent" parameterType="com.kitri.project3.book.Rent">	
+		insert into rent values (rent_seq.nextval, #{book_num}, 1, #{id}, #{s_date}, #{e_date}, null)
 	</insert>
+	
+	<!-- 대출했을 때 book 테이블 수량 수정 
+	<update id="updateAmount" parameterType="com.kitri.project3.book.Rent">	
+		update book set rest_amount = rest_amount - #{rent_amount} where book_num = #{book_num}
+	</update> -->
 	
 	<!-- 대출했을 때 book 테이블 수량 수정 -->
 	<update id="updateAmount" parameterType="com.kitri.project3.book.Rent">	
-		update book set rest_amount = rest_amount - #{rent_amount} where book_num = #{book_num}
+		update book set rest_amount = rest_amount - 1 where book_num = #{book_num}
 	</update>
 	
 	<!-- 내 대출 목록 조회 -->

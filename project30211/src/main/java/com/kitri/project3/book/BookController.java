@@ -189,8 +189,13 @@ public class BookController {
       String id = s.getAttribute("id").toString();
       r.setId(id);
       r.setBook_num(book_num);
-      bookService.addRent(r);
-      bookService.modAmount(r);
+      
+      int count = r.getRent_amount();
+      for(int i = 0; i < count; i++) {
+    	  bookService.addRent(r);
+          bookService.modAmount(r);
+      }
+      
       return "redirect:/book/myrent";
    }
    

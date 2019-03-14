@@ -44,7 +44,7 @@ table>tbody>tr>td{
         <th style="width: 20%" id="title">제목</th>
         <th style="width: 8%">시작일</th>
         <th style="width: 8%">종료일</th>
-        <th style="width: 8%">대출수량</th>
+        <!-- <th style="width: 8%">대출수량</th> -->
         <th style="width: 10%">반납여부</th>
       </tr>
     </thead>
@@ -55,7 +55,7 @@ table>tbody>tr>td{
         <td style="text-align: left"><a href="${pageContext.request.contextPath}/book/book_rent?book_num=${mylist.book_num}" style="font-size: 15px; margin-left: 40px">${mylist.book_title}</a></td>
         <td>${mylist.s_date}</td>
         <td id="endDate">${mylist.e_date}</td>
-        <td>${mylist.rent_amount}</td>
+        <%-- <td>${mylist.rent_amount}</td> --%>
         <c:choose>
         <c:when test="${mTime > list.e_date and list.r_date eq null}">
         <td style="color: red">연체중</td>

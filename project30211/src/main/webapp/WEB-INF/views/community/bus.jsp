@@ -37,73 +37,109 @@ html, body {width:100%;height:100%;margin:0;padding:0;}
 </head>
 
 <body class="default">
+<input type="hidden" id="bus1x" value="${bus1.x }">
+<input type="hidden" id="bus1y" value="${bus1.y }">
+<input type="hidden" id="bus2x" value="${bus2.x }">
+<input type="hidden" id="bus2y" value="${bus2.y }">
+<input type="hidden" id="bus3x" value="${bus3.x }">
+<input type="hidden" id="bus3y" value="${bus3.y }">
+<input type="hidden" id="bus4x" value="${bus4.x }">
+<input type="hidden" id="bus4y" value="${bus4.y }">
+<input type="hidden" id="bus5x" value="${bus5.x }">
+<input type="hidden" id="bus5y" value="${bus5.y }">
+<input type="hidden" id="bus6x" value="${bus6.x }">
+<input type="hidden" id="bus6y" value="${bus6.y }">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<div style="margin-top: 40px; margin-left: 175px;">
+<div style="margin-top: 40px; margin-left: 8%;">
    <jsp:include page="/WEB-INF/views/common/side_com.jsp"></jsp:include>
 </div>
-  <div style="margin-top:50px; margin-left: 22%; margin-bottom: 50px; margin-right: 960px">
+  <div  class="container" style="margin-top:50px; margin-left: 22%; margin-bottom: 50px;">
   <h3>셔틀버스</h3>
-  <hr style="width: 850px">
-  <div style="position: absolute; left: 55%;">
+  <hr style="width: 79%; float: left;">
+  <div style="float: right; margin-right: 20%; margin-bottom: 20px">
       <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
       <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/boardNotice/noticeList?sort=2">  >  커뮤니티</a>
       <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/community/bus">  >  셔틀버스</a>
   </div><br><br>
-  <a href="http://map.daum.net/link/to/한국정보기술연구원,37.485126,126.898812" style="font-size: 15px; font-weight: bold; float: right" target="_blank">
+<div class="map_wrap" style="height:600px; position: sticky;">
+  <a href="http://map.daum.net/link/to/한국정보기술연구원,37.485126,126.898812" style="font-size: 15px; font-weight: bold;" target="_blank">
   <span class="glyphicon glyphicon-search" style="font-size: 15px"></span>길 찾기</a>
-  <div class="map_wrap" style="width:500px;height:400px; position: sticky;">
-  <div id="map" style="width:500px;height:400px; position: sticky;"></div>
-  <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
-     <div class="custom_zoomcontrol radius_border"> 
-        <span onclick="zoomIn()" style="color: #4a5c79; font-size: 28px; font-weight: bolder; text-align: center">+</span>  
-        <span onclick="zoomOut()" style="color: #4a5c79; font-size: 25px; font-weight: bolder; margin-left: 6px;">ㅡ</span>
-     </div>
-  </div>
+  <div id="map" style="width:79%; height:400px; position: sticky;"></div>
+
+  <div style="border-bottom: 2px solid lightgray; width: 79%; margin-top: 30px;">
+
+<span class="glyphicon glyphicon-map-marker" style="color: gray; font-size: 20px"></span>
+<span style="color: gray; font-weight: bold; font-size: 20px">주소&emsp;</span>
+<span style="font-size: 15px">서울특별시 구로구 디지털로34길 43 코오롱싸이언스밸리1차</span>
+</div><br>    
+<div style="border-bottom: 2px solid lightgray; width: 79%;" >
+<span class="glyphicon glyphicon-phone" style="color: gray; font-size: 20px"></span>
+<span style="color: gray; font-weight: bold; font-size: 20px">전화&emsp;</span>
+<span style="font-size: 15px">02-1234-1234</span>
+</div>
+<c:if test="${sessionScope.id eq 'manager'}">
+<a href="${pageContext.request.contextPath}/manager/edit_bus" class="btn btn-primary" style="color: white; margin-top: 10px; position: relative; left: 70%;">경로수정</a>
+</c:if>
+ </div>
+</div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cb0b1955634d613647bc41931ca8ebe9&libraries=services"></script>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 mapOption = { 
     center: new daum.maps.LatLng(37.485126, 126.898812), // 지도의 중심좌표
-    level: 3 // 지도의 확대 레벨
+    level: 4 // 지도의 확대 레벨
 };
-
-//지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
-function zoomIn() {
-    map.setLevel(map.getLevel() - 1);
-}
-
-// 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
-function zoomOut() {
-    map.setLevel(map.getLevel() + 1);
-}
 
 var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
+//일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+var mapTypeControl = new daum.maps.MapTypeControl();
+
+// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+// daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+
+// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+var zoomControl = new daum.maps.ZoomControl();
+map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+
+var x1 = document.getElementById('bus1x').value;
+var y1 = document.getElementById('bus1y').value;
+var x2 = document.getElementById('bus2x').value;
+var y2 = document.getElementById('bus2y').value;
+var x3 = document.getElementById('bus3x').value;
+var y3 = document.getElementById('bus3y').value;
+var x4 = document.getElementById('bus4x').value;
+var y4 = document.getElementById('bus4y').value;
+var x5 = document.getElementById('bus5x').value;
+var y5 = document.getElementById('bus5y').value;
+var x6 = document.getElementById('bus6x').value;
+var y6 = document.getElementById('bus6y').value;
 //마커를 표시할 위치와 title 객체 배열입니다 
 var positions = [
 {
     title: '1', 
-    latlng: new daum.maps.LatLng(37.485536, 126.898815)
+    latlng: new daum.maps.LatLng(x1, y1)
 },
 {
     title: '2', 
-    latlng: new daum.maps.LatLng(37.485126, 126.899535)
+    latlng: new daum.maps.LatLng(x2, y2)
 },
 {
     title: '3',
-    latlng: new daum.maps.LatLng(37.484345, 126.8993052)
+    latlng: new daum.maps.LatLng(x3, y3)
 },
 {
     title: '4', 
-    latlng: new daum.maps.LatLng(37.484293, 126.897896)
+    latlng: new daum.maps.LatLng(x4, y4)
 },
 {
     title: '5',
-    latlng: new daum.maps.LatLng(37.484765, 126.897424)
+    latlng: new daum.maps.LatLng(x5, y5)
 },
 {
     title: '6',
-    latlng: new daum.maps.LatLng(37.485904, 126.897285)
+    latlng: new daum.maps.LatLng(x6, y6)
 },
 ];
 
@@ -125,45 +161,13 @@ var marker = new daum.maps.Marker({
     title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
     image : markerImage // 마커 이미지 
 });
+
+marker.setDraggable(true); 
 }
 
-//선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
-var linePath = [
-   new daum.maps.LatLng(37.485126, 126.898812),
-    new daum.maps.LatLng(37.485536, 126.898815),
-    new daum.maps.LatLng(37.485126, 126.899535),
-    new daum.maps.LatLng(37.484345, 126.8993052),
-    new daum.maps.LatLng(37.484293, 126.897896),
-    new daum.maps.LatLng(37.484765, 126.897424),
-    new daum.maps.LatLng(37.485904, 126.897285),
-    new daum.maps.LatLng(37.485126, 126.898812)
-];
-
-// 지도에 표시할 선을 생성합니다
-var polyline = new daum.maps.Polyline({
-    path: linePath, // 선을 구성하는 좌표배열 입니다
-    strokeWeight: 5, // 선의 두께 입니다
-    strokeColor: '#FFAE00', // 선의 색깔입니다
-    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-    strokeStyle: 'solid' // 선의 스타일입니다
-});
-
-// 지도에 선을 표시합니다 
-polyline.setMap(map);
 </script>
 
-<div style="border-bottom: 2px solid lightgray">
-<br>
-<span class="glyphicon glyphicon-map-marker" style="color: gray; font-size: 20px"></span>
-<span style="color: gray; font-weight: bold; font-size: 20px">주소&emsp;</span>
-<span style="font-size: 15px">서울특별시 구로구 디지털로34길 43 코오롱싸이언스밸리1차</span>
-</div><br>    
-<div style="border-bottom: 2px solid lightgray">
-<span class="glyphicon glyphicon-phone" style="color: gray; font-size: 20px"></span>
-<span style="color: gray; font-weight: bold; font-size: 20px">전화&emsp;</span>
-<span style="font-size: 15px">02-1234-1234</span>
-</div>
-</div>
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 <script src="../resources/js/index.js"></script>
 </body>

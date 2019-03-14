@@ -16,6 +16,7 @@ a:visited {color: black;}
 a:link {color: black;}
 a{text-decoration: none;
 /*  font-size: 20px; */}
+
 html, body {width:100%;height:100%;margin:0;padding:0;} 
 .map_wrap {position:relative;overflow:hidden;width:100%;height:350px;}
 .radius_border{border:1px solid #919191;border-radius:5px;}     
@@ -35,29 +36,33 @@ html, body {width:100%;height:100%;margin:0;padding:0;}
 
 <body class="default">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<div style="margin-top: 40px; margin-left: 175px;">
+<div style="margin-top: 40px; margin-left: 8%;">
 	<jsp:include page="/WEB-INF/views/common/side_info.jsp"/>
 </div>
-<div style="margin-top:50px; margin-left: 22%; margin-bottom: 50px; margin-right: 960px">
+<div class="container" style="margin-top:50px; margin-left: 22%; margin-bottom: 50px;">
 <h3>오시는 길</h3>
-<hr style="width: 850px">
-<div style="position: absolute; left: 55%;">
+<hr style="width: 79%; float: left;">
+<div style="float: right; margin-right: 20%; margin-bottom: 20px">
 	<a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
 	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/introduce/introduce">  >  유치원 소개</a>
 	<a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/info/map">  >  오시는 길</a>
 </div><br><br>
-<a href="http://map.daum.net/link/to/한국정보기술연구원,37.485126,126.898812" style="font-size: 15px; font-weight: bold; float: right" target="_blank"><span class="glyphicon glyphicon-search" style="font-size: 15px"></span>길 찾기</a>
-<div class="map_wrap" style="width:500px;height:400px; position: sticky;">
-<div id="map" style="width:500px;height:400px; position: sticky;"></div>
-     <!-- 지도타입 컨트롤 div 입니다 -->
-     <!-- <div class="custom_typecontrol radius_border">
-        <span id="btnRoadmap" class="selected_btn" onclick="setMapType('roadmap')">지도</span>
-        <span id="btnSkyview" class="btn" onclick="setMapType('skyview')">스카이뷰</span>
-     </div> -->
-     <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
-<div class="custom_zoomcontrol radius_border"> 
-	<span onclick="zoomIn()" style="color: #4a5c79; font-size: 28px; font-weight: bolder; text-align: center">+</span>  
-	<span onclick="zoomOut()" style="color: #4a5c79; font-size: 25px; font-weight: bolder; margin-left: 6px;">ㅡ</span>
+<div class="map_wrap" style="height:600px; position: sticky;">
+<a href="http://map.daum.net/link/to/한국정보기술연구원,37.485126,126.898812" style="font-size: 15px; font-weight: bold;" target="_blank">
+<span class="glyphicon glyphicon-search" style="font-size: 15px"></span>길 찾기</a>
+<div id="map" style="width:80%; height:400px; position: sticky;"></div>
+
+<div style="border-bottom: 2px solid lightgray; width: 79%; margin-top: 30px">
+<br>
+<span class="glyphicon glyphicon-map-marker" style="color: gray; font-size: 20px"></span>
+<span style="color: gray; font-weight: bold; font-size: 20px">주소&emsp;</span>
+<span style="font-size: 15px">서울특별시 구로구 디지털로34길 43 코오롱싸이언스밸리1차</span>
+</div><br>    
+<div style="border-bottom: 2px solid lightgray; width: 79%;">
+<span class="glyphicon glyphicon-phone" style="color: gray; font-size: 20px"v></span>
+<span style="color: gray; font-weight: bold; font-size: 20px">전화&emsp;</span>
+<span style="font-size: 15px">02-1234-1234</span>
+</div>
 </div>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cb0b1955634d613647bc41931ca8ebe9&libraries=services"></script>
@@ -70,7 +75,7 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 
 // 지도를 생성합니다    
 var map = new daum.maps.Map(mapContainer, mapOption);
-// 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+/* // 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
 function zoomIn() {
     map.setLevel(map.getLevel() - 1);
 }
@@ -78,7 +83,18 @@ function zoomIn() {
 // 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
 function zoomOut() {
     map.setLevel(map.getLevel() + 1);
-}
+} */
+
+//일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+var mapTypeControl = new daum.maps.MapTypeControl();
+
+//지도에 컨트롤을 추가해야 지도위에 표시됩니다
+//daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+
+//지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+var zoomControl = new daum.maps.ZoomControl();
+map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
 
 // 주소-좌표 변환 객체를 생성합니다
 var geocoder = new daum.maps.services.Geocoder();
@@ -109,18 +125,6 @@ geocoder.addressSearch('서울특별시 구로구 디지털로34길 43 코오롱
 }); 
 </script>
 
-<div style="border-bottom: 2px solid lightgray">
-<br>
-<span class="glyphicon glyphicon-map-marker" style="color: gray; font-size: 20px"></span>
-<span style="color: gray; font-weight: bold; font-size: 20px">주소&emsp;</span>
-<span style="font-size: 15px">서울특별시 구로구 디지털로34길 43 코오롱싸이언스밸리1차</span>
-</div><br>    
-<div style="border-bottom: 2px solid lightgray">
-<span class="glyphicon glyphicon-phone" style="color: gray; font-size: 20px"v></span>
-<span style="color: gray; font-weight: bold; font-size: 20px">전화&emsp;</span>
-<span style="font-size: 15px">02-1234-1234</span>
-</div>
-</div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 <script src="../resources/js/index.js"></script>
 </body>

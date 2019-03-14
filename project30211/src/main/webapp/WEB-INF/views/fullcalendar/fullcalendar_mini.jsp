@@ -11,7 +11,7 @@
   <!-- <META HTTP-EQUIV="refresh" CONTENT="60"> -->
 </head>
 
-<link rel='stylesheet' href='${pageContext.request.contextPath }/resources/fullcalendar/fullcalendar.css' />
+<link rel='stylesheet' href='${pageContext.request.contextPath }/resources/fullcalendar/fullcalendar.css?ver=1' />
 <script src='${pageContext.request.contextPath }/resources/fullcalendar/lib/jquery.min.js'></script>
 <script src='${pageContext.request.contextPath }/resources/fullcalendar/lib/moment.min.js'></script>
 <script src='${pageContext.request.contextPath }/resources/fullcalendar/fullcalendar.js'></script>
@@ -444,11 +444,11 @@ $.ajax({
     #calendar .fc-body a{
   font-size: 0.5em;
   }   
-  @media only screen and (max-width: 1300px) {
+/*   @media only screen and (max-width: 1300px) {
   #calendar{
     display: none;
   }
-}
+} */
   
   
 </style>

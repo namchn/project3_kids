@@ -30,7 +30,7 @@
 			<beans:value>oracle.jdbc.driver.OracleDriver</beans:value>
 		</beans:property>
 		<beans:property name="url">
-			<beans:value>jdbc:oracle:thin:@183.101.196.162:1521:XE</beans:value>
+			<beans:value>jdbc:oracle:thin:@localhost:1521:XE</beans:value>
 		</beans:property>
 		<beans:property name="username">
 			<beans:value>project3</beans:value>

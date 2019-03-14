@@ -3,6 +3,7 @@ package com.kitri.project3.member;
 import java.util.ArrayList;
 
 import com.kitri.project3.pay.Pay;
+import com.kitri.project3.student.Student;
 
 public interface Service {
 	Member getMyInfo(String id);
@@ -20,5 +21,7 @@ public interface Service {
 	//로그인 시, 아이디/비밀번호 찾기
 	Member findPw(Member m);
 	Member findId(Member m);
+	boolean checkPhone2(String phone);
+	ArrayList<Student> getStuNames(String phone);
 
 }

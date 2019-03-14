@@ -90,7 +90,14 @@ table>tbody>tr>td{
       <a class="glyphicon glyphicon-home" style="font-size: 12px; color: darkred; text-decoration:none" href="${pageContext.request.contextPath }"></a>
       <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/manager">  >  관리자페이지</a>
       <a style="font-size: 13px; color: gray; text-decoration:none" href="${pageContext.request.contextPath }/manager/rentpage">  >  도서관리</a>
-  </div><br><br>   
+  </div><br><br>  
+  
+  <div>
+  <a class="glyphicon glyphicon-check" style="font-size: 12px; color: gray; text-decoration:none"></a><a style="font-size: 13px;" href="${pageContext.request.contextPath}/manager/rentalList">대출중&nbsp;</a>
+  <a class="glyphicon glyphicon-check" style="font-size: 12px; color: gray; text-decoration:none"></a><a style="font-size: 13px;" href="${pageContext.request.contextPath}/manager/delayList">연체중&nbsp;</a>
+  <a class="glyphicon glyphicon-check" style="font-size: 12px; color: gray; text-decoration:none"></a><a style="font-size: 13px;" href="${pageContext.request.contextPath}/manager/completeList">반납완료&nbsp;</a>
+  </div><br><br>
+  
   <div id="todayDiv"></div>
   <form name="checkTest" id="form" method="post">
   <table class="table table-hover" style="font-size: 15px">
@@ -102,7 +109,7 @@ table>tbody>tr>td{
         <th style="width: 25%">제목</th>
         <th style="width: 10%">시작일</th>
         <th style="width: 10%">종료일</th>
-        <th style="width: 8%">대출수량</th>
+        <!-- <th style="width: 8%">대출수량</th> -->
         <th style="width: 10%">반납여부</th>
       </tr>
     </thead>
@@ -117,7 +124,7 @@ table>tbody>tr>td{
         <td style="text-align: left"><a href="${pageContext.request.contextPath}/book/book_rent?book_num=${list.book_num}" style="font-size: 15px;  margin-left: 40px;">${list.book_title}</a></td>
         <td>${list.s_date}</td>
         <td id="endDate">${list.e_date}</td>
-        <td>${list.rent_amount}</td>
+        <%-- <td>${list.rent_amount}</td> --%>
         <c:choose>
         <c:when test="${mTime > list.e_date and list.r_date eq null}">
         <td style="color: red" class="rr">연체중</td>
@@ -134,7 +141,7 @@ table>tbody>tr>td{
     </tbody>
   </table>
   <div align="right">
-  <a class="btn btn-primary" href="${pageContext.request.contextPath}/book/add_book" style="color:white;">추가</a>
+  <a class="btn btn-primary" href="${pageContext.request.contextPath}/book/add_book" style="color:white;">추가하기</a>
   <button class="btn btn-primary" id="btn3">수정하기</button>
   <button class="btn btn-primary button1" id="btn1">반납하기</button>
   <button id="btn2" class="btn btn-primary button1">삭제하기</button>

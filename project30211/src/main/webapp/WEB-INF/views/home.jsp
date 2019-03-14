@@ -134,11 +134,11 @@ body {
 .MOD_FEATURE{
    background-color: white;
 }
-@media only screen and (max-width: 899px) {
-  #side1{
+@media only screen and (max-width: 700px) {
+.submenu7>p, .submenu5>p, .submenu3>p, .submenu1>p{
     display: none;
   }
-}
+} 
 .MOD_FEATURE_Container{
    text-decoration: none;
    font-family: 'Varela Round', sans-serif;
@@ -155,7 +155,6 @@ font-family: 'Varela Round', sans-serif;
 margin-top: 20px;
 margin-bottom: 8px;
 word-break: break-all;
-width: 276px;
 text-overflow: ellipsis;
 white-space: nowrap;
 overflow: hidden;
@@ -165,8 +164,8 @@ text-overflow: ellipsis;
 white-space: nowrap;
 overflow: hidden;
 }
-@media only screen and (max-width: 1300px) {
-  #pic{
+@media only screen and (max-width: 850px) {
+  #footer, #slide1{
     display: none;
   }
 }
@@ -193,7 +192,7 @@ border: 1px solid #EAEAEA;
 
    <jsp:include page="/WEB-INF/views/common/header2.jsp"></jsp:include>
 
-   <section class="MOD_PROMOBOX1">
+   <section class="MOD_PROMOBOX1" id="slide1">
       <span id="slide">
          <span data-layout="_r" class="MOD_PROMOBOX1_Background"
             style="height: 500px; display: block; overflow: hidden;"
@@ -233,36 +232,40 @@ border: 1px solid #EAEAEA;
 
    <section class="MOD_PROMOBOX1" style="" id="side1">
       <span data-layout="_r" style=" margin: 0 auto; padding-left: 0;">
-         <span data-layout="ch8 ec4" style="float:left; width: 25%;">
+         <span style="float:left; width: 25%;">
             <a href="${pageContext.request.contextPath }/introduce/introduce" class="MOD_FEATURE_Container">
-               <div class="submenu1" style="float: left;"><i class="fas fa-school" style="font-size: 50px;"></i></div>
-               <div class="submenu1" style="height: 70px; display: grid;">
-               유치원소개<span class="abc" style="font-size:12px;">우리유치원을 소개합니다.</span></div>
+               
+               <div class="submenu1" style="height: 70px;">
+               <i class="fas fa-school" style="font-size: 50px; float: left; padding-right: 15px;"></i>
+               <p>유치원소개</p><p class="abc" style="font-size:12px;">우리유치원을 소개합니다.</p></div>
             </a>
          </span>
-         <span data-layout="ch8 ec4" style="float:left;  width: 25%; ">
+         <span style="float:left;  width: 25%; ">
             <a href="${pageContext.request.contextPath }/book/booklistForm" class="MOD_FEATURE_Container">
-              <div class="submenu3" style="width: fit-content; float: left;">
-              <i class="fas fa-book" style="font-size: 50px;"></i>
-              </div>
-               <div class="submenu3" style="font-family: 'Varela Round', sans-serif; height: 70px; display: grid;">도서관 서비스<span class="abc"  style="font-size:12px;">우리유치원 도서관 서비스입니다.</span></div>
+              <!-- <div class="submenu3" style="float: left;">
+             
+              </div> -->
+               <div class="submenu3" style="height: 70px;">
+                <i class="fas fa-book" style="font-size: 50px; float: left; padding-right: 15px;"></i>
+               <p style="font-weight: bold;">도서관 서비스</p><p class="abc"  style="font-size:12px;">우리유치원 도서관 서비스입니다.</p></div>
      
             </a>
          </span>
-         <span data-layout="ch8 ec4" style="float:left;  width: 25%;">
+         <span style="float:left;  width: 25%;">
             <a href="#" class="MOD_FEATURE_Container">
-               <div class="submenu5" style="width: fit-content; float: left;">
-               <i class="fas fa-baby" style="font-size: 50px;"></i>
-               </div><div class="submenu5" style="height: 70px; display: grid;"></i>우리반소개<span class="abc"  style="font-size:12px">귀여운 우리아이들 봐요.</span></div>
-             
+               <div class="submenu5" style="height: 70px;">
+               <i class="fas fa-baby" style="font-size: 50px; float: left; padding-right: 15px;"></i>
+               <p>우리반소개</p><p class="abc"  style="font-size:12px">귀여운 우리아이들 봐요.</p>
+               </div>
             </a>
          </span>
-         <span data-layout="ch8 ec4" style=" width: 25%;">
+         <span style=" width: 25%;">
             <a href="${pageContext.request.contextPath }/info/map" class="MOD_FEATURE_Container">
-               <div class="submenu7" style="width: fit-content; float: left;">
-               <i class="fas fa-map-marked-alt" style="font-size: 50px;"></i>
+               
+               <div class="submenu7 intext" style="height: 70px;">
+               <i class="fas fa-map-marked-alt" style="font-size: 50px; float: left; padding-right: 15px;"></i>
+               <p>오시는길</p><p class="abc"  style="font-size:12px;">오시는길을 안내합니다.</p>
                </div>
-               <div class="submenu7" style="height: 70px; display: grid;">오시는길<span class="abc"  style="font-size:12px;">오시는길을 안내합니다.</span></div>
    
             </a>
          </span>
@@ -273,22 +276,22 @@ border: 1px solid #EAEAEA;
       <div data-layout="_r">
      
          <!-- 식단표 -->
-         <div data-layout="ch8 ec4" style="border:solid 1px lightgray; background-color: #eae0995e;" id="pic">
-          <div style="margin-top: 20px; margin-bottom: 20px;text-align: center; font-weight: bolder; font-size: 15px;">식단표</div>
+         <div style="border:solid 1px lightgray; background-color: #eae0995e; width: 25%" id="pic">
+          <div style="margin-top: 20px; margin-bottom: 20px;text-align: center; font-weight: bolder; font-size: 15px; overflow: hidden;">식단표</div>
             <a href="${pageContext.request.contextPath}/boardDiet/detailDiet?diet_num=${db.diet_num}"
                class="MOD_FEATURE_Container"> 
                <a href="${pageContext.request.contextPath}/boardDiet/detailDiet?diet_num=${db.diet_num}">
                    <img src="resources/img/${db.files}" width="100px;" height="100" alt="식단표 업로드 불가">
-                  <p style="padding-top:30px; padding-left:50px;">
-                     <a align="center" href="${pageContext.request.contextPath}/boardDiet/detailDiet?diet_num=${db.diet_num}"
-                           align="center" style="font-color:lightgray;">${db.title}</a>                        
+                  <p align="center" style="padding-top:30px; word-break: break-all;">
+                     <a href="${pageContext.request.contextPath}/boardDiet/detailDiet?diet_num=${db.diet_num}"
+                           style="font-color:lightgray;">${db.title}</a>                        
                      </p>
                </a>
             </a>
         </div>
         
         <!-- 공지사항 -->       
-        <div data-layout="ch8 ec4" style="border:solid 1px lightgray; background-color: #007bff17;">
+        <div  style="border:solid 1px lightgray; background-color: #007bff17; width: 25%;">
            <div style="margin-top: 20px; text-align: center; font-weight: bolder; font-size: 15px;">공지사항</div>
          <c:forEach var="n_list" items="${n_list}">
         <div class="innerDiv"><li><a href="${pageContext.request.contextPath }/boardNotice/noticeView?sort=2&notice_num=${n_list.notice_num}">${n_list.title}</a></li></div>
@@ -299,7 +302,7 @@ border: 1px solid #EAEAEA;
         </div>
         
         <!-- 자유게시판 -->
-        <div data-layout="ch8 ec4" style="border:solid 1px lightgray; background-color: #3c763d1c;">
+        <div style="border:solid 1px lightgray; background-color: #3c763d1c; width: 25%;">
         <div style="margin-top: 20px; text-align: center; font-weight: bolder; font-size: 15px;">자유게시판</div>
             <c:forEach var="b_list" items="${b_list}">
         
@@ -365,7 +368,6 @@ border: 1px solid #EAEAEA;
      
          <jsp:include
                page="/WEB-INF/views/fullcalendar/fullcalendar_mini.jsp" />
-       
       
       
       </div>
@@ -391,12 +393,13 @@ border: 1px solid #EAEAEA;
 
          }
          // Get the element with id="defaultOpen" and click on it
-         document.getElementById("defaultOpen").click();
+         /* document.getElementById("defaultOpen").click(); */
       </script>
    
    
-
+<div id="footer">
    <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+   </div>
    <script src="resources/js/index.js"></script>
 </body>
 

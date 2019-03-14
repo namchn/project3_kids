@@ -83,11 +83,32 @@ public class ServiceImpl implements ManService {
 		dao.insertCal(calendar);
 
 	}
-		@Override
-		public ArrayList<Rent> getAllRent(PagingVO paging) {
-			this.dao = sqlSession.getMapper(Dao.class);
-			return dao.selectAllRent(paging);
-		}
+
+	@Override
+	public ArrayList<Rent> getAllRent(PagingVO paging) {	// 전체 대출 목록
+		this.dao = sqlSession.getMapper(Dao.class);
+		return dao.selectAllRent(paging);
+	}
+	
+	
+	@Override
+	public ArrayList<Rent> getRentalList(PagingVO paging) {	// 대출중인 목록
+		this.dao = sqlSession.getMapper(Dao.class);
+		return dao.selectRentalList(paging);
+	}
+	
+
+	@Override
+	public ArrayList<Rent> getDelayList(PagingVO paging) {	// 연체중인 목록
+		this.dao = sqlSession.getMapper(Dao.class);
+		return dao.selectDelayList(paging);
+	}
+
+	@Override
+	public ArrayList<Rent> getCompleteList(PagingVO paging) {	// 반납완료 목록
+		this.dao = sqlSession.getMapper(Dao.class);
+		return dao.selectCompleteList(paging);
+	}
 		
 		
 		/*   @Override
@@ -126,10 +147,22 @@ public class ServiceImpl implements ManService {
 	      
 	      @Override
 	      public int getDelayCount() {
-	         // TODO Auto-generated method stub
 	         this.dao = sqlSession.getMapper(Dao.class);
 	         return dao.selectDelayCount();
 	      }
+	      
+	  	@Override
+		public int getRentalCount() {
+			this.dao = sqlSession.getMapper(Dao.class);
+			return dao.selectRentalCount();
+		}
+
+		@Override
+		public int getCompleteCount() {
+			this.dao = sqlSession.getMapper(Dao.class);
+			return dao.selectCompleteCount();
+		}
+
 	      //도서 통계 관리 끝
        
 		@Override
@@ -226,5 +259,16 @@ public class ServiceImpl implements ManService {
 			dao.updateBook2(b);
 		}
 
+		@Override
+		public void modBus(Bus bus) {
+			this.dao = sqlSession.getMapper(Dao.class);
+			dao.updateBus(bus);
+		}
+
+		@Override
+		public Bus getBus(int bus_num) {
+			this.dao = sqlSession.getMapper(Dao.class);
+			return dao.selectBus(bus_num);
+		}
 
 }

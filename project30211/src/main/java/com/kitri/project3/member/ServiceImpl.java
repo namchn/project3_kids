@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
 import com.kitri.project3.pay.Pay;
+import com.kitri.project3.student.Student;
 
 @Component("memService")//빈이름등록
 public class ServiceImpl implements Service {
@@ -125,6 +126,24 @@ public class ServiceImpl implements Service {
 	public Member findPw(Member m) {
 		this.dao = sqlSession.getMapper(Dao.class);
 		return dao.findPw(m);
+	}
+	
+	@Override
+	public boolean checkPhone2(String phone) {
+		this.dao = sqlSession.getMapper(Dao.class);
+		String ph = dao.selectPhone2(phone);
+		if (ph == null) {
+			return false;
+		}
+		return true;
+		
+	}
+
+
+	@Override
+	public ArrayList<Student> getStuNames(String phone) {
+		this.dao = sqlSession.getMapper(Dao.class);
+		return dao.selectStuNames(phone);
 	}
 
 

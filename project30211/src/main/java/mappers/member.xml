@@ -18,7 +18,20 @@
 		<result column="stu_group" property="stu_group" />
 		<result column="mng_group" property="mng_group" />	
 	</resultMap>
-	
+	<resultMap id="studentResult" type="com.kitri.project3.student.Student">
+		<result column="stu_id" property="stu_id" />
+		<result column="stu_name" property="stu_name" />
+		<result column="stu_group" property="stu_group" />
+		<result column="stu_birthday" property="stu_birthday" />
+		<result column="stu_gender" property="stu_gender" />	
+		<result column="member_id" property="member_id" />
+		<result column="member_phone" property="member_phone" />
+		<result column="join_date" property="join_date" />		
+		<result column="postcode" property="postcode" />
+		<result column="address" property="address" />
+		<result column="detailAddress" property="detailAddress" />
+		<result column="extraAddress" property="extraAddress" />	
+	</resultMap>
 	<resultMap type="com.kitri.project3.pay.Pay" id="payResult">
 		<result property="id" column="id"/>
 		<result property="name" column="name"/>
@@ -45,9 +58,27 @@
 		select phone from member where phone=#{phone}
 	</select>
 	
+	<select id="selectPhone2" parameterType="String"
+		resultType="String">
+		select distinct member_phone
+		from student
+		where
+		member_phone in (select member_phone
+		from student
+		where member_phone=#{phone})
+	</select>
+	
+	<select id="selectStuNames" parameterType="String"
+		resultMap="studentResult">
+		select * from student where member_phone=#{phone}
+	</select>
+	
 	<update id="update" parameterType="com.kitri.project3.member.Member">
-		update member set mem_code=#{mem_code}, id=#{id}, 
-		pw=#{pw}, name=#{name}, postcode=#{postcode}, address=#{address}, detailAddress=#{detailAddress}, extraAddress=#{extraAddress}, phone=#{phone}, stu_name=#{stu_name}, stu_group=#{stu_group}, mng_group=#{mng_group} where id=#{id}
+		update member set mem_code=#{mem_code}, id=#{id},
+		pw=#{pw}, name=#{name}, postcode=#{postcode}, address=#{address},
+		detailAddress=#{detailAddress}, extraAddress=#{extraAddress},
+		phone=#{phone}, stu_name=#{stu_name}, stu_group=#{stu_group},
+		mng_group=#{mng_group} where id=#{id}
 	</update>
 	
 	<delete id="delete" parameterType="String">

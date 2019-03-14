@@ -23,7 +23,10 @@ public interface ManService {
 	void uploadCal(Calendar calendar);
 	
 	//도서관리
-	ArrayList<Rent> getAllRent(PagingVO paging);	
+	ArrayList<Rent> getAllRent(PagingVO paging);	// 전체 대출 목록
+	ArrayList<Rent> getRentalList(PagingVO paging);	// 대출중인 목록
+	ArrayList<Rent> getDelayList(PagingVO paging);	// 연체중인 목록
+	ArrayList<Rent> getCompleteList(PagingVO paging);	// 반납완료 목록
 	void modRdate(int rent_num);	
 	void modAmount(Rent r);	
 	Rent getCheckRent(int rent_num);
@@ -40,6 +43,8 @@ public interface ManService {
 	int getRentCount();  // 총 대출 개수 구하기
 	ArrayList<Rent> getRentList(); //   전체 대출 목록 조회
 	int getDelayCount();//   대출 연체 책 권수  
+	int getRentalCount();	// 대출중인 목록 개수
+	int getCompleteCount();	// 반납완료 목록 개수
 	
 	//회원 통계관리
 	int getParentStat();
@@ -49,5 +54,8 @@ public interface ManService {
 	//결제 통계관리
 	int getSCount();//이번달결제한인원	
 	ArrayList<Member> getParentAll();//전체 학부모 목록
+	
+	void modBus(Bus bus);
+	Bus getBus(int bus_num);
 
 }

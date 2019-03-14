@@ -168,6 +168,7 @@ font-size: 15px;
          url:"${pageContext.request.contextPath }/msg/read",
          data:param,
          success:function(data){
+        	
             }
             
          });

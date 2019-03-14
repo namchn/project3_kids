@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -295,6 +296,51 @@ public class ManController {
       return mav;
    }
 
+   // 대출중인 목록 조회
+   @RequestMapping("/manager/rentalList")
+   public ModelAndView rent(PagingVO paging) {
+	   SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+	   Date currentTime = new Date();
+	   String mTime = mSimpleDateFormat.format(currentTime);
+	   ArrayList<Rent> list = manService.getRentalList(paging);
+	   paging.setTotal(manService.getRentalCount());
+	   ModelAndView mav = new ModelAndView("/manager/rentalList");
+	   mav.addObject("list", list);
+	   mav.addObject("mTime", mTime);
+	   mav.addObject("paging", paging);
+	   return mav;
+   }
+   
+   // 연체중인 목록 조회
+   @RequestMapping("/manager/delayList")
+   public ModelAndView delay(PagingVO paging) {
+	   SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+	   Date currentTime = new Date();
+	   String mTime = mSimpleDateFormat.format(currentTime);
+	   ArrayList<Rent> list = manService.getDelayList(paging);
+	   paging.setTotal(manService.getDelayCount());
+	   ModelAndView mav = new ModelAndView("/manager/delayList");
+	   mav.addObject("list", list);
+	   mav.addObject("mTime", mTime);
+	   mav.addObject("paging", paging);
+	   return mav;
+   }
+   
+   // 반납완료 목록 조회
+   @RequestMapping("/manager/completeList")
+   public ModelAndView complete(PagingVO paging) {
+	   SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+	   Date currentTime = new Date();
+	   String mTime = mSimpleDateFormat.format(currentTime);
+	   ArrayList<Rent> list = manService.getCompleteList(paging);
+	   paging.setTotal(manService.getCompleteCount());
+	   ModelAndView mav = new ModelAndView("/manager/completeList");
+	   mav.addObject("list", list);
+	   mav.addObject("mTime", mTime);
+	   mav.addObject("paging", paging);
+	   return mav;
+   }
+   
    // 반납하기
    @RequestMapping("/manager/rent")
    public String rent(HttpServletRequest req) {
@@ -328,6 +374,7 @@ public class ManController {
 	   
 	   return "redirect:/book/booklistForm";
    }
+   
    @RequestMapping("/manager/delRent")
    public String delRent(HttpServletRequest req) {
 	   if(req.getParameter("checked_book") != null) {
@@ -626,7 +673,26 @@ public class ManController {
          }
          return file.getName();
       }
-   
-
-
+      @RequestMapping("/manager/abcd")
+      public ModelAndView abcd(Bus bus) {
+    	  manService.modBus(bus);
+    	  
+    	  bus = manService.getBus(bus.getBus_num());
+    	
+    	  ModelAndView mav = new ModelAndView("manager/busline");
+    	  mav.addObject("bus", bus);
+    	  return mav;
+      }
+      // 버스 경로 수정
+      @RequestMapping("/manager/edit_bus")
+      public ModelAndView editBus() {
+    	  ArrayList<Bus> list = new ArrayList<Bus>();
+    	  for(int i=1; i<7; i++) {
+    		  list.add(manService.getBus(i));
+    	  }
+    	  
+    	  ModelAndView mav = new ModelAndView("/manager/edit_bus");
+    	  mav.addObject("list", list);
+    	  return mav;
+      }
 }

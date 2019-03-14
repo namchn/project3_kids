@@ -92,6 +92,20 @@ a {
    text-decoration: none;
    font-size: 15px;
 }
+.MOD_MENU_Title>a:visited{
+	color: white;
+}
+.MOD_MENU_Title>a:link{
+	color: white;
+}
+.MOD_MENU_Title>a{
+	font-weight: bold; 
+	text-decoration: none;
+	padding-right: 10px;
+}
+.MOD_MENU_Title{
+	padding-top: 10px;
+}
 .modal-login {
    width: 350px;
 }
@@ -295,13 +309,89 @@ li.hasSubmenu>ul>li>.upMenu:hover{
    background-color: #68abe2;
    border-color:#68abe2;
 }
+.dropdown{
+	display: -webkit-inline-box;
+	float: left;
+	
+}
+li .show{
+	fload: left;
+	background-color: #f9ca5b;
+	
+}
+.open{
+	fload: left;
+	background-color: #f9ca5b;
+
+}
+.open>.dropdown-menu{
+fload: left;
+	background-color: #f9ca5b;
+
+}
+.dropdown a, .dropdown input{
+	color: white;
+}
 </style>
 <script type="text/javascript"
    src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){    //$(document)객체
-   
+	$('#joinPhone').keyup(function(){
+		  var phone = $('#joinPhone').val();
+	      var mem_code = $('input[name="mem_code"]:checked').val();
+	      //alert(mem_code);
+	       var phoneLength = phone.length;
+	       var param = "phone="+phone+"&mem_code="+mem_code;
+	         
+	         $.ajax({ //비동기적 요청보내다
+	            type:"POST",
+	            url:"${pageContext.request.contextPath}/member/checkPhone", //보낼곳
+	            data:param, //전송할 데이터
+	            success:function(data){ //응답제대로받았을때 호출되는 함수 (서버에서 처리된값을 가져오는 함수)
+	               var obj = eval('('+data+')'); //obj:멤버변수 flag //eval : json 표현을 바꿔주다
+	               var str = '';
+	               var str1 = '';
+	               if(obj[0].flag) {
+	                  str='사용가능한 연락처';
+	                  
+	                  if(mem_code == '2'){
+	                  for(var i=0;i<obj.length;i++){                 
+	                	 
+	                          str1 += '<div id="parentDetail">';
+	                          str1 += '<div class="form-group">';
+	                          str1 += '<label for="stu_name">';
+	                          str1 += '<span class="glyphicon glyphicon-girl"></span>원아 이름</label>';
+	                          str1 += '<input type="text" class="form-control" name="stu_name" id="stu_name" ';
+	                          str1 += 'value="'+obj[i].stu_name+'">';
+	                          
+	                          
+	                          str1 += '<div class="form-group">';
+	                          str1 += '<label for="stu_group">';
+	                          str1 += '<span class="glyphicon glyphicon-school"></span>원아 반</label>';
+	                          str1 += '<input type="text" class="form-control" name="stu_group" id="stu_group" ';
+	                          str1 += 'value="'+obj[i].stu_group+'">';
+             
+	                          str1 += "</div>";   
+	                          
+
+	                       }
+	                  $('#stuInfo').html(str1);
+	                  }
+	                  }
+	               else {
+	                  str ='사용 불가능한 연락처';
+	                  //$('#joinPhone').val('');
+	               }
+	               $('#phoneJoinResult').html(str);
+	              
+	               
+	               }
+	            
+	         });
+	  })
+	  
    $('#phoneJoinResult').html("");
    $('#idJoinResult').html("");
    
@@ -311,9 +401,11 @@ $(document).ready(function(){    //$(document)객체
    /* $("#pwResult").html("비밀번호 확인창"); */
    
    $('#aclose').click(function(){
-      $('#visitorDetail>div>input[class="form-control"]').val("");
-      $('#parentDetail>div>input[class="form-control"]').val("");
-      $('#teacherDetail>div>input[class="form-control"]').val("");
+	   $('#visitorDetail>div>input[class="form-control"]').val("");
+	      $('#visitorDetail>div>input[class="form-control"]').html("");
+	      $('#parentDetail>div>input[class="form-control"]').val("");
+	      $('#teacherDetail>div>input[class="form-control"]').val("");
+	      $('#phoneJoinResult').html("");
    })
    //로그인
 
@@ -348,8 +440,11 @@ $(document).ready(function(){    //$(document)객체
  
      
    //회원타입구분
-   $('#typeBtn').click(function() {
-      var mem_code = $('input[name="mem_code"]:checked').val();      
+   $('input[name="mem_code"]').click(function() {
+      var mem_code = $('input[name="mem_code"]:checked').val(); 
+     	$('#joinPhone').val("");
+     	$('#phoneJoinResult').html("");
+     	$('#stuInfo').html("");
       if(mem_code==1){ 
          $("#visitorDetail").show();
          $("#parentDetail").hide();
@@ -374,10 +469,8 @@ $(document).ready(function(){    //$(document)객체
       var idJoinResult = $('#idJoinResult').html();
       var phone = $('#joinPhone').val();
       var pw = $('#pw').val();
-      alert(pw);
       var phoneLength = phone.length;
       var pwLength = pw.length;
-      alert(pwLength);
       
          if(idJoinResult!='사용가능한 아이디') {
             alert('아이디 중복체크를 완료하십시오');
@@ -566,30 +659,6 @@ $(document).ready(function(){    //$(document)객체
       }
    }
    
-   function joinPhoneBtn(){
-      
-      var phone = $('#joinPhone').val();
-       var phoneLength = phone.length;
-       var param = "phone="+phone;
-         
-         $.ajax({ //비동기적 요청보내다
-            type:"POST",
-            url:"${pageContext.request.contextPath}/member/checkPhone", //보낼곳
-            data:param, //전송할 데이터
-            success:function(data){ //응답제대로받았을때 호출되는 함수 (서버에서 처리된값을 가져오는 함수)
-               var obj = eval('('+data+')'); //obj:멤버변수 flag //eval : json 표현을 바꿔주다
-               var str = '';
-               if(obj.flag) {
-                  str='사용가능한 연락처';
-               }else {
-                  str ='중복된 연락처';
-                  $('#joinPhone').val('');
-               }
-               $('#phoneJoinResult').html(str);
-            }
-         });
-        
-   }
 
    function execDaumPostcode() {
       new daum.Postcode({
@@ -879,11 +948,13 @@ $(document).ready(function(){    //$(document)객체
                <div class="form-group">
                   <div class="modal-body">
 
-                     분류 :<input type="radio" name="mem_code" value="1" class="rb"><b>선생님</b>
-                     <input type="radio" name="mem_code" value="2" class="rb" checked><b>학부모</b>
+                     분류 :<input type="radio" name="mem_code" value="1" class="rb" ><b>선생님</b>
+                     <input type="radio" name="mem_code" value="2" class="rb"><b>학부모</b>
                      <input type="radio" name="mem_code" value="3" class="rb"><b>방문객</b>
-                     &nbsp; <input type="button" class="btn btn-primary" value="확인" id="typeBtn"
-                        style="width: 70px;"><br>
+                     &nbsp; 
+                     
+                    <!--  <input type="button" class="btn btn-primary" value="확인" id="typeBtn"
+                        style="width: 70px;"><br> -->
 
                      <p></p>
 
@@ -910,7 +981,7 @@ $(document).ready(function(){    //$(document)객체
                               Password 확인</label> <input type="password" class="form-control"
                               name="pw_check" id="pw_check" placeholder="Enter password"
                               onkeyup="passCheck()" required="required"> <span
-                              id="pwResult"></span><br>
+                              id="pwResult"></span>
                         </div>
                         <div class="form-group">
                            <label for="name"><span
@@ -922,26 +993,8 @@ $(document).ready(function(){    //$(document)객체
                            <label for="phone"><span
                               class="glyphicon glyphicon-phone"></span> 연락처</label> <input
                               type="number" class="form-control" name="phone" id="joinPhone" maxlength="11"
-                              placeholder="Enter phone" required="required" onkeyup="joinPhoneBtn()">
-                              <!-- <input type="button" value="연락처 중복체크" id="joinPhoneBtn"> -->
+                              placeholder="Enter phone" required="required">
                               <span id="phoneJoinResult"></span><br>
-                        </div>
-                        <div class="form-group">
-                           <label for="postcode"><span
-                              class="glyphicon glyphicon-envelope"></span> 우편번호</label> <input
-                              type="text" class="form-control" name="postcode" id="postcode"
-                              placeholder="우편번호"> <input type="button"
-                              onclick="execDaumPostcode()" style="margin-top: 10px"class="btn btn-primary"  value="우편번호 찾기"><br>
-                        </div>
-                        <div class="form-group">
-                           <label for="address"><span
-                              class="glyphicon glyphicon-home"></span> 주소</label> <input type="text"
-                              class="form-control" name="address" id="address"
-                              placeholder="주소"> <input type="text"
-                              class="form-control" name="detailAddress" id="detailAddress"
-                              placeholder="상세주소"> <input type="text"
-                              class="form-control" name="extraAddress" id="extraAddress"
-                              placeholder="참고항목">
                         </div>
                         </div>
                         <div id="teacherDetail">
@@ -954,17 +1007,18 @@ $(document).ready(function(){    //$(document)객체
                                      <option value="3">민들레반</option>
                                      <option value="4">벚꽃반</option>
                                    </select>
-                                 
-                                 
+                            
                            </div>
                         </div>
-
-                        <div id="parentDetail">
+						
+						<div id="stuInfo">
+						</div>
+                        <!-- <div id="parentDetail">
                            <div class="form-group">
                               <label for="stu_name"><span
                                  class="glyphicon glyphicon-girl"></span>원아 이름</label> <input
                                  type="text" class="form-control" name="stu_name"
-                                 id="stu_name" placeholder="원아 이름">
+                                 id="stu_name" placeholder="원아 이름" readonly>
                            </div>
                            <div class="form-group">
                               <label for="stu_group" style="width: max-content;"><span
@@ -977,7 +1031,7 @@ $(document).ready(function(){    //$(document)객체
                                    </select>
 
                            </div>
-                        </div>
+                        </div> -->
                         
                         <!-- <button type="button" class="btn btn-success btn-block" id="joinBtn" value="가입"><span class="glyphicon glyphicon-off">가입</span></button> -->
                         <!--  <button type="reset" class="btn btn-success btn-block" id="resetBtn" value="취소"><span class="glyphicon glyphicon-horizontal">취소</span></button> -->
@@ -998,15 +1052,57 @@ $(document).ready(function(){    //$(document)객체
    <section class="MOD_MENU" data-theme="_bgp" style="background-color: #f9ca5b">
       <div data-layout="_r" class="nopadding">
          <nav class="MOD_MENU_Nav">
-            <!-- <p class="MOD_MENU_Title">Menu</p>
-            <svg class="MOD_MENU_Button"
-               xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-               width="30px" height="30px" viewBox="0 0 30 30"
-               enable-background="new 0 0 30 30" xml:space="preserve">
-        <rect width="30" height="6" />
-        <rect y="24" width="30" height="6" />
-        <rect y="12" width="30" height="6" />
-      </svg> -->
+          <span class="MOD_MENU_Title" style="color: white;"> 
+         
+          <li class="nav-item dropdown">
+         <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown" href="#">유치원소개</a>
+         		<div class="dropdown-menu">
+         				<a class="dropdown-item"
+                        href="${pageContext.request.contextPath }/introduce/introduce"
+                        >유치원소개</a><a class="dropdown-item"
+                        href="${pageContext.request.contextPath }/introduce/applicants"
+                        >모집요강</a><a class="dropdown-item" href="${pageContext.request.contextPath }/info/map"
+                        >오시는길</a>
+                </div></li>
+                <li class="nav-item dropdown">
+         <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown" href="#">우리반이야기</a>
+         		<div class="dropdown-menu">
+         				<input type="button" class="dropdown-item" value="장미반" id="group1">
+                     
+                        <input type="button" value="해바라기반" id="group2" class="dropdown-item">
+                    
+                        <input type="button" value="민들레반" id="group3" class="dropdown-item">
+                     
+                        <input type="button" value="벚꽃반" id="group4" class="dropdown-item">
+                </div></li>
+                 <li class="nav-item dropdown">
+         <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown" href="#">커뮤니티</a>
+         		<div class="dropdown-menu">
+         				<a 
+                        href="${pageContext.request.contextPath }/boardNotice/noticeList?sort=2"
+                        >공지사항</a><a class="dropdown-item"
+                        href="${pageContext.request.contextPath }/boardBulletin/bulletinList?sort=2"
+                        >자유게시판</a><a class="dropdown-item"
+                        href="${pageContext.request.contextPath }/community/bus"
+                        >셔틀버스</a><a class="dropdown-item"
+                        href="${pageContext.request.contextPath }/community/application"
+                        >원아모집</a><a class="dropdown-item"
+                        href="${pageContext.request.contextPath }/boardDiet/dietListForm"
+                        >식단표</a><a class="dropdown-item" href="${pageContext.request.contextPath }/poll/list"
+                        >설문조사</a><a class="dropdown-item"
+                        href="${pageContext.request.contextPath }/fullcalendar/fullcalendarAll"
+                        >행사일정</a>
+                </div></li>
+           <li class="nav-item dropdown">
+         <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown" href="#">도서관</a>
+         		<div class="dropdown-menu">
+         			<a class="dropdown-item"
+                        href="${pageContext.request.contextPath }/book/booklistForm"
+                        >도서목록</a>	
+                </div></li></span>
+               
+              
+            
        <input type="hidden" id="mng_group" value="${sessionScope.mng_group }">
                      <input type="hidden" id="stu_group" value="${sessionScope.stu_group }">
                      <input type="hidden" id="mem_code" value="${sessionScope.mem_code }">

@@ -3,6 +3,7 @@ package com.kitri.project3.member;
 import java.util.ArrayList;
 
 import com.kitri.project3.pay.Pay;
+import com.kitri.project3.student.Student;
 
 public interface Dao {
 	void insert(Member m);
@@ -17,5 +18,7 @@ public interface Dao {
 	
 	//로그인 시 아이디/비밀번호 찾기
 	Member findId(Member m);
-	Member findPw(Member m);	
+	Member findPw(Member m);
+	String selectPhone2(String phone);
+	ArrayList<Student> selectStuNames(String phone);	
 }

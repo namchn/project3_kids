@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kitri.project3.pay.Pay;
+import com.kitri.project3.student.Student;
 
 @Controller
 public class MemController {
@@ -74,11 +75,35 @@ public class MemController {
 	}
 	
 	@RequestMapping("/member/checkPhone")
-	public ModelAndView checkPhone(@RequestParam(value = "phone") int phone) {
+	public ModelAndView checkPhone(@RequestParam(value = "phone") String phone, @RequestParam(value = "mem_code") String mem_code, HttpServletRequest req) {
+		
 		ModelAndView mav = new ModelAndView("member/checkPhone");
-		String p = "0"+Integer.toString(phone);
-		boolean flag = service.checkPhone(p);
+		
+		//System.out.println(phone);
+//		
+//		String p = phone;
+		boolean flag = service.checkPhone(phone);
+		ArrayList<Student> list = new ArrayList<Student>();
+		Student s = new Student();
+		s.setStu_name("a");
+		s.setStu_group("b");
+		if(mem_code.equals("2")) {
+			if(flag == true) {
+				flag = service.checkPhone2(phone);
+				mav = new ModelAndView("member/checkPhone2");
+				if(flag == true) {
+					list = service.getStuNames(phone);
+				}else {
+					list.add(s);
+				}
+			}
+		}else {
+			list.add(s);
+		}
+		mav.addObject("list", list);
+		System.out.println(flag);
 		mav.addObject("flag", flag);
+		
 		return mav;
 	}
 

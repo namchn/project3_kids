@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.project3.student.StudentDao">
+
+	<resultMap id="studentResult" type="com.kitri.project3.student.Student">
+		<result column="stu_id" property="stu_id" />
+		<result column="stu_name" property="stu_name" />
+		<result column="stu_group" property="stu_group" />
+		<result column="stu_birthday" property="stu_birthday" />
+		<result column="stu_gender" property="stu_gender" />	
+		<result column="member_id" property="member_id" />
+		<result column="member_phone" property="member_phone" />
+		<result column="join_date" property="join_date" />		
+		<result column="postcode" property="postcode" />
+		<result column="address" property="address" />
+		<result column="detailAddress" property="detailAddress" />
+		<result column="extraAddress" property="extraAddress" />	
+	</resultMap>
+
+	
+	<insert id="insert" parameterType="com.kitri.project3.student.Student">
+		insert into student values(stu_seq.nextval, #{stu_name}, #{stu_group}, #{stu_birthday}, #{stu_gender}, #{member_id}, #{member_phone}, sysdate, #{postcode}, #{address}, #{detailAddress}, #{extraAddress} )
+	</insert>
+
+	<select id="selectAllStudent"
+		parameterType="com.kitri.project3.paging.PagingVO"
+		resultMap="studentResult">
+		SELECT *
+		FROM (SELECT ROWNUM r, p.*
+		FROM (SELECT *
+		FROM student
+		ORDER BY stu_id DESC) p)
+		WHERE R BETWEEN #{start} and #{last}
+	</select>
+	
+		<select id="selectTotalPaging" resultType="int">
+		select count(*) from
+		student
+	</select>
+	
+		<delete id="deleteStudent" parameterType="int">
+		delete student where
+		stu_id=#{stu_id}
+	</delete>
+	
+	<update id="updateStudent"
+		parameterType="com.kitri.project3.student.Student">
+		update student set stu_name=#{stu_name},
+		stu_group=#{stu_group}, stu_birthday=#{stu_birthday}, stu_gender=#{stu_gender}, member_phone=#{member_phone}, postcode=#{postcode}, address=#{address}, detailAddress=#{detailAddress}, extraAddress=#{extraAddress}
+		where stu_id=#{stu_id}
+	</update>
+	
+	<select id="selectStudentInfo" resultMap="studentResult">
+		select * from student where stu_id=#{stu_id} 
+	</select>
+	
+	
+
+</mapper>
+
